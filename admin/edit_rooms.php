@@ -1,3 +1,6 @@
+<?php
+include('session.php');
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -17,9 +20,9 @@
 	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-light border-bottom box-shadow">
       <h5 class="my-0 mr-md-auto font-weight-normal">Boston Code Camp</h5>
       <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark">Bob</a> <!--this will be the name of the logged in admin -->
+        <a class="p-2 text-dark"><?php echo $login_session; ?></a> <!--this will be the name of the logged in admin -->
       </nav>
-      <a class="btn btn-outline-primary" href="#">Sign Out</a> 
+      <a class="btn btn-outline-primary" href="logout.php">Sign Out</a>
     </div>
 	
 	<!-- intro -->
