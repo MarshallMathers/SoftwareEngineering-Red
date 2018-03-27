@@ -21,13 +21,14 @@ class FormData {
 	
 	// Sets boundary-data attributes, such as the valid roomIDs and timeSlots
 	public function setFormData($data) {
-	
+		$roomIDs 	= $data["room_IDs"];
+		$timeSlots	= $data["time_slots"];
 	}
 	
 	// Sets the values of the form-field attributes
 	public function setFormFields($field_values) {
 		$roomID 		= $field_values["room_ID"];
-		$timeSlot		=	$field_values["time_slot"]; 
+		$timeSlot		= $field_values["time_slot"]; 
 		$headCount 		= $field_values["head_count"];
 		$headCountSlot	= $field_values["head_count_slot"]; 
 		$userID			= $field_values["user_ID"];
@@ -111,10 +112,17 @@ class FormData {
 	}
 	
 	// Splits the current roomID into a name and number(if applicable)
-	private function splitRoomID() {}
+	private function splitRoomID() {
+		// Cases:
+		// ROOM NAME | Rm# ROOM_NUM
+		// ROOM NAME
+		// Rm# ROOM_NUM
+	}
 	
 	// Splits the current timeSlot into its components(date, hours, mins, secs, etc.)
-	private function splitTimeSlot() {}
+	private function splitTimeSlot() {
+		
+	}
 	
 }
 
@@ -122,19 +130,29 @@ class DatabaseIO {
 	private var $db;													# Connection resource
 	
 	// Opens a connection to the database. Returns TRUE if successful, FALSE otherwise. 
-	public function openConnection() {}
+	public function openConnection() {
+	
+	}
 	
 	// Closes the connection, if it is open
-	public function closeConnection() {}
+	public function closeConnection() {
+	
+	}
 	
 	// Submits the headcount data in the $data param of type FormData.
-	public function submitHeadCountData($data) {}
+	public function submitHeadCountData($data) {
+	
+	}
 	
 	// Returns a FormData object with the form-data attributes set from the database
-	public function requestFormData() {}
+	public function requestFormData() {
+		// Room_IDS and TimeSlots
+	}
 	
 	// Returns the resultset from the given query with the query vars
-	private function query($queryStr, $queryVars) {}
+	private function query($queryStr, $queryVars) {
+	
+	}
 }
 
 class HeadCountApp {
@@ -142,16 +160,24 @@ class HeadCountApp {
 	private var $data													# FormData
 	
 	// Retrieves form entries from $_POST and/or $_GET
-	public function getFormData() {}
+	public function getFormData() {
+	
+	}
 	
 	// Submits the form data in $data to the database
-	public function submitHeadCountData() {}
+	public function submitHeadCountData() {
+	
+	}
 	
 	// Called when the data submission is acknowedged. Displays in banner in the UI
-	private function submissionAcked() {}
+	private function submissionAcked() {
+		
+	}
 	
 	// Returns the current time as a timestamp
-	private function getTimeStamp() {}
+	private function getTimeStamp() {
+		return mktime()
+	}
 }
 
 ////////////////////
