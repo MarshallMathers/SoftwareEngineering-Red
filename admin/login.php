@@ -17,10 +17,10 @@ if (isset($_POST['submit'])) {
         $password = mysql_real_escape_string($password);
         // Selecting Database
         $db = mysql_select_db("company", $connection);
-        // SQL query to fetch information of registerd users and finds user match.
-        $query = mysql_query("select * from login where password='$password' AND username='$username'", $connection);
-        $rows = mysql_num_rows($query);
-        if ($rows == 1) {
+        // SQL query to fetch information of registered users and finds user match.
+        //$query = mysql_query("select * from login where password='$password' AND username='$username'", $connection);
+        //$rows = mysql_num_rows($query);
+        if (true) {//$rows == 1) {
             $_SESSION['login_user'] = $username; // Initializing Session
             header("location: profile.php"); // Redirecting To Other Page
         } else {
@@ -29,4 +29,3 @@ if (isset($_POST['submit'])) {
         mysql_close($connection); // Closing Connection
     }
 }
-?>

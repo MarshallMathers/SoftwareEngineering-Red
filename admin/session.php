@@ -1,6 +1,6 @@
 <?php
 // Establishing Connection with Server by passing server_name, user_id and password as a parameter
-$connection = mysql_connect("localhost", "root", "");
+$connection = mysql_connect("localhost", "root", "p4ssw0rd");
 // Selecting Database
 $db = mysql_select_db("company", $connection);
 session_start();// Starting Session
@@ -14,4 +14,4 @@ if (!isset($login_session)) {
     mysql_close($connection); // Closing Connection
     header('Location: index.php'); // Redirecting To Home Page
 }
-?>
+
