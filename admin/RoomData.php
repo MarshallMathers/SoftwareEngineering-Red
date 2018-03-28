@@ -12,6 +12,13 @@ class RoomData
     private $roomName;
     private $capacity;
 
+    public function __construct($roomID, $roomName, $capacity)
+    {
+        $this->roomID = $roomID;
+        $this->capacity = $capacity;
+        $this->roomName = $roomName;
+    }
+
     /**
      * Returns the room's ID
      * @return String - room ID
