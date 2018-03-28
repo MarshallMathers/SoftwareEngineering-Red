@@ -15,6 +15,16 @@ class HeadCountData
     private $userID;
     private $timestamp;
 
+    public function __construct($roomID, $timeSlot, $headCount, $headCountSlot, $userId, $timestamp)
+    {
+        $this->roomID = $roomID;
+        $this->timeSlot = $timeSlot;
+        $this->headCount = $headCount;
+        $this->headCountSlot = $headCountSlot;
+        $this->userID = $userId;
+        $this->timestamp = $timestamp;
+    }
+
     /**
      * Returns the room ID in the head count data
      * @return String
