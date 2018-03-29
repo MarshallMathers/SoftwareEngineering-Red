@@ -12,10 +12,10 @@
 	private $password;
 	
 	public function __construct() {
-		$this->$servername = "127.0.0.1";
-		$this->$username = "root";
-		$this->$password = "p4ssw0rd";
-		$this->$conn = NULL;
+		$this->servername = "127.0.0.1";
+		$this->username = "root";
+		$this->password = "p4ssw0rd";
+		$this->conn = NULL;
 	}
 		
 	public function __destruct() {
@@ -27,9 +27,10 @@
 		try {
     		//$this->$conn = new PDO(DBHOST, DBUSER, DBPASS);
     		$host = $this->$servername;
-    		$this->$conn = new PDO("sqlite:host=".$host.";dbname=headCountApp.db", $this->$username, $this->$password);
+    		$this->conn = new PDO("sqlite:".__DIR__."../../../headCountApp.db");
+    		//:host=".$host.";dbname=headCountApp.db", $this->$username, $this->$password);
    			// set the PDO error mode to exception
-    		$this->$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    		$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     		echo "Connected successfully"; 
 		} catch(PDOException $e) {
     		echo "Connection failed: " . $e->getMessage();
@@ -38,7 +39,7 @@
 	
 	// Closes the connection, if it is open
 	public function closeConnection() {
-		$this->$conn = NULL;
+		$this->conn = NULL;
 	}
 	
 	// Submits the headcount data in the $data param of type FormData.
@@ -50,9 +51,8 @@
 		*/
 		
 		// prepare sql and bind parameters
-		$sql = "INSERT INTO Form (RoomID, TimeslotID, headcountType, HeadcountCount, UserID, Timestamp)
-				VALUES (:rID, :tsID, :hcT, :hcC, :uID, :ts);";
-		$stmt = $this->$conn->prepare($sql);
+		$sql = "INSERT INTO Form (RoomID, TimeslotID, headcountType, HeadcountCount, UserID, Timestamp) VALUES (:rID, :tsID, :hcT, :hcC, :uID, :ts);";
+		$stmt = $this->conn->prepare($sql);
 		$stmt->bindParam(':rID', $data["room_ID"]);
 		$stmt->bindParam(':tsID', $data["time_slot"]);
 		$stmt->bindParam(':hcT', $data["head_count_slot"]);
@@ -75,12 +75,11 @@
 		
 		$formData = array("room_IDs" => $res_rooms, "time_slots" => $res_timeSlots);
 		return $formData;
-		
 	}
 	
 	// Returns the resultset from the given query with the query vars
 	private function query($queryStr, $queryVars) {
-		$stmt = $this->$conn->prepare($queryStr);
+		$stmt = $this->conn->prepare($queryStr);
 		
 		foreach ($queryVars as $k => $v) {
 			$stmt->bindParam($k, $v);

@@ -8,18 +8,18 @@ require ("FormData.php");
 require ("DatabaseIO.php");
 
 class HeadCountApp {
-	private $database;												# DatabaseIO
-	private $fd;													# FormData
+	private $database = NULL;												# DatabaseIO
+	private $fd = NULL;													# FormData
 	
 	public function __construct() {
-		$this->$fd = new FormData;
-		$this->$database = new DatabaseIO;
+		$this->fd = new FormData();
+		$this->database = new DatabaseIO();
 		
-		$this->$database->openConnection();
+		$this->database->openConnection();
 	}
 	
 	public function __destruct() {
-		$this->$database->closeConnection();
+		$this->database->closeConnection();
 	}
 	
 	// Retrieves form entries from $_POST
@@ -46,14 +46,14 @@ class HeadCountApp {
 	}
 	
 	public function getFormData() {
-		$data = $this->$database->requestFormData();
-		$this->$fd->setFormData($data);
+		$data = $this->database->requestFormData();
+		$this->fd->setFormData($data);
 	}
 	
 	// Submits the form data in $data to the database
 	public function submitHeadCountData() {
 		//$data->setFormAttr("timestamp", getTimeStamp());
-		$success = $this->$database->submitHeadCountData($this->$fd->getFormFields());
+		$success = $this->database->submitHeadCountData($this->fd->getFormFields());
 		submissionAcked($success);
 	}
 	
@@ -73,7 +73,7 @@ class HeadCountApp {
 	}
 	
 	public function prepareFormData() {
-		return $this->$fd->getFormData();
+		return $this->fd->getFormData();
 	}
 }
 
