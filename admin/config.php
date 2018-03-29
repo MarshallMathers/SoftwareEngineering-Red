@@ -2,7 +2,7 @@
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'p4ssw0rd');
-define('DB_NAME', 'demo');
+define('DB_NAME', 'headCountApp');
 
 /* Attempt to connect to MySQL database */
 try {
