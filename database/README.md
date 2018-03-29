@@ -3,10 +3,10 @@
 
 ### Quick Database Documentation
 #### Entity Relationship Diagram (ERD)
-![Entity Relationship Diagram](https://raw.githubusercontent.com/MarshallMathers/SoftwareEngineering-Red/master/database/Entity%20Relationship%20Diagram%20(ERD).png)
+![Entity Relationship Diagram](./Entity%20Relationship%20Diagram%20(ERD).png)
 
 #### Inputs & Outputs Diagram
-![Entity Relationship Diagram](https://raw.githubusercontent.com/MarshallMathers/SoftwareEngineering-Red/master/database/Inputs%20and%20Outputs.png)
+![Entity Relationship Diagram](./Inputs%20and%20Outputs.png)
 
 #### Database Name: headCountApp
 
