@@ -2,11 +2,9 @@
 ### Team Members: Timothy Boss, Kevin Cotter, Emmett Basaca, and Brady Walsh
 
 ### Quick Database Documentation
----
 #### Database Name: headCountApp
 
 ### Tables
----
 ###### Admins
 | Column   | Type         | Info    |
 |----------|--------------|---------|
@@ -43,7 +41,6 @@
 | Password | varchar(255) | NotNull |
 
 ### Diagrams
----
 #### Entity Relationship Diagram (ERD)
 ![Entity Relationship Diagram](./Entity%20Relationship%20Diagram%20(ERD).png)
 
