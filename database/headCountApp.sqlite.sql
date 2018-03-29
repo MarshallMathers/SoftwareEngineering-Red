@@ -65,11 +65,11 @@ INSERT INTO [Timeslots] ([Timeslot]) VALUES ('3:00 PM');
 INSERT INTO [Timeslots] ([Timeslot]) VALUES ('12:00 AM');
 INSERT INTO [Timeslots] ([Timeslot]) VALUES ('11:00 AM');
 
-INSERT INTO [Rooms] ([Room],[Capacity]) VALUES ('234',80);
-INSERT INTO [Rooms] ([Room],[Capacity]) VALUES ('123',180);
-INSERT INTO [Rooms] ([Room],[Capacity]) VALUES ('311',100);
-INSERT INTO [Rooms] ([Room],[Capacity]) VALUES ('122',30);
-INSERT INTO [Rooms] ([Room],[Capacity]) VALUES ('222',60);
+INSERT INTO [Rooms] ([Room],[Capacity]) VALUES ('room1',80);
+INSERT INTO [Rooms] ([Room],[Capacity]) VALUES ('room2',180);
+INSERT INTO [Rooms] ([Room],[Capacity]) VALUES ('room3',100);
+INSERT INTO [Rooms] ([Room],[Capacity]) VALUES ('room4',30);
+INSERT INTO [Rooms] ([Room],[Capacity]) VALUES ('room5',60);
 
 INSERT INTO [Forms] ([RoomID],[TimeslotID],[HeadcountType],[HeadcountCount],[UserID]) 
   VALUES (2,4,'Beginning',120,'KVd3Tu');
