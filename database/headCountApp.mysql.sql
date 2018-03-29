@@ -1,5 +1,5 @@
 /***********************************************************************
-	headCountApp database - version 1.0
+	headCountApp database - version 1
 	Description: Creates and populates Head Count App Database.
 	DB Server: MySQL
 	Authors: Timothy Boss, Kevin Cotter, Emmett Basaca, and Brady Walsh
