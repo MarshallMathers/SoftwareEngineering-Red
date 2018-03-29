@@ -13,8 +13,8 @@
 	
 	public function __construct() {
 		$this->$servername = "localhost";
-		$this->$username = "dbuser";
-		$this->$password = "p4ws00rd";
+		$this->$username = "root";
+		$this->$password = "root";
 		$this->$conn = NULL;
 	}
 		
@@ -27,7 +27,7 @@
 		try {
     		//$this->$conn = new PDO(DBHOST, DBUSER, DBPASS);
     		$host = $this->$servername;
-    		$this->$conn = new PDO("mysql:host=$host;port=8080;dbname=myDB", $this->$username, $this->$password);
+    		$this->$conn = new PDO("mysql:host=$host;dbname=headCountApp", $this->$username, $this->$password);
    			// set the PDO error mode to exception
     		$this->$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     		echo "Connected successfully"; 
