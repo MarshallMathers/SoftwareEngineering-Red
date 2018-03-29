@@ -24,7 +24,7 @@ CREATE TABLE `Clients` (
 );
 
 CREATE TABLE `Forms` (
-  `FormID` int(20) NOT NULL AUTO_INCREMENT,
+  `FormID` int(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `RoomID` int(20) NOT NULL,
   `TimeslotID` int(20) NOT NULL,
   `HeadcountType` varchar(20) NOT NULL,
@@ -34,13 +34,13 @@ CREATE TABLE `Forms` (
 );
 
 CREATE TABLE `Rooms` (
-  `RoomID` int(20) NOT NULL AUTO_INCREMENT,
+  `RoomID` int(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `Room` varchar(20) NOT NULL,
   `Capacity` int(20) NOT NULL
 );
 
 CREATE TABLE `Timeslots` (
-  `TimeslotID` int(20) NOT NULL AUTO_INCREMENT,
+  `TimeslotID` int(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `Timeslot` varchar(20) NOT NULL
 );
 
@@ -83,4 +83,3 @@ INSERT INTO `Forms` (`RoomID`,`TimeslotID`,`HeadcountType`,`HeadcountCount`,`Use
   VALUES (5,3,'Beginning',50,'KVd3Tu');
 INSERT INTO `Forms` (`RoomID`,`TimeslotID`,`HeadcountType`,`HeadcountCount`,`UserID`) 
   VALUES (4,5,'Middle',25,'KVd3Tu');
-
