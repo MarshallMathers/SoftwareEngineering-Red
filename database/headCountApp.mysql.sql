@@ -52,7 +52,9 @@ CREATE TABLE `Admins` (
 /*******************************************
    Creating Default Users
 ********************************************/
-INSERT INTO `Admins` (`Username`, `Password`) VALUES ('root', 'password');
+-- password hashed with BCrypt
+-- password=password
+INSERT INTO `Admins` (`Username`, `Password`) VALUES ('root', '$2y$10$DYPNyvsEvInue7qU8799f.mrSwCVIY6Zf6QcoszYlc3rw.jGApmMe');
 
 INSERT INTO `Clients` (`UserID`) VALUES ('KVd3Tu');
 
