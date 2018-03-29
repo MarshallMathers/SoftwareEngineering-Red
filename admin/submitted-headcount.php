@@ -1,5 +1,12 @@
 <?php
-include('session.php');
+// Initialize the session
+session_start();
+
+// If session variable is not set it will redirect to login page
+if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
+    header("location: login.php");
+    exit;
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -21,7 +28,7 @@ include('session.php');
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-light border-bottom box-shadow">
     <h5 class="my-0 mr-md-auto font-weight-normal">Boston Code Camp</h5>
     <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark">Bob</a>
+        <a class="p-2 text-dark"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
         <!--this will be the name of the logged in admin -->
     </nav>
     <a class="btn btn-outline-primary" href="logout.php">Sign Out</a>
