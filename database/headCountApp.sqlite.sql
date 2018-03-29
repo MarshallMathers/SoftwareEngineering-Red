@@ -1,5 +1,5 @@
 /***********************************************************************
-	headCountApp database - version 1.0
+	headCountApp database - version 1.1
 	Description: Creates and populates Head Count App Database.
 	DB Server: SQLite
 	Authors: Timothy Boss, Kevin Cotter, Emmett Basaca, and Brady Walsh
@@ -19,7 +19,7 @@ DROP TABLE IF EXISTS [Admins];
 ********************************************/
 CREATE TABLE [Clients] (
   [UserID] NVARCHAR(20) NOT NULL
-)
+);
 
 CREATE TABLE [Forms] (
   [FormID] INTEGER NOT NULL,
@@ -29,23 +29,23 @@ CREATE TABLE [Forms] (
   [HeadcountCount] INTEGER NOT NULL,
   [UserID] NVARCHAR(20) NOT NULL,
   [Timestamp] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-)
+);
 
 CREATE TABLE [Rooms] (
   [RoomID] INTEGER NOT NULL,
   [Room] NVARCHAR(20) NOT NULL,
   [Capacity] INTEGER NOT NULL
-)
+);
 
 CREATE TABLE [Timeslots] (
   [TimeslotID] INTEGER NOT NULL,
   [Timeslot] NVARCHAR(20) NOT NULL
-)
+);
 
 CREATE TABLE [Admins] (
   [Username] NVARCHAR(20) NOT NULL,
   [Password] NVARCHAR(255) NOT NULL
-)
+);
 
 /*******************************************
    Creating Default Admin User
