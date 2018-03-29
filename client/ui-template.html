@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	
+	<!-- jQuery JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	
+	<script src="scripts/client.js"></script>
+	<script>
+		/* Team: Red
+		 * Group: Client
+		 * Contributors: Jacob Hayes, Thomas Cox, Ian Marshall, Zeily Perez
+		 */
+	</script>
+	
+    <title>Headcount Submission</title> <!-- change to what you want the tab's title to be -->
+	
+</head>
+<body>
+	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-light border-bottom box-shadow">
+      <h5 class="my-0 mr-md-auto font-weight-normal">Boston Code Camp</h5>
+      <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark">Bob</a> <!--this will be the name of the logged in admin -->
+      </nav>
+      <a class="btn btn-outline-primary" href="#">Sign Out</a> <!-- remove the Username and Sign Out sections for the login page, they will be displayed after -->
+    </div>
+	
+	<!-- your code goes below -->
+	<div id="ackContainer">
+	
+	</div>
+	<div>
+		<form action="php/headCountApp.php" method="POST" class="container">
+			<select id="room_ID" name="room_ID"></select>
+			<select id="time_slot" name="time_slot"></select>
+			<select id="head_count_slot" name="head_count_slot"></select>
+			
+			<input type="number" name="head_count" value="0"/>
+			
+			<input type="submit"/>
+			<input type="reset"/>
+			
+			
+			<input type="hidden" name="type" value="submit"/>
+		</form>
+	</div>
+	
+</body>
+</html>
