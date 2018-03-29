@@ -2,12 +2,7 @@
 ### Team Members: Timothy Boss, Kevin Cotter, Emmett Basaca, and Brady Walsh
 
 ### Quick Database Documentation
-#### Entity Relationship Diagram (ERD)
-![Entity Relationship Diagram](./Entity%20Relationship%20Diagram%20(ERD).png)
-
-#### Inputs & Outputs Diagram
-![Entity Relationship Diagram](./Inputs%20and%20Outputs.png)
-
+---
 #### Database Name: headCountApp
 
 ### Tables
@@ -46,3 +41,11 @@
 |----------|--------------|---------|
 | Username | varchar(20)  | NotNull |
 | Password | varchar(255) | NotNull |
+
+### Diagrams
+---
+#### Entity Relationship Diagram (ERD)
+![Entity Relationship Diagram](./Entity%20Relationship%20Diagram%20(ERD).png)
+
+#### Inputs & Outputs Diagram
+![Entity Relationship Diagram](./Inputs%20and%20Outputs.png)
