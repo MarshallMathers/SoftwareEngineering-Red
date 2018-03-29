@@ -138,11 +138,13 @@ class FormData {
 		// ROOM NAME | Rm# ROOM_NUM
 		// ROOM NAME
 		// Rm# ROOM_NUM
+		
+		return array($this->$roomID);
 	}
 	
 	// Splits the current timeSlot into its components(date, hours, mins, secs, etc.)
 	private function splitTimeSlot() {
-		
+		return array($this->$roomID);
 	}
 	
 }

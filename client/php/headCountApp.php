@@ -29,7 +29,7 @@ class HeadCountApp {
 		$headCount		= $_POST["head_count"];
 		$headCountSlot	= $_POST["head_count_slot"];
 		$userID 		= $_POST["user_ID"];
-		$timeStamp		= $this->getTimeStamp();
+		$timeStamp		= NULL; //$this->getTimeStamp(); // Use Database default
 		
 		// Validate and Sanitize
 		
@@ -71,6 +71,10 @@ class HeadCountApp {
 	public function login($uID) {
 		return $this->database->checkUserID($uID);
 	}
+	
+	public function prepareFormData() {
+		return $this->$fd->getFormData();
+	}
 }
 
 ////////////////////
@@ -80,18 +84,21 @@ class HeadCountApp {
 function main() {
 	$app = new HeadCountApp();
 	
-	$loginOrSubmit = $_POST["type"];
-	if ($loginOrSubmit === "login") {
+	$type = $_POST["type"];
+	if ($type === "login") {
 		$valid = $app->login($_POST["user_ID"]);
 		if ($valid) {
-			return true;
+			echo "VALID";
 		} else {
-			return false;
+			echo "INVALID";
 		}
-	} else if ($loginOrSubmit === "submit") {
+	} else if ($type === "submit") {
 		$app->getFormData();
 		$app->getFormFields();
 		$app->submitHeadCountData();
+	} else if ($type === "data") {
+		$app->getFormData();
+		echo $app->prepareFormData();
 	}
 }
 
