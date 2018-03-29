@@ -96,6 +96,8 @@ function main() {
 		$app->getFormData();
 		$app->getFormFields();
 		$app->submitHeadCountData();
+		
+		echo "Thank you for your Submission!";
 	} else if ($type === "data") {
 		$app->getFormData();
 		echo $app->prepareFormData();

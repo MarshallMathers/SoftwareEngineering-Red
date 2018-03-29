@@ -21,8 +21,8 @@ $(function () {
 
 	function getFormData() {
     	$.post("php/headCountApp.php", { type: "data" }, function(data, status) {
-     		rooms = data["room_IDs"];
-     		timeSlots = data["time_slots"];
+     		var rooms = data["room_IDs"];
+     		var timeSlots = data["time_slots"];
      		alert("Data:" + data + "\nStatus: " + status);
      		
      		for (i in rooms) {

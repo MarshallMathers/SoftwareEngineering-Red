@@ -12,9 +12,9 @@
 	private $password;
 	
 	public function __construct() {
-		$this->$servername = "localhost";
+		$this->$servername = "127.0.0.1";
 		$this->$username = "root";
-		$this->$password = "root";
+		$this->$password = "p4ssw0rd";
 		$this->$conn = NULL;
 	}
 		
@@ -27,7 +27,7 @@
 		try {
     		//$this->$conn = new PDO(DBHOST, DBUSER, DBPASS);
     		$host = $this->$servername;
-    		$this->$conn = new PDO("mysql:host=$host;dbname=headCountApp", $this->$username, $this->$password);
+    		$this->$conn = new PDO("sqlite:host=".$host.";dbname=headCountApp.db", $this->$username, $this->$password);
    			// set the PDO error mode to exception
     		$this->$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     		echo "Connected successfully"; 
@@ -51,7 +51,7 @@
 		
 		// prepare sql and bind parameters
 		$sql = "INSERT INTO Form (RoomID, TimeslotID, headcountType, HeadcountCount, UserID, Timestamp)
-				VALUES (:rID, :tsID, :hcT, :hcC, :uID, :ts)";
+				VALUES (:rID, :tsID, :hcT, :hcC, :uID, :ts);";
 		$stmt = $this->$conn->prepare($sql);
 		$stmt->bindParam(':rID', $data["room_ID"]);
 		$stmt->bindParam(':tsID', $data["time_slot"]);
@@ -67,13 +67,11 @@
 	// Returns a FormData object with the form-data attributes set from the database
 	public function requestFormData() {
 		// Room_IDS and TimeSlots
+		$sql = "SELECT * FROM Rooms";
+		$res_rooms = $this->query($sql, array());
 		
-		$sql = "SELECT ? FROM ?";
-		$params = array("*", "Rooms");
-		$res_rooms = $this->query($sql, $params);
-		
-		$params[1] = "Timeslots";
-		$res_timeSlots = $this->query($sql, $params);
+		$sql = "SELECT * FROM Timeslots";
+		$res_timeSlots = $this->query($sql, array());
 		
 		$formData = array("room_IDs" => $res_rooms, "time_slots" => $res_timeSlots);
 		return $formData;
@@ -83,6 +81,11 @@
 	// Returns the resultset from the given query with the query vars
 	private function query($queryStr, $queryVars) {
 		$stmt = $this->$conn->prepare($queryStr);
+		
+		foreach ($queryVars as $k => $v) {
+			$stmt->bindParam($k, $v);
+		}
+		
 		$stmt->execute($queryVars);
 		
 		return $stmt->fetchAll();
