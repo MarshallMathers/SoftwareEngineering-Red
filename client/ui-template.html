@@ -28,19 +28,41 @@
 	<div id="ackContainer">
 	
 	</div>
+	</div>
 	<div>
-		<form action="php/headCountApp.php" method="POST" class="container">
-			<select id="room_ID" name="room_ID"></select>
-			<select id="time_slot" name="time_slot"></select>
-			<select id="head_count_slot" name="head_count_slot"></select>
+	<form action="php/headCountApp.php" method="POST" class="container">
+		
+		<div class="form-group">
+			<label for="room_ID">Room ID:</label>
+			<select id="room_ID" name="room_ID">
+				<option>The Eagles Nest</option>
+				<option>The Dungeon</option>
+				<option>The Study</option>
+			</select>
+		</div>			
 			
-			<input type="number" name="head_count" value="0"/>
-			
-			<input type="submit"/>
-			<input type="reset"/>
-			
-			
-			<input type="hidden" name="type" value="submit"/>
+		<div class="form-group">
+			<label for="time_slot">Time Slot:</label>
+			<select id="time_slot" name="time_slot">
+			    <option>11:00 - 12:00</option>
+			    <option>10:00 - 1:00</option>
+			    <option>5:00 - 9:00</option>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="head_count_slot">Head Count Slot:</label>
+			<div class="btn-group btn-group">
+				    <button type="button" class="btn btn-primary">Beginning</button>
+				    <button type="button" class="btn btn-primary">Middle</button>
+				    <button type="button" class="btn btn-primary">End</button>
+			</div>
+		</div>
+
+		<input type="number" name="head_count" value="0"/>
+		<input type="submit"/>
+		<input type="reset"/>
+		<input type="hidden" name="type" value="submit"/>
 		</form>
 	</div>
 	
