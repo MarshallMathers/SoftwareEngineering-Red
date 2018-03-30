@@ -7,8 +7,8 @@ $(function () {
 	//TODO: Create Login Popup, and verify userID
 
 	//TODO: replace with AJAX calls to the database
-	var rooms = ["Gates Auditorium", "Steve Basement"];
-	var timeSlots = ["10:00 AM", "12:30 PM"];
+	var rooms = [];
+	var timeSlots = [];
 	
 	var headCountSlots = ["Beginning", "Middle", "End"];
 	
@@ -18,22 +18,22 @@ $(function () {
 		var option = "<option value="+headCountSlots[i]+">"+headCountSlots[i]+"</option>";
 		$("#head_count_slot").append(option);
 	}
+	
+	$("#redirect").each(function(i, e) {
+		$("body").load($(e).attr("name"));
+	});
 
 	function getFormData() {
     	$.post("php/headCountApp.php", { type: "data" }, function(data, status) {
-     		var rooms = data["room_IDs"];
-     		var timeSlots = data["time_slots"];
-     		alert("Data:" + data + "\nStatus: " + status);
-     		
-     		for (i in rooms) {
-				var option = "<option value="+rooms[i]+">"+rooms[i]+"</option>";
-				$("#room_ID").append(option);
+     		var rooms = data.room_IDs;
+     		var timeSlots = data.time_slots;
+     		for (i = 0; i < rooms.length; i++) {
+     			$("#room_ID").append("<option value="+rooms[i]["RoomID"]+">"+rooms[i]["Room"]+"</option>");
+     		}
+			for (i = 0; i < timeSlots.length; i++) {
+				$("#time_slot").append("<option value="+timeSlots[i]["TimeslotID"]+">"+timeSlots[i]["Timeslot"]+"</option>");
 			}
-			for (i in timeSlots) {
-				var option = "<option value="+timeSlots[i]+">"+timeSlots[i]+"</option>";
-				$("#time_slot").append(option);
-			}
-    	});
+    	}, "json");
 	}
 
 	function showBanner(text) {

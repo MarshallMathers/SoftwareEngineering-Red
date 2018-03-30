@@ -42,7 +42,8 @@ class HeadCountApp {
 			"user_ID"			=> $userID,
 			"timestamp"			=> $timeStamp
 		);
-		$this->$fd->setFormFields($fields);
+		
+		$this->fd->setFormFields($fields);
 	}
 	
 	public function getFormData() {
@@ -59,7 +60,7 @@ class HeadCountApp {
 	
 	// Called when the data submission is acknowedged. Displays in banner in the UI
 	private function submissionAcked($success) {
-		
+		echo $success;
 	}
 	
 	// Returns the current time as a timestamp
@@ -80,17 +81,19 @@ class HeadCountApp {
 ////////////////////
 // MAIN CODE HERE //
 ////////////////////
-
 function main() {
 	$app = new HeadCountApp();
 	
 	$type = $_POST["type"];
 	if ($type === "login") {
-		$valid = $app->login($_POST["user_ID"]);
+		$userID = $_POST["user_ID"];
+		$valid = $app->login($userID);
 		if ($valid) {
-			echo "VALID";
+			echo "Successfully logged in as: ".$userID;
+			return $userID;
 		} else {
-			echo "INVALID";
+			echo "Unknown userID";
+			return false;
 		}
 	} else if ($type === "submit") {
 		$app->getFormData();
@@ -98,12 +101,15 @@ function main() {
 		$app->submitHeadCountData();
 		
 		echo "Thank you for your Submission!";
+		return true;
 	} else if ($type === "data") {
 		$app->getFormData();
-		echo $app->prepareFormData();
+		$data = $app->prepareFormData();
+		echo json_encode($data);
+		return true;
 	}
 }
 
-main();
+$ret = main();
 ?>
 

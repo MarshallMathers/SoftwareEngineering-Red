@@ -31,7 +31,6 @@
     		//:host=".$host.";dbname=headCountApp.db", $this->$username, $this->$password);
    			// set the PDO error mode to exception
     		$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    		echo "Connected successfully"; 
 		} catch(PDOException $e) {
     		echo "Connection failed: " . $e->getMessage();
     	}
@@ -51,7 +50,7 @@
 		*/
 		
 		// prepare sql and bind parameters
-		$sql = "INSERT INTO Form (RoomID, TimeslotID, headcountType, HeadcountCount, UserID, Timestamp) VALUES (:rID, :tsID, :hcT, :hcC, :uID, :ts);";
+		$sql = "INSERT INTO Forms (RoomID, TimeslotID, headcountType, HeadcountCount, UserID, Timestamp) VALUES (:rID, :tsID, :hcT, :hcC, :uID, :ts);";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bindParam(':rID', $data["room_ID"]);
 		$stmt->bindParam(':tsID', $data["time_slot"]);
@@ -81,10 +80,11 @@
 	private function query($queryStr, $queryVars) {
 		$stmt = $this->conn->prepare($queryStr);
 		
-		foreach ($queryVars as $k => $v) {
-			$stmt->bindParam($k, $v);
+		$i = 1;
+		foreach ($queryVars as $v) {
+			$stmt->bindParam($i++, $v);
 		}
-		
+		$stmt->setFetchMode(PDO::FETCH_NAMED);
 		$stmt->execute($queryVars);
 		
 		return $stmt->fetchAll();
@@ -94,7 +94,7 @@
 	// returns True if $userID is in the Clients table of the database; false otherwise
 	public function checkUserID($userID) {
 		$sql = "SELECT UserID FROM Clients WHERE UserID == ?";
-		$params = array("*", "Clients", $userID);
+		$params = array($userID);
 		$res_userID = $this->query($sql, $params);
 		
 		if (count($res_userID) < 1) { return false; } 
