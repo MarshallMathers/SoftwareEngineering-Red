@@ -36,11 +36,9 @@
             <span><?php echo $error; ?></span>
         </form>
 
-        <br/><br/>
-        <a class="btn btn-outline-primary" href="#">Forgot Password?</a>
-        <br><br><br><br>
+        <br><br>
         <h5> Not an administrator? Sign in to the Volunteer Portal:</h5>
-        <a class="btn btn-outline-primary" href="#">Volunteer Sign In</a>
+        <a class="btn btn-outline-primary" href="../client/index.php">Volunteer Sign In</a>
     </div>
 </div>
 </body>

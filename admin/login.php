@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate credentials
     if (empty($username_err) && empty($password_err)) {
         // Prepare a select statement
-        $sql = "SELECT username, password FROM users WHERE username = :username";
+        $sql = "SELECT username, password FROM Admins WHERE username = :username";
 
         if ($stmt = $phpDataObject->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
@@ -93,10 +93,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="py-5 text-center">
         <h2>Login - Administrator Portal</h2>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+
             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <label for="usr">Name:</label>
                 <center>
-                    <input type="text" class="form-control" id="usr" value="<?php echo $username; ?>"
+                    <input type="text" class="form-control" name="username" id="usr" value="<?php echo $username; ?>"
                            style="width: 400px;">
                     <span class="help-block"><?php echo $username_err; ?></span>
                 </center>
@@ -105,20 +106,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                 <label for="pwd">Password:</label>
                 <center>
-                    <input type="password" class="form-control" id="pwd" style="width: 400px;">
+                    <input type="password" class="form-control" name="password" id="pwd" style="width: 400px;">
                     <span class="help-block"><?php echo $password_err; ?></span>
                 </center>
             </div>
             <br>
             <div class="form-group">
-                <input type="submit" class="btn btn-outline-primary" value="Sign In">
+                <input type="submit" class="btn btn-primary" value="Sign In">
             </div>
+            <br/><br/>
         </form>
-        <br><br><br><br>
+
+        <br><br>
         <h5> Not an administrator? Sign in to the Volunteer Portal:</h5>
-        <a class="btn btn-outline-primary" href="#">Volunteer Sign In</a>
+        <a class="btn btn-outline-primary" href="../client/index.php">Volunteer Sign In</a>
     </div>
 </div>
 </body>
 </html>
-
