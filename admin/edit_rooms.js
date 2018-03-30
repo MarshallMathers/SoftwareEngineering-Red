@@ -1,7 +1,7 @@
 	
 	function handleSubmit(){
 		edit = document.getElementById("room"); //represents the dropdown list
-		var roomList = [["Room 1",100,true],["Room 2",150,true],["Room 3",25,true],["Room 4",80,false]] //replace this array with data from database
+		var roomList = [["Room 1",100,true,"2018-04-07T12:00:00.000","2018-04-07T12:00:00.000"],["Room 2",150,true,"2018-04-07T12:00:00.000","2018-04-07T12:00:00.000"],["Room 3",25,true,"2018-04-07T12:00:00.000","2018-04-07T12:00:00.000"],["Room 4",80,false,"2018-04-07T12:00:00.000","2018-04-07T12:00:00.000"]] //replace this array with data from database
 		editForm = document.getElementById("room-form"); //represents form to edit room variables
 		
 		var room = edit.options[edit.selectedIndex].value;
@@ -9,6 +9,8 @@
 			var room_name = document.getElementById("room-name");
 			var capacity =  document.getElementById("capacity");
 			var enable =  document.getElementById("enable");
+			var start = document.getElementById("starttime"); //time format: "2014-01-02T11:42:13.510";
+			var end = document.getElementById("endtime"); 
 			del = document.getElementById("delete");
 			add = document.getElementById("add");
 			del.style.display = "block";
@@ -16,6 +18,8 @@
 			room_name.innerHTML = roomList[room-1][0];
 			capacity.value = roomList[room-1][1];
 			enable.checked = roomList[room-1][2];
+			start.value = roomList[room-1][3];
+			end.value = roomList[room-1][4];
 			editForm.style.display = "block";
 		}
 		else{
@@ -46,8 +50,12 @@
 		var room_name = document.getElementById("room-name");
 		var capacity =  document.getElementById("capacity");
 		var enable =  document.getElementById("enable");
+		var start = document.getElementById("starttime"); //time format: "2014-01-02T11:42:13.510";
+		var end = document.getElementById("endtime"); 
 		room_name.innerHTML = "Room #";
 		capacity.value = "###";
+		start.value = "yyyy-mm-ddT--:--:--.---";
+		end.value = "yyyy-mm-ddT--:--:--.---";
 		enable.checked = false;
 		
 		editForm.style.display = "block";
