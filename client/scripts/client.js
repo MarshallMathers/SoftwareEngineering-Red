@@ -1,6 +1,6 @@
 /* Team: Red
  * Group: Client
- * Contributors: Jacob Hayes, Thomas Cox, Ian Marshall, Zeily Perez
+ * Contributors: Jacob Hayes, Ian Marshall
  */
 
 $(function () {
