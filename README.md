@@ -11,7 +11,7 @@
 
 ---
 
-### [Documentation branch]((https://github.com/MarshallMathers/SoftwareEngineering-Red/tree/documentation))
+### [Documentation branch](https://github.com/MarshallMathers/SoftwareEngineering-Red/tree/documentation)
 A branch that has all the course documentation submitted as a group and by teams.
 
 ---
