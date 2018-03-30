@@ -34,6 +34,7 @@
 				echo "<div id=\"redirect\" name=\"index.php\"></div>";
 			} else {
 				$userID = $ret;
+				$_POST["user_ID"] = $userID;
 			}
 		?>
 	</div>
@@ -65,7 +66,7 @@
                     </div>
                     <div class="form-group">
                         <label>Headcount</label>
-                        <input type="number" name="head_count" value="0" class="form-control" />
+                        <input type="number" name="head_count" value="0" min="0" class="form-control" />
                     </div>
                     <input type="submit" value="Submit" class="btn btn-primary" />
                     <br />

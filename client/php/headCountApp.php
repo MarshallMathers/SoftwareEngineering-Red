@@ -32,7 +32,11 @@ class HeadCountApp {
 		$timeStamp		= NULL; //$this->getTimeStamp(); // Use Database default
 		
 		// Validate and Sanitize
-		
+		$capacity = $this->database->getRoomCapacity($roomID);
+		$capacity += $capacity *  0.1;
+		if ($headCount < 0 || $headCount > $capacity) {
+			return false;
+		}
 		
 		$fields = array(
 			"room_ID"			=> $roomID,
@@ -44,6 +48,7 @@ class HeadCountApp {
 		);
 		
 		$this->fd->setFormFields($fields);
+		return true;
 	}
 	
 	public function getFormData() {
@@ -97,11 +102,13 @@ function main() {
 		}
 	} else if ($type === "submit") {
 		$app->getFormData();
-		$app->getFormFields();
-		$app->submitHeadCountData();
-		
-		echo "Thank you for your Submission!";
-		return true;
+		$valid = $app->getFormFields();
+		if ($valid) {
+			$app->submitHeadCountData();
+			return "Thank you for your Submission!";
+		} else {
+			return false;
+		}
 	} else if ($type === "data") {
 		$app->getFormData();
 		$data = $app->prepareFormData();

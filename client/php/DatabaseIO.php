@@ -100,5 +100,13 @@
 		if (count($res_userID) < 1) { return false; } 
 		else { return true; }
 	}
+	
+	public function getRoomCapacity($roomID) {
+		$sql = "SELECT Capacity FROM Rooms WHERE RoomID == ?";
+		$params = array($roomID);
+		$res_capacity = $this->query($sql, $params);
+		
+		return $res_capacity[0]["Capacity"];
+	}
 }
 ?>
