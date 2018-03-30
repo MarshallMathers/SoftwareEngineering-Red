@@ -6,7 +6,7 @@
 
 class DatabaseIO
 {
-    private $conn;                                                    # Connection resource
+    private $databaseConnection;                                                    # Connection resource
 
     private $servername;
     private $username;
@@ -17,26 +17,26 @@ class DatabaseIO
         $this->servername = "localhost";
         $this->username = "root";
         $this->password = "p4ssw0rd";
-        $this->conn = NULL;
+        $this->databaseConnection = NULL;
     }
 
     public function __destruct()
     {
-        $this->closeConnection();
+        $this->closeConnectionIfOpen();
     }
 
     /**
      * Open DB connection, return response
-     * @return Boolean
+     * @return Boolean - true if connection successfully opened, false otherwise
      */
-    public function openConnection()
+    public function openConnectionAndReportSuccess()
     {
         try {
             //$this->$conn = new PDO(DBHOST, DBUSER, DBPASS);
             $host = $this->servername;
-            $this->conn = new PDO("mysql:host=$host;port=8080;dbname=headCountApp", $this->username, $this->password);
+            $this->databaseConnection = new PDO("mysql:host=$host;port=8080;dbname=headCountApp", $this->username, $this->password);
             // set the PDO error mode to exception
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->databaseConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             echo "Connected successfully";
             return true;
         } catch (PDOException $e) {
@@ -45,12 +45,9 @@ class DatabaseIO
         }
     }
 
-    /**
-     * Closes DB connection, if it is open
-     */
-    public function closeConnection()
+    public function closeConnectionIfOpen()
     {
-        $this->conn = NULL;
+        $this->databaseConnection = NULL;
     }
 
     /**
@@ -59,9 +56,9 @@ class DatabaseIO
      * @param String[] $queryVars
      * @return mixed
      */
-    private function query($queryStr, $queryVars)
+    private function performQuery($queryStr, $queryVars)
     {
-        $stmt = $this->conn->prepare($queryStr);
+        $stmt = $this->databaseConnection->prepare($queryStr);
         $stmt->execute($queryVars);
 
         return $stmt->fetchAll();
@@ -74,9 +71,9 @@ class DatabaseIO
     public function requestRoomData()
     {
         $sql = "SELECT ? FROM Rooms ORDER BY RoomID";
-        $roomIds = $this->query($sql, array("RoomID"));
-        $roomNames = $this->query($sql, array("Room"));
-        $roomCapacities = $this->query($sql, array("Capacity"));
+        $roomIds = $this->performQuery($sql, array("RoomID"));
+        $roomNames = $this->performQuery($sql, array("Room"));
+        $roomCapacities = $this->performQuery($sql, array("Capacity"));
 
         $rooms = array(RoomData::class);
         for ($i = 0; $i < sizeOf($roomIds); $i++) {
@@ -92,7 +89,7 @@ class DatabaseIO
     public function requestUserList()
     {
         $sql = "SELECT ? FROM Clients ORDER BY UserID";
-        $userIds = $this->query($sql, array("*"));
+        $userIds = $this->performQuery($sql, array("*"));
         return $userIds;
     }
 
@@ -103,13 +100,13 @@ class DatabaseIO
     public function requestHeadCountData()
     {
         $sql = "SELECT ? FROM Forms ORDER BY FormID";
-        $formIds = $this->query($sql, array("FormID"));
-        $roomIds = $this->query($sql, array("RoomID"));
-        $timeSlots = $this->query($sql, array("TimeslotID"));
-        $headCounts = $this->query($sql, array("HeadcountCount"));
-        $headCountSlots = $this->query($sql, array("HeadcountType"));
-        $userIds = $this->query($sql, array("HeadcountType"));
-        $timestamps = $this->query($sql, array("Timestamp"));
+        $formIds = $this->performQuery($sql, array("FormID"));
+        $roomIds = $this->performQuery($sql, array("RoomID"));
+        $timeSlots = $this->performQuery($sql, array("TimeslotID"));
+        $headCounts = $this->performQuery($sql, array("HeadcountCount"));
+        $headCountSlots = $this->performQuery($sql, array("HeadcountType"));
+        $userIds = $this->performQuery($sql, array("HeadcountType"));
+        $timestamps = $this->performQuery($sql, array("Timestamp"));
 
         $headCountData = array(HeadCountData::class);
         for ($i = 0; $i < sizeOf($formIds); $i++) {
@@ -130,12 +127,12 @@ class DatabaseIO
      */
     public function submitRoomData($roomData)
     {
-        $this->conn->prepare("DELETE * FROM Rooms")->execute();
+        $this->databaseConnection->prepare("DELETE * FROM Rooms")->execute();
         // prepare sql and bind parameters
         $sql = "INSERT INTO Rooms (Capacity, Room, RoomID)
 				VALUES (:cap, :room, :rID)";
         for ($i = 0; $i < sizeOf($roomData); $i++){
-            $stmt = $this->conn->prepare($sql);
+            $stmt = $this->databaseConnection->prepare($sql);
             $stmt->bindParam(':cap', $roomData[$i].getCapacity());
             $stmt->bindParam(':room', $roomData[$i].getRoomName());
             $stmt->bindParam(':rID', $roomData[$i].getRoomID());
@@ -154,12 +151,12 @@ class DatabaseIO
      */
     public function submitUserList($userList)
     {
-        $this->conn->prepare("DELETE * FROM Clients")->execute();
+        $this->databaseConnection->prepare("DELETE * FROM Clients")->execute();
         // prepare sql and bind parameters
         $sql = "INSERT INTO Clients (UserID)
 				VALUES (:uID)";
         for ($i = 0; $i < sizeOf($userList); $i++){
-            $stmt = $this->conn->prepare($sql);
+            $stmt = $this->databaseConnection->prepare($sql);
             $stmt->bindParam(':uID', $userList[$i]);
             $success = $stmt->execute();
             if ($success == false){
@@ -177,7 +174,7 @@ class DatabaseIO
     {
         $sql = "select ? from Admins where Username='$userID'";
         $params = array("Username");
-        $res_userID = $this->query($sql, $params);
+        $res_userID = $this->performQuery($sql, $params);
 
         if (count($res_userID) < 1) {
             return false;

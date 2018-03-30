@@ -1,9 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: poliaf
- * Date: 3/26/18
- * Time: 1:59 PM
+/* Team: Red
+ * Group: Client
+ * Contributors: Ford Polia, Giles Holmes
  */
 
 class HeadCountData
