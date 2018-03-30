@@ -3,7 +3,7 @@
 session_start();
 
 // If session variable is not set it will redirect to login page
-if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
+if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
     header("location: login.php");
     exit;
 }
@@ -19,9 +19,10 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script type="text/javascript" src="submitted-headcount.js"></script>
-    <link rel="stylesheet" href="submitted-headcount.css"/>
     <title>Submitted Count</title>
     <!-- change to what you want the tab's title to be -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -39,40 +40,48 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
     <CENTER>
         <h2>Room Count View</h2></CENTER>
     <br>
-    <table id='main_table' class="table table-bordered">
+    <table class="table table-bordered">
         <thead>
+        <th>RoomID</th>
         <th>Room</th>
         <th>Time Submitted</th>
-        <th>Start Headcount</th>
-        <th>Middle Headcount</th>
-        <th>End Headcount</th>
+        <th>HeadCount Type</th>
+        <th>Headcount</th>
 
 
         </thead>
 
         <?php
 
-        $room = "room";
-        $time = "12:";
-        $start = 0;
-        $mid = 3;
-        $end = 5;
+
+        // Room Name/RoomID
+        // Timestamp
+        // Headcount type
+        // HeadCount count
+        // UserID
+
+
+        $roomID = 1;
+        $roomName = "room";
+        $timestamp = "12:";
+        $headCountType = "middle";
+        $headcountCount = 1;
+
 
         for ($i = 0; $i < 6; $i++) {
             echo "<tr class='data'>" .
-                "<td class='room'>" . $room . "0" . $i . "</td>" .
-
-                "<td contenteditable='true' class='time'>" . $time . "0" . $i . "</td>" .
-                "<td contenteditable='true' class='start'>" . $start . "0" . $i . "</td>" .
-                "<td contenteditable='true' class='mid'>" . $mid . "0" . $i . "</td>" .
-                "<td contenteditable='true' class='end'>" . $end . "0" . $i . "</td>" .
-                "<td contenteditable='true' class='edit_btn'><button type='button' name='edit' class='btn-primary'  id='" . $i . "'' >Edit</button>";
-            // "</tr>";
+                "<td class='roomID'>" . $i . "</td>" .
+                "<td class='room'>" . $roomName . "0" . $i . "</td>" .
+                "<td contenteditable='FALSE' class='time'>" . $timestamp . "0" . $i . "</td>" .
+                "<td contenteditable='FALSE' class='headcountType'>" . $headCountType . "</td>" .
+                "<td contenteditable='FALSE' class='headcountCount'>" . $headcountCount . $i . "</td>" .
+                "<td class='edit_btn'><button type='button' name='edit' class='btn-primary'  id='" . $i . "'' >Edit</button>";
+            // "</tr>"
 
         }
 
         ?>
-
+    </table>
 </div>
 
 </body>
