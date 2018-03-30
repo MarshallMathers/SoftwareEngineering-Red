@@ -10,14 +10,14 @@ $(function () {
 	var rooms = [];
 	var timeSlots = [];
 	
-	var headCountSlots = ["Beginning", "Middle", "End"];
+	//var headCountSlots = ["Beginning", "Middle", "End"];
 	
 	getFormData();
 	
-	for (i in headCountSlots) {
+	/*for (i in headCountSlots) {
 		var option = "<option value="+headCountSlots[i]+">"+headCountSlots[i]+"</option>";
 		$("#head_count_slot").append(option);
-	}
+	}*/
 	
 	$("#redirect").each(function(i, e) {
 		$("body").load($(e).attr("name"));

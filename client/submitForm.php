@@ -12,12 +12,12 @@
 	<!-- jQuery JS -->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	<script src="scripts/client.js"></script>
-	<script>
-		/* Team: Red
-		 * Group: Client
-		 * Contributors: Jacob Hayes, Thomas Cox, Zeily Perez
-		 */
-	</script>
+	<!--
+	/* Team: Red
+	 * Group: Client
+	 * Contributors: Jacob Hayes, Timothy Boss
+	 */
+	-->
     
     <title>Client Login</title>
 </head>
@@ -43,7 +43,7 @@
       <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark"><?php echo $_POST["user_ID"]; ?></a> <!--this will be the name of the logged in admin -->
       </nav>
-      <a class="btn btn-outline-primary" href="#">Sign Out</a> <!-- remove the Username and Sign Out sections for the login page, they will be displayed after -->
+      <a class="btn btn-outline-primary" href="index.php">Sign Out</a> <!-- remove the Username and Sign Out sections for the login page, they will be displayed after -->
     </div>
     
     <?php echo $msg; ?>

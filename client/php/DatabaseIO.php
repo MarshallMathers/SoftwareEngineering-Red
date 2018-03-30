@@ -27,7 +27,7 @@
 		try {
     		//$this->$conn = new PDO(DBHOST, DBUSER, DBPASS);
     		$host = $this->$servername;
-    		$this->conn = new PDO("sqlite:".__DIR__."../../../headCountApp.db");
+    		$this->conn = new PDO("sqlite:".__DIR__."../../../database/headCountApp.db");
     		//:host=".$host.";dbname=headCountApp.db", $this->$username, $this->$password);
    			// set the PDO error mode to exception
     		$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -57,7 +57,7 @@
 		$stmt->bindParam(':hcT', $data["head_count_slot"]);
 		$stmt->bindParam(':hcC', $data["head_count"]);
 		$stmt->bindParam(':uID', $data["user_ID"]);
-		$stmt->bindParam(':ts', $data["timestamp"]);
+		$stmt->bindParam(':ts', $data["time_stamp"]);
 
 		// insert a row
 		return $stmt->execute();
