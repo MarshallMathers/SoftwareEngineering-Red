@@ -1,6 +1,6 @@
 <?php
 // Include config file
-require_once 'config.php';
+require_once 'dbconfig.php';
 
 // Define variables and initialize with empty values
 $username = "";
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Prepare a select statement
         $sql = "SELECT username, password FROM Admins WHERE username = :username";
 
-        if ($stmt = $phpDataObject->prepare($sql)) {
+        if ($stmt = $databaseConnection->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
             $stmt->bindParam(':username', $param_username, PDO::PARAM_STR);
 
@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Close connection
-    unset($phpDataObject);
+    unset($databaseConnection);
 }
 ?>
 <!doctype html>

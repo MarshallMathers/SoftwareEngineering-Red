@@ -6,17 +6,19 @@
 
 class DatabaseIO
 {
-    private $databaseConnection;                                                    # Connection resource
+    public $databaseConnection;                                                    # Connection resource
 
-    private $servername;
-    private $username;
-    private $password;
+    private $serverName;
+    private $databaseUsername;
+    private $databasePassword;
+    private $databaseName;
 
     public function __construct()
     {
-        $this->servername = "localhost";
-        $this->username = "root";
-        $this->password = "p4ssw0rd";
+        $this->serverName = "localhost";
+        $this->databaseUsername = "root";
+        $this->databasePassword = "p4ssw0rd";
+        $this->databaseName = "headCountApp";
         $this->databaseConnection = NULL;
     }
 
@@ -32,15 +34,15 @@ class DatabaseIO
     public function openConnectionAndReportSuccess()
     {
         try {
-            //$this->$conn = new PDO(DBHOST, DBUSER, DBPASS);
-            $host = $this->servername;
-            $this->databaseConnection = new PDO("mysql:host=$host;port=8080;dbname=headCountApp", $this->username, $this->password);
-            // set the PDO error mode to exception
+            $this->databaseConnection = new PDO("mysql:host=" . $this->serverName . ";dbname=" . $this->databaseName,
+                $this->databaseUsername,
+                $this->databasePassword);
+            // Set the PHP Data Object (PDO) error mode to exception
             $this->databaseConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Connected successfully";
+            echo "Database connection successfully established";
             return true;
-        } catch (PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
+        } catch (PDOException $databaseConnectionException) {
+            echo "Database Connection failed: " . $databaseConnectionException->getMessage();
             return false;
         }
     }
@@ -131,13 +133,13 @@ class DatabaseIO
         // prepare sql and bind parameters
         $sql = "INSERT INTO Rooms (Capacity, Room, RoomID)
 				VALUES (:cap, :room, :rID)";
-        for ($i = 0; $i < sizeOf($roomData); $i++){
+        for ($i = 0; $i < sizeOf($roomData); $i++) {
             $stmt = $this->databaseConnection->prepare($sql);
-            $stmt->bindParam(':cap', $roomData[$i].getCapacity());
-            $stmt->bindParam(':room', $roomData[$i].getRoomName());
-            $stmt->bindParam(':rID', $roomData[$i].getRoomID());
+            $stmt->bindParam(':cap', $roomData[$i] . getCapacity());
+            $stmt->bindParam(':room', $roomData[$i] . getRoomName());
+            $stmt->bindParam(':rID', $roomData[$i] . getRoomID());
             $success = $stmt->execute();
-            if ($success == false){
+            if ($success == false) {
                 return false;
             }
         }
@@ -155,11 +157,11 @@ class DatabaseIO
         // prepare sql and bind parameters
         $sql = "INSERT INTO Clients (UserID)
 				VALUES (:uID)";
-        for ($i = 0; $i < sizeOf($userList); $i++){
+        for ($i = 0; $i < sizeOf($userList); $i++) {
             $stmt = $this->databaseConnection->prepare($sql);
             $stmt->bindParam(':uID', $userList[$i]);
             $success = $stmt->execute();
-            if ($success == false){
+            if ($success == false) {
                 return false;
             }
         }
