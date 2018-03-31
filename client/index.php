@@ -1,3 +1,7 @@
+<?php
+	setCookie("user_ID", "", time() - 60*60);
+	setCookie("error", "", time() - 60*60);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +32,7 @@
       <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark">Sign In</a> <!--this will be the name of the logged in admin -->
       </nav>
-      <a class="btn btn-outline-primary" href="#">Sign Out</a> <!-- remove the Username and Sign Out sections for the login page, they will be displayed after -->
+      <a class="btn btn-outline-primary" href="index.php">Sign Out</a> <!-- remove the Username and Sign Out sections for the login page, they will be displayed after -->
     </div>
 
 	<div class="container">

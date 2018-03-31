@@ -1,6 +1,23 @@
 <?php
 	// Start the session
 	session_start();
+	
+	require("php/headCountApp.php");
+	
+	$userID = "TEST";
+	if ($ret === false) {
+		//re-direct to index.php
+		$host  = $_SERVER['HTTP_HOST'];
+		$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+		$extra = 'index.php';
+		header("Location: http://$host$uri/$extra");
+		exit;
+	} else {
+		if (!(isset($_COOKIE["user_ID"]))) {
+			setcookie("user_ID", $msg, time()+60*60*24*3);
+		}
+		$userID = (strlen($_COOKIE["user_ID"]) > 0) ? $_COOKIE["user_ID"] : $msg;
+	}
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,22 +44,11 @@
 </head>
 
 <body>
-	<?php
-		require("php/headCountApp.php");
-		
-		if ($ret === false) {
-			//re-direct to index.php
-			echo "<div id=\"redirect\" name=\"index.php\"></div>";
-		} else {
-			$_SESSION["user_ID"] = $ret;
-			$_POST["user_ID"] = $ret;
-		}
-	?>
 	<h1 style="background-color:lightgreen;">
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-light border-bottom box-shadow">
       <h5 class="my-0 mr-md-auto font-weight-normal," background-color:DodgerBlue;> Boston Code Camp </h5> 
       <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-10 color: blue"><?php echo $_SESSION["user_ID"]; ?></a> 
+        <a class="p-10 color: blue"><?php echo $userID; ?></a> 
         <p style="color:Blue;"> </p> 
           <!--this will be the name of the logged in admin -->
       </nav>
@@ -78,8 +84,12 @@
 		<input type="submit"/>
 		<input type="reset"/>
 		<input type="hidden" name="type" value="submit"/>
-		<input type="hidden" name="user_ID" value="<?php echo $_SESSION["user_ID"]; ?>"/>
+		<input type="hidden" name="user_ID" value="<?php echo $_COOKIE["user_ID"]; ?>"/>
 		</form>
+		
+		<div id="ackContainer">	
+			<?php echo $_COOKIE["error"]; ?>
+		</div>
 	</div>
 	
 </body>

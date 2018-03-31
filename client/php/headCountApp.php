@@ -35,7 +35,7 @@ class HeadCountApp {
 		$capacity = $this->database->getRoomCapacity($roomID);
 		$capacity += $capacity *  0.1;
 		if ($headCount < 0 || $headCount > $capacity) {
-			return false;
+			return "Headcount is greater than capacity!";
 		}
 		
 		$fields = array(
@@ -85,39 +85,50 @@ class HeadCountApp {
 ////////////////////
 // MAIN CODE HERE //
 ////////////////////
-function main() {
+function main($msg) {
+	$ret = NULL;
 	$app = new HeadCountApp();
 	
 	$type = $_POST["type"];
 	if ($type === "login") {
 		$userID = $_POST["user_ID"];
 		$valid = $app->login($userID);
-		if ($valid) {
-			return $userID;
+		if ($valid === true) {
+			$msg = $userID;
+			$ret = true;
 		} else {
-			return false;
+			$msg = "Unknown userID";
+			$ret = false;
 		}
 	} else if ($type === "submit") {
 		$app->getFormData();
 		$valid = $app->getFormFields();
-		if ($valid) {
+		if ($valid === true) {
 			$success = $app->submitHeadCountData();
 			if ($success) {
-				return "Thank you for your Submission!";
+				$msg = "Thank you for your Submission!";
+				$ret = true;
 			} else {
-				return false;
+				$msg = "Could not submit to database! Check with supervisor.";
+				$ret = false;
 			}
 		} else {
-			return false;
+			$msg = $valid;
+			$ret = false;
 		}
 	} else if ($type === "data") {
 		$app->getFormData();
 		$data = $app->prepareFormData();
 		echo json_encode($data);
-		return true;
+		$ret = true;
 	}
+	
+	return array("result" => $ret, "message" => $msg);
 }
 
-$ret = main();
-?>
+$msg = "";
+$result = main($msg);
 
+$ret = $result["result"];
+$msg = $result["message"];
+?>
