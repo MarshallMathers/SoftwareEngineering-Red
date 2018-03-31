@@ -4,6 +4,12 @@
  * Contributors: Jacob Hayes, Thomas Cox
  */
  
+ require("../../../database/dbconfig.php");
+ if (isset($link)) {
+ 	$link->close();
+ 	$link=NULL;
+ }
+ 
  class DatabaseIO {
 	private $conn;													# Connection resource
 	
@@ -25,9 +31,8 @@
 	// Opens a connection to the database. Returns TRUE if successful, FALSE otherwise. 
 	public function openConnection() {
 		try {
-    		//$this->$conn = new PDO(DBHOST, DBUSER, DBPASS);
-    		$host = $this->$servername;
-    		$this->conn = new PDO("sqlite:".__DIR__."../../../database/headCountApp.db");
+    		$this->$conn = new PDO("mysql:host=".DB_SERVER.";dbname=".DB_NAME, DB_USERNAME, DB_PASSWORD);
+    		//$this->conn = new PDO("sqlite:".__DIR__."../../../database/headCountApp.db");
     		//:host=".$host.";dbname=headCountApp.db", $this->$username, $this->$password);
    			// set the PDO error mode to exception
     		$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
