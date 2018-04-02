@@ -1,9 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: poliaf
- * Date: 3/26/18
- * Time: 1:56 PM
+/* Team: Red
+ * Group: Client
+ * Contributors: Ford Polia, Giles Holmes
  */
 
 class RoomData
@@ -11,6 +9,13 @@ class RoomData
     private $roomID;
     private $roomName;
     private $capacity;
+
+    public function __construct($roomID, $roomName, $capacity)
+    {
+        $this->roomID = $roomID;
+        $this->capacity = $capacity;
+        $this->roomName = $roomName;
+    }
 
     /**
      * Returns the room's ID

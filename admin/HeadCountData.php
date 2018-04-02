@@ -1,9 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: poliaf
- * Date: 3/26/18
- * Time: 1:59 PM
+/* Team: Red
+ * Group: Client
+ * Contributors: Ford Polia, Giles Holmes
  */
 
 class HeadCountData
@@ -14,6 +12,16 @@ class HeadCountData
     private $headCountSlot;
     private $userID;
     private $timestamp;
+
+    public function __construct($roomID, $timeSlot, $headCount, $headCountSlot, $userId, $timestamp)
+    {
+        $this->roomID = $roomID;
+        $this->timeSlot = $timeSlot;
+        $this->headCount = $headCount;
+        $this->headCountSlot = $headCountSlot;
+        $this->userID = $userId;
+        $this->timestamp = $timestamp;
+    }
 
     /**
      * Returns the room ID in the head count data
