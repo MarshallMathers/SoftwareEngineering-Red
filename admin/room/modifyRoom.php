@@ -1,3 +1,16 @@
+<?php
+include '../../dbconfig.php';
+
+$sql = "SELECT RoomID, Room FROM rooms";
+$result = mysqli_query($link,$sql);
+
+if (!$result) {
+    printf("Error: %s\n", mysqli_error($link));
+    exit();
+}
+	
+mysqli_close($link);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,18 +27,16 @@
             <div class="col-sm-4"></div>
             <div class="col-sm-4 text-center">
                 <br />
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form action="updateRoom.php" method="post">
                     <div class="form-group">
                         <label>Room ID</label>
-                        <select id="room_ID" name="room_ID" class="form-control"></select>
-                    </div>
-                    <div class="form-group">
-                        <label>Room Name</label>
-                        <input type="text" id="room_name" name="room_name" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label>Capacity</label>
-                        <input type="number" id="capacity" name="capacity" min="0" class="form-control" />
+                        <select id="room_ID" name="room_ID" class="form-control">
+						<?php
+						while ($row = mysqli_fetch_array($result)) {
+							echo "<option value='" . $row['RoomID'] . "'>" . $row['Room'] . "</option>";
+						}
+						?>
+						</select>
                     </div>
                     <input type="submit" value="Modify" class="btn btn-primary" />
                     <br />
