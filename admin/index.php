@@ -6,6 +6,17 @@ if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
     header("location: login.php");
     exit;
 }
+require_once("config_headcnt.php");
+
+try {
+    $connString = "mysql:host=" . DBHOST . ";dbname=" . DBNAME;
+    $user = DBUSER;
+    $pass = DBPASS;
+    $pdo = null;
+} catch (PDOException $e) {
+    print "ERROR!: " . $e->getMessage() . "<br/>";
+    die();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +32,16 @@ if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
 </head>
 
 <body>
+
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-light border-bottom box-shadow">
+    <h5 class="my-0 mr-md-auto font-weight-normal">Boston Code Camp</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
+        <!--this will be the name of the logged in admin -->
+    </nav>
+    <a class="btn btn-outline-primary" href="logout.php">Sign Out</a> <!-- Sign out button -->
+</div>
+
 <div class="container">
     <div class="row">
         <div class="col-sm-12 text-center">
@@ -74,11 +95,51 @@ if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
             </div>
             <br/>
             <br/>
-            <div>
-                DISPLAY FORM DATA HERE USING PHP ECHO IN TABLE
+            <div class="container">
+                <CENTER>
+                    <h2>Room Count View</h2></CENTER>
+                <br>
+                <table class="table table-bordered">
+                    <thead>
+                    <?php
+                    $pdo = new PDO($connString, $user, $pass);
+
+                    $sql = "SELECT * FROM Forms";
+
+                    $result = $pdo->query($sql);
+
+                    echo
+                        "<th>FormID</th>" .
+                        "<th>RoomID</th>" .
+                        "<th>TimeslotID</th>" .
+                        "<th>Headcount Count</th>" .
+                        "<th>UserID</th>" .
+                        "<th>HeadcountType</th>" .
+                        "<th>Timestamp</th>" .
+                        "</thead>";
+
+                    while ($row = $result->fetch()) {
+                        // FormID, RoomID, HeadcountCount, USERID, HeadcountType, timestamp
+                        $formid = $row['FormID'];
+                        $roomid = $row['RoomID'];
+                        $timeslotid = $row['TimeslotID'];
+                        $headcount = $row['HeadcountCount'];
+                        $userid = $row['UserID'];
+                        $headcounttype = $row['HeadcountType'];
+                        $tstamp = $row['Timestamp'];
+
+                        echo "<tr>" .
+                            "<td>" . $formid . "</td>" . // FormID
+                            "<td>" . $roomid . "</td>" . // RoomID
+                            "<td>" . $timeslotid . "</td>" . // TimeslotID
+                            "<td>" . $headcount . "</td>" . // HeadcountCount
+                            "<td>" . $userid . "</td>" . // UserID
+                            "<td>" . $headcounttype . "</td>" . // Headcountype
+                            "<td>" . $tstamp . "</td>" . // Timestamp
+                            "</tr>";
+                    }
+                    ?>
             </div>
-            <br/>
-            <a href="logout.php" class="btn btn-secondary">Logout</a>
         </div>
     </div>
 </div>
