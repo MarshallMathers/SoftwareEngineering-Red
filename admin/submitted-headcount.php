@@ -26,19 +26,19 @@ if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
 </head>
 
 <body>
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-light border-bottom box-shadow">
+  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-light border-bottom box-shadow">
     <h5 class="my-0 mr-md-auto font-weight-normal">Boston Code Camp</h5>
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
         <!--this will be the name of the logged in admin -->
     </nav>
-    <a class="btn btn-outline-primary" href="logout.php">Sign Out</a>
+    <a class="btn btn-outline-primary" href="#">Sign Out</a>
     <!-- remove the Username and Sign Out sections for the login page, they will be displayed after -->
-</div>
-<!-- your code goes below -->
-<div class="container">
+  </div>
+  <!-- your code goes below -->
+  <div class="container">
     <CENTER>
-        <h2>Room Count View</h2></CENTER>
+      <h2>Room Count View</h2></CENTER>
     <br>
     <table class="table table-bordered">
         <thead>
@@ -49,10 +49,9 @@ if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
         <th>Headcount</th>
 
 
-        </thead>
+      </thead>
 
-        <?php
-
+      <?php
 
         // Room Name/RoomID
         // Timestamp
@@ -78,12 +77,10 @@ if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
                 "<td class='edit_btn'><button type='button' name='edit' class='btn-primary'  id='" . $i . "'' >Edit</button>";
             // "</tr>"
 
-        }
+            }
 
-        ?>
-    </table>
-</div>
+            ?>
+          </table> 
+  </div>
 
 </body>
-
-</html>

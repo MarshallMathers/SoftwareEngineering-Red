@@ -8,8 +8,8 @@ require ("FormData.php");
 require ("DatabaseIO.php");
 
 class HeadCountApp {
-	private $database = NULL;												# DatabaseIO
-	private $fd = NULL;													# FormData
+	private $database;												# DatabaseIO
+	private $fd;													# FormData
 	
 	public function __construct() {
 		$this->fd = new FormData();
@@ -29,13 +29,13 @@ class HeadCountApp {
 		$headCount		= $_POST["head_count"];
 		$headCountSlot	= $_POST["head_count_slot"];
 		$userID 		= $_POST["user_ID"];
-		$timeStamp		= NULL; //$this->getTimeStamp(); // Use Database default
+		$timeStamp		= $this->getTimeStamp(); // Do not Use Database default
 		
 		// Validate and Sanitize
 		$capacity = $this->database->getRoomCapacity($roomID);
 		$capacity += $capacity *  0.1;
 		if ($headCount < 0 || $headCount > $capacity) {
-			return false;
+			return "Headcount is greater than capacity!";
 		}
 		
 		$fields = array(
@@ -44,7 +44,7 @@ class HeadCountApp {
 			"head_count"		=> $headCount,
 			"head_count_slot"	=> $headCountSlot, 
 			"user_ID"			=> $userID,
-			"timestamp"			=> $timeStamp
+			"time_stamp"		=> $timeStamp,
 		);
 		
 		$this->fd->setFormFields($fields);
@@ -58,19 +58,18 @@ class HeadCountApp {
 	
 	// Submits the form data in $data to the database
 	public function submitHeadCountData() {
-		//$data->setFormAttr("timestamp", getTimeStamp());
 		$success = $this->database->submitHeadCountData($this->fd->getFormFields());
-		submissionAcked($success);
+		return $this->submissionAcked($success);
 	}
 	
 	// Called when the data submission is acknowedged. Displays in banner in the UI
 	private function submissionAcked($success) {
-		echo $success;
+		return $success;
 	}
 	
 	// Returns the current time as a timestamp
 	private function getTimeStamp() {
-		return mktime();
+		return date("Y-m-d H:i:s", mktime());
 	}
 	
 	
@@ -86,37 +85,50 @@ class HeadCountApp {
 ////////////////////
 // MAIN CODE HERE //
 ////////////////////
-function main() {
+function main($msg) {
+	$ret = NULL;
 	$app = new HeadCountApp();
 	
 	$type = $_POST["type"];
 	if ($type === "login") {
 		$userID = $_POST["user_ID"];
 		$valid = $app->login($userID);
-		if ($valid) {
-			echo "Successfully logged in as: ".$userID;
-			return $userID;
+		if ($valid === true) {
+			$msg = $userID;
+			$ret = true;
 		} else {
-			echo "Unknown userID";
-			return false;
+			$msg = "Unknown userID";
+			$ret = false;
 		}
 	} else if ($type === "submit") {
 		$app->getFormData();
 		$valid = $app->getFormFields();
-		if ($valid) {
-			$app->submitHeadCountData();
-			return "Thank you for your Submission!";
+		if ($valid === true) {
+			$success = $app->submitHeadCountData();
+			if ($success) {
+				$msg = "Thank you for your Submission!";
+				$ret = true;
+			} else {
+				$msg = "Could not submit to database! Check with supervisor.";
+				$ret = false;
+			}
 		} else {
-			return false;
+			$msg = $valid;
+			$ret = false;
 		}
 	} else if ($type === "data") {
 		$app->getFormData();
 		$data = $app->prepareFormData();
 		echo json_encode($data);
-		return true;
+		$ret = true;
 	}
+	
+	return array("result" => $ret, "message" => $msg);
 }
 
-$ret = main();
-?>
+$msg = "";
+$result = main($msg);
 
+$ret = $result["result"];
+$msg = $result["message"];
+?>

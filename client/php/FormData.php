@@ -12,14 +12,14 @@ class FormData {
 	private $headCountSlots = array(HC_BEG, HC_MID, HC_END);		# Const String[]
 	
 	// Form Fields
-	private $roomID; 												# String
-	private $timeSlot;												# String
-	private $headCount;												# int
-	private $headCountSlot;											# String
-	private $userID;												# String
+	private $roomID = NULL; 												# String
+	private $timeSlot = NULL;												# String
+	private $headCount = NULL;												# int
+	private $headCountSlot = NULL;											# String
+	private $userID = NULL;													# String
 	
 	
-	private $timeStamp;												# int
+	private $timeStamp = NULL;												# String
 	
 	public function __construct() {
 		define("HC_BEG", "Beginning");
@@ -43,7 +43,7 @@ class FormData {
 		$this->headCount 		= $field_values["head_count"];
 		$this->headCountSlot	= $field_values["head_count_slot"]; 
 		$this->userID			= $field_values["user_ID"];
-		$this->timeStamp		= $field_values["timestamp"];
+		$this->timeStamp		= $field_values["time_stamp"];
 	}
 	
 	// Sets an arbitrary attribute
@@ -70,7 +70,7 @@ class FormData {
 			case "user_ID":
 				$this->userID = $value;
 				break;
-			case "timestamp":
+			case "time_stamp":
 				$this->timeStamp = $value;
 				break;
 			default:
@@ -90,7 +90,7 @@ class FormData {
 					 "head_count" => $this->headCount,
 					 "head_count_slot" => $this->headCountSlot, 
 					 "user_ID" => $this->userID,
-					 "timestamp" => $this->timestamp
+					 "time_stamp" => $this->timeStamp,
 					);
 	}
 	
@@ -118,11 +118,12 @@ class FormData {
 			case "user_ID":
 				return $this->userID;
 				break;
-			case "timestamp":
+			case "time_stamp":
 				return $this->timeStamp;
 				break;
 			default:
-				return NULL;
+				return "EMPTY";
+				break;
 		}
 	}
 	
@@ -142,7 +143,7 @@ class FormData {
 	
 	// Splits the current timeSlot into its components(date, hours, mins, secs, etc.)
 	private function splitTimeSlot() {
-		return array($this->roomID);
+		return array($this->timeSlot);
 	}
 	
 }
