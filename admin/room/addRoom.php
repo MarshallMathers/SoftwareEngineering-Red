@@ -2,17 +2,18 @@
 include '../../dbconfig.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    $room = $_POST["room_name"];
-    $capacity = $_POST["capacity"];
-    $sql = "INSERT INTO Rooms (Room, Capacity) VALUES ('$room', '$capacity')";
-    if (mysqli_query($link, $sql)){
-        echo "<script type='text/javascript'>alert('Room successfully added.');</script>";
-    }else{
-        echo "<script type='text/javascript'>alert('Oops. Try Again Later.');</script>";
-    }
+   $room = $_POST["room_name"];
+   $capacity = $_POST["capacity"];
+   $sql = "INSERT INTO Rooms (Room, Capacity) VALUES ('$room', '$capacity')";
+   if (mysqli_query($link, $sql)){
+       echo "<script type='text/javascript'>alert('$room successfully added with a capacity of $capacity.');</script>";
+   }else{
+       echo "<script type='text/javascript'>alert('Oops. Try Again Later.');</script>";
+   }
 }
 mysqli_close($link);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +30,7 @@ mysqli_close($link);
             <div class="col-sm-4"></div>
             <div class="col-sm-4 text-center">
                 <br />
+				
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                     <div class="form-group">
                         <label>Room Name</label>
@@ -38,7 +40,7 @@ mysqli_close($link);
                         <label>Capacity</label>
                         <input type="number" id="capacity" name="capacity" min="0" class="form-control" />
                     </div>
-                    <input type="submit" value="Add" class="btn btn-primary" />
+                    <input type="submit" name="submit" value="Add" class="btn btn-primary" />
                     <br />
                     <br />
                     <input type="reset" class="btn btn-default" />
