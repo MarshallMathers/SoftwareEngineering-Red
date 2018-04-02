@@ -4,7 +4,7 @@
  * Contributors: Jacob Hayes, Thomas Cox
  */
  
- require("../../../dbconfig.php");
+ require(__DIR__."/../../dbconfig.php");
  if (isset($link)) {
  	$link->close();
  	$link=NULL;
