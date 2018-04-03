@@ -61,8 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$sqlDuplicate = "SELECT * FROM Forms WHERE RoomID = '$roomID' AND TimeslotID = '$timeslotID' AND HeadcountType = '$headCountType'";
 		$resultDuplicate = mysqli_query($link, $sqlDuplicate);
 		if (mysqli_num_rows($resultDuplicate) != 0){
-			echo "fuck";
-			echo "<script>confirm('test');</script>";
+			echo "<script>if(confirm('This form already exists. Are you sure you want to override it?')){}else{window.location = 'index.php';}</script>";
 		}
 
         // Prepare a select statement
