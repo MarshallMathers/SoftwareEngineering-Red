@@ -23,32 +23,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validate credentials
-    if (empty($username_err)) {
+    if (empty($userID_err)) {
         // Prepare a select statement
         $sql = "SELECT userID FROM Clients WHERE userID = ?";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            mysqli_stmt_bind_param($stmt, "s", $param_userID);
 
             // Set parameters
-            $param_username = trim($_POST["username"]);
+            $param_userID = trim($_POST["userID"]);
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
                 // Store result
                 mysqli_stmt_store_result($stmt);
                 
-                // Check if username exists, if yes then verify password
+                // Check if userID exists, if yes then verify password
                 if (mysqli_stmt_num_rows($stmt) == 1) {
                     /* userID is correct, so start a new session and
-                    save the username to the session */
+                    save the userID to the session */
                     session_start();
-                    $_SESSION["username"] = $username;
+                    $_SESSION["userID"] = $userID;
                     header("location: index.php");
                 } else {
-                    // Display an error message if username doesn't exist
-                    $username_err = "No account found with that userID.";
+                    // Display an error message if userID doesn't exist
+                    $userID_err = "No account found with that userID.";
                 }
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
