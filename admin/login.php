@@ -88,13 +88,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container">
             <div class="row">
                 <div class="col-sm-4"></div>
-                <div class="col-sm-4">
+                <div class="col-sm-4 text-center">
                     <h2>Administrator Portal</h2>
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 
                         <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                             <label for="usr">Username:</label>
-                            <input type="text" class="form-control" name="username" id="usr" style="width: 400px;">
+                            <input type="text" class="form-control" name="username" id="usr">
                             <span class="help-block" style="color:red;">
                                 <?php echo $username_err; ?>
                             </span>
@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <br>
                         <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                             <label for="pwd">Password:</label>
-                            <input type="password" class="form-control" name="password" id="pwd" style="width: 400px;">
+                            <input type="password" class="form-control" name="password" id="pwd">
                             <span class="help-block" style="color:red;">
                                 <?php echo $password_err; ?>
                             </span>
