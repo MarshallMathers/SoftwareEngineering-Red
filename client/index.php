@@ -119,8 +119,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				<div class="col-sm-4 text-center">
 					<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
 						<div class="form-group">
-							<label for="room_name">Room</label>
-							<select id="room_name" name="room_name" class="form-control">
+							<label for="RoomID">Room</label>
+							<select id="RoomID" name="RoomID" class="form-control">
 							<?php
 							while ($row = mysqli_fetch_array($resultRoom)) {
 								echo "<option value='" . $row['RoomID'] . "'>" . $row['Room'] . "</option>";
@@ -129,8 +129,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="time_slot">Timeslot</label>
-							<select id="time_slot" name="time_slot" class="form-control">
+							<label for="TimeslotID">Timeslot</label>
+							<select id="TimeslotID" name="TimeslotID" class="form-control">
 							<?php
 							while ($row = mysqli_fetch_array($resultTimeslot)) {
 								echo "<option value='" . $row['TimeslotID'] . "'>" . $row['Timeslot'] . "</option>";
@@ -139,15 +139,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="head_count_type">Headcount Type</label>
+							<label for="HeadCountType">Headcount Type</label>
 							<div class="radio-inline">
-								<input type="radio" name="head_count_type" id="head_count_type" value="Beginning"> Beginning
-								<input type="radio" name="head_count_type" id="head_count_type" value="Middle"> Middle
-								<input type="radio" name="head_count_type" id="head_count_type" value="End"> End
+								<input type="radio" name="HeadCountType" id="HeadCountType" value="Beginning"> Beginning
+								<input type="radio" name="HeadCountType" id="HeadCountType" value="Middle"> Middle
+								<input type="radio" name="HeadCountType" id="HeadCountType" value="End"> End
 							</div>
 						</div>
 						<div class="form-group">
-							<input type="number" name="head_count" value="0" min="0" pattern="[0-9]" class="form-control" />
+							<label for="HeadCount">Headcount</label>
+							<input type="number" name="HeadCount" value="0" min="0" pattern="[0-9]" class="form-control" />
 						</div>
 						<input type="submit" class="btn btn-primary" value="Submit" />
 						<input type="reset" class="btn btn-default" />
