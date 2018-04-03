@@ -94,6 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						</div>
 						<input type="submit" class="btn btn-primary" value="Submit" />
 						<input type="reset" class="btn btn-default" />
+						<a href="index.php" class="btn btn-secondary">Cancel</a>
 					</form>
 				</div>
 				<div class="col-sm-4"></div>
