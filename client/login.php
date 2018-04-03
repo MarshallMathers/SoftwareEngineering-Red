@@ -1,15 +1,16 @@
 <?php
-	$userID = "";
-	$userID_err = "";
-	
 	// Processing form data when form is submitted
 	session_start();
+	
+	$userID = "";
+	$userID_err = "";
 	
 	require_once("php/headCountApp.php");
 	
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$_SESSION["user_ID"] = $userID;
 		header("location: index.php");
+		exit;
 	}
 ?>
 <!DOCTYPE html>
