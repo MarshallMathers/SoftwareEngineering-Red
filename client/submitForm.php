@@ -1,4 +1,8 @@
 <?php
+
+	// Initialize the session
+	session_start();
+
 	require("php/headCountApp.php");
 			
 	if ($ret === false) {
