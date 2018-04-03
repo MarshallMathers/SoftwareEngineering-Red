@@ -77,6 +77,7 @@ include "dbconfig.php";
                             <a class="dropdown-item" href="form/addForm.php">Add Forms</a>
                             <a class="dropdown-item" href="form/modifyForm.php">Modify Forms</a>
                             <a class="dropdown-item" href="form/deleteForm.php">Delete Forms</a>
+                            <a class="dropdown-item" href="index.php">View Forms</a>
                         </div>
                     </div>
                     <br/>
