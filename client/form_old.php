@@ -1,4 +1,4 @@
-<?php	
+<?php
 	require("php/headCountApp.php");
 	
 	// Initialize the session
@@ -59,7 +59,7 @@
 	<!-- your code goes below -->
 
 	<div>
-	<form action="submitForm.php" method="POST" class="container">
+	<form action="<?php $_SERVER["SELF"]?>" method="POST" class="container">
 		<div class="form-group">
 			<label for="room_ID">Room ID:</label>
 			<select id="room_ID" name="room_ID">

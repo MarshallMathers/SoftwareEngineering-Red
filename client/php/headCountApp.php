@@ -28,7 +28,7 @@ class HeadCountApp {
 		$timeSlot		= $_POST["time_slot"];
 		$headCount		= $_POST["head_count"];
 		$headCountSlot	= $_POST["head_count_slot"];
-		$userID 		= $_POST["user_ID"];
+		$userID 		= $_SESSION["user_ID"];
 		$timeStamp		= $this->getTimeStamp(); // Do not Use Database default
 		
 		// Validate and Sanitize
@@ -85,20 +85,26 @@ class HeadCountApp {
 ////////////////////
 // MAIN CODE HERE //
 ////////////////////
-function main($msg) {
-	$ret = NULL;
-	$app = new HeadCountApp();
-	
+$msg = "";
+$ret = NULL;
+$result = NULL;
+$app = new HeadCountApp();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$type = $_POST["type"];
 	if ($type === "login") {
-		$userID = $_POST["user_ID"];
-		$valid = $app->login($userID);
-		if ($valid === true) {
-			$msg = $userID;
-			$ret = true;
-		} else {
-			$msg = "Unknown userID";
-			$ret = false;
+		// Check if username is empty
+		if (empty(trim($_POST["user_ID"]))) { $userID_err = 'Please enter a user ID'; }
+		else { $userID = trim($_POST["user_ID"]); }
+		
+		if (empty($userID_err)) {
+			$valid = $app->login($userID);
+			if ($valid === true) {
+				$_SESSION["ack"] = "Success";
+				$ret = true;
+			} else {
+				$userID_err = "Unknown userID";
+				$ret = false;
+			}
 		}
 	} else if ($type === "submit") {
 		$app->getFormData();
@@ -106,10 +112,10 @@ function main($msg) {
 		if ($valid === true) {
 			$success = $app->submitHeadCountData();
 			if ($success) {
-				$msg = "Thank you for your Submission!";
+				$_SESSION["ack"] = "Thank you for your Submission!";
 				$ret = true;
 			} else {
-				$msg = "Could not submit to database! Check with supervisor.";
+				$_SESSION["ack"] = "Could not submit to database! Try again later.";
 				$ret = false;
 			}
 		} else {
@@ -122,13 +128,5 @@ function main($msg) {
 		echo json_encode($data);
 		$ret = true;
 	}
-	
-	return array("result" => $ret, "message" => $msg);
 }
-
-$msg = "";
-$result = main($msg);
-
-$ret = $result["result"];
-$msg = $result["message"];
 ?>
