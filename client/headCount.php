@@ -13,12 +13,12 @@ include "../dbconfig.php";
 $headCount = "";
 $headCount_err = "";
 
-if (empty($_SESSION["RoomID"])) {
+if (empty($_SESSION["roomID"])) {
 	header("location: index.php");
 	exit;
 }
 
-$roomID = $_SESSION["RoomID"];
+$roomID = $_SESSION["roomID"];
 $timeslotID = $_SESSION["timeslotID"];
 $headCountType = $_SESSION["headCountType"];
 
