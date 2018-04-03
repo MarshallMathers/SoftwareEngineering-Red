@@ -1,3 +1,15 @@
+<?php
+include '../../dbconfig.php';
+
+$sql = "SELECT * FROM rooms";
+$result = mysqli_query($link,$sql);
+if (!$result) {
+    printf("Error: %s\n", mysqli_error($link));
+    exit();
+}
+mysqli_close($link);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +27,18 @@
             <div class="col-sm-4 text-center">
                 <br />
                 <div>
-                    DISPLAY ROOM DATA HERE
+					<table border="1" style="width:100% border-width:1px">
+						<tr>
+							<th>Room ID</th>
+							<th>Room Name</th> 
+							<th>Capacity</th>
+						</tr>
+						<?php
+							while ($row = mysqli_fetch_array($result)) {
+								echo "<tr><td>".$row['RoomID']."</td><td>".$row['Room']."</td><td>".$row['Capacity']."</td></tr>";	
+							}
+						?>
+					</table>
                 </div>
                 <br />
                 <a href="../index.php" class="btn btn-danger">Cancel</a>
