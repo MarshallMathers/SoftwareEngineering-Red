@@ -53,9 +53,9 @@
 						<div class="form-group">
 							<label for="head_count_type">Headcount Type</label>
 							<div class="radio-inline">
-								<input type="radio" name="options" id="option1">Beginning
-								<input type="radio" name="options" id="option2">Middle
-								<input type="radio" name="options" id="option3">End
+								<input type="radio" name="options" id="option1"> Beginning
+								<input type="radio" name="options" id="option2"> Middle
+								<input type="radio" name="options" id="option3"> End
 							</div>
 						</div>
 						<div class="form-group">
