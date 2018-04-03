@@ -55,7 +55,7 @@
 		*/
 		
 		// prepare sql and bind parameters
-		$sql = "INSERT INTO Forms (RoomID, TimeslotID, headcountType, HeadcountCount, UserID, Timestamp) VALUES (:rID, :tsID, :hcT, :hcC, :uID, :ts);";
+		$sql = "INSERT INTO Forms (RoomID, TimeslotID, HeadcountType, HeadcountCount, UserID, Timestamp) VALUES (:rID, :tsID, :hcT, :hcC, :uID, :ts);";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bindParam(':rID', $data["room_ID"]);
 		$stmt->bindParam(':tsID', $data["time_slot"]);
