@@ -88,7 +88,7 @@ include "dbconfig.php";
                             <thead>
                                 <?php
 
-                    $sql = "SELECT * FROM Forms";
+                    $sql = "SELECT * FROM Forms ORDER BY RoomID";
 
                     $result = $databaseConnection->query($sql);
 
@@ -103,22 +103,21 @@ include "dbconfig.php";
                         "</thead>";
 
                     while ($row = $result->fetch()) {
-                        // FormID, RoomID, HeadcountCount, USERID, HeadcountType, timestamp
                         $formid = $row['FormID'];
                         $roomid = $row['RoomID'];
                         $timeslotid = $row['TimeslotID'];
+                        $headcounttype = $row['HeadcountType'];
                         $headcount = $row['HeadcountCount'];
                         $userid = $row['UserID'];
-                        $headcounttype = $row['HeadcountType'];
                         $tstamp = $row['Timestamp'];
 
                         echo "<tr>" .
                             "<td>" . $formid . "</td>" . // FormID
                             "<td>" . $roomid . "</td>" . // RoomID
                             "<td>" . $timeslotid . "</td>" . // TimeslotID
+                            "<td>" . $headcounttype . "</td>" . // Headcountype
                             "<td>" . $headcount . "</td>" . // HeadcountCount
                             "<td>" . $userid . "</td>" . // UserID
-                            "<td>" . $headcounttype . "</td>" . // Headcountype
                             "<td>" . $tstamp . "</td>" . // Timestamp
                             "</tr>";
                     }
