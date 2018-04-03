@@ -27,6 +27,9 @@ $_SESSION["headCount"] = "";
 $sqlRoom = "SELECT RoomID, Room FROM Rooms";
 $resultRoom = mysqli_query($link, $sqlRoom);
 
+$row = mysqli_fetch_array($resultRoom);
+$capacity = $row["Capacity"];
+
 $sqlTimeslot = "SELECT TimeslotID, Timeslot FROM Timeslots";
 $resultTimeslot = mysqli_query($link, $sqlTimeslot);
 
@@ -113,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
 						<div class="form-group <?php echo (!empty($roomID_err)) ? "has-error" : ""; ?>">
 							<label for="RoomID">Room</label>
-							<select id="RoomID" name="RoomID" class="form-control">
+							<select id="RoomID" name="RoomID" class="form-control" onchange="changeCapacity()">
 							<?php
 							while ($row = mysqli_fetch_array($resultRoom)) {
 								echo "<option value='" . $row['RoomID'] . "'>" . $row['Room'] . "</option>";
@@ -150,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						</div>
 						<div class="form-group <?php echo (!empty($headCount_err)) ? "has-error" : ""; ?>">
 							<label for="HeadCount">Headcount</label>
-							<input type="number" name="HeadCount" value="0" min="0" pattern="[0-9]" class="form-control" />
+							<input type="number" name="HeadCount" min="0" max="<?php echo $capacity; ?>" pattern="[0-9]" class="form-control" />
 							<span class="help-block" style="color:red;">
 								<?php echo $headCount_err; ?>
 							</span>
@@ -162,6 +165,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				<div class="col-sm-4"></div>
 			</div>
 		</div>
+		<script>
+			function changeCapacity(){
+
+			}
+		</script>
 	</body>
 
 	</html>
