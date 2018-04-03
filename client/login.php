@@ -41,7 +41,6 @@ require("php/headCountApp.php");
 							<?php echo $userID_err; ?>
 						</span>
 					</div>
-
 					<div class="form-group">
 						<input type="submit" class="btn btn-primary" value="Sign In">
 						<input type="hidden" name="type" value="login" />
