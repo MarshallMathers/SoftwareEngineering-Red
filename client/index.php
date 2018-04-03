@@ -57,6 +57,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate credentials
     if (empty($roomID_err) && empty($timeslotID_err) && empty($headCountType_err) && empty($headCount_err)) {
+		// Check for duplicates
+		$sqlDuplicate = "SELECT * FROM Forms WHERE RoomID = '$roomID' AND TimeslotID = '$timeslotID' AND HeadcountType = '$headCountType'";
+		$resultDuplicate = mysqli_query($link, $sqlDuplicate);
+		if (mysqli_num_rows($resultDuplicate) != 0){
+			echo '<script>if(confirm(A record already exists. Would you like to overwrite it?)){}else{document.location = index.php}</script>';
+		}
+
         // Prepare a select statement
         $sql = "INSERT INTO Forms (RoomID, TimeslotID, HeadcountType, HeadcountCount, UserID) VALUES (?, ?, ?, ?, ?)";
 
