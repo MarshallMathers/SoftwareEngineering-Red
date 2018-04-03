@@ -96,9 +96,9 @@ include "dbconfig.php";
                         "<th>FormID</th>" .
                         "<th>RoomID</th>" .
                         "<th>TimeslotID</th>" .
+                        "<th>HeadcountType</th>" .
                         "<th>Headcount Count</th>" .
                         "<th>UserID</th>" .
-                        "<th>HeadcountType</th>" .
                         "<th>Timestamp</th>" .
                         "</thead>";
 
