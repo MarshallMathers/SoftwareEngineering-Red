@@ -1,5 +1,4 @@
 <?php
-echo "f";
 /* Database credentials. */
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');

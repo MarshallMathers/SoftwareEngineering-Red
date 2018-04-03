@@ -9,8 +9,11 @@ if (!isset($_SESSION["userID"]) || empty($_SESSION["userID"])) {
 // Include config file
 include "../dbconfig.php";
 
-$sql = "SELECT Room FROM rooms";
-$result = mysqli_query($link, $sql);
+$sqlRoom = "SELECT Room FROM Rooms";
+$resultRoom = mysqli_query($link, $sqlRoom);
+
+$sqlTimeslot = "SELECT Timeslot FROM Timeslots";
+$resultTimeslot = mysqli_query($link, $sqlTimeslot);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
@@ -51,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<label for="room_name">Room</label>
 							<select id="room_name" name="room_name" class="form-control">
 							<?php
-							while ($row = mysqli_fetch_array($result)) {
+							while ($row = mysqli_fetch_array($resultRoom)) {
 								echo "<option value='" . $row['Room'] . "'>" . $row['Room'] . "</option>";
 							}
 							?>
@@ -60,6 +63,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<div class="form-group">
 							<label for="time_slot">Timeslot</label>
 							<select id="time_slot" name="time_slot" class="form-control">
+							<?php
+							while ($row = mysqli_fetch_array($resultTimeslot)) {
+								echo "<option value='" . $row['Timeslot'] . "'>" . $row['Timeslot'] . "</option>";
+							}
+							?>
 							</select>
 						</div>
 						<div class="form-group">
