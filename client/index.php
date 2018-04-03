@@ -81,10 +81,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
-				echo "<script>alert('Form successfully submitted!');</script>";
-				header("location: index.php");
+				echo "<script>alert('Form successfully submitted!');window.location = 'index.php';</script>";
             } else {
-                echo "<script>alert('Oops! Something went wrong. Please try again later.');</script>";
+                echo "<script>alert('Oops! Something went wrong. Please try again later.');window.location = 'index.php';</script>";
             }
         }
 
