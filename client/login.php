@@ -7,12 +7,6 @@ if (isset($_SESSION["userID"]) || !empty($_SESSION["userID"])) {
     exit;
 }
 require("php/headCountApp.php");
-	
-if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($userID_err)) {
-	$_SESSION["userID"] = $userID;
-	header("location: index.php");
-	exit;
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,8 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($userID_err)) {
 				<h2>Volunteer Portal Login</h2>
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
 					<div class="form-group <?php echo (!empty($userID_err)) ? "has-error" : ""; ?>">
-						<label for="user_ID">User ID:</label>
-						<input type="text" class="form-control" name="user_ID" id="user_ID" required>
+						<label for="userID">UserID:</label>
+						<input type="text" class="form-control" name="user_ID" id="userID">
 						<span class="help-block" style="color:red;">
 							<?php echo $userID_err; ?>
 						</span>
