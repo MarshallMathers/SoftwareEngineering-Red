@@ -31,7 +31,7 @@
 	// Opens a connection to the database. Returns TRUE if successful, FALSE otherwise. 
 	public function openConnection() {
 		try {
-    		$this->$conn = new PDO("mysql:host=".DB_SERVER.";dbname=".DB_NAME, DB_USERNAME, DB_PASSWORD);
+    		$this->conn = new PDO("mysql:host=".DB_SERVER.";dbname=".DB_NAME, DB_USERNAME, DB_PASSWORD);
     		//$this->conn = new PDO("sqlite:".__DIR__."../../../database/headCountApp.db");
     		//:host=".$host.";dbname=headCountApp.db", $this->$username, $this->$password);
    			// set the PDO error mode to exception
