@@ -40,7 +40,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-4"></div>
-				<div class="col-sm-4">
+				<div class="col-sm-4 text-center">
 					<form action="<?php echo $_SERVER[" PHP_SELF "]; ?>" method="post">
 						<div class="form-group">
 							<label for="room_name">Room</label>
