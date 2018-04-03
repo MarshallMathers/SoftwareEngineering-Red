@@ -9,27 +9,18 @@ if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
 // Include config file
 include "../../dbconfig.php";
 
-$selectUsersSqlStatement = "SELECT UserID FROM Clients";
-$result = mysqli_query($link, $selectUsersSqlStatement);
-$currentUsers = array();
-
-while ($row = mysqli_fetch_array($result)) {
-    $currentUsers[] = $row['UserID'];
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userID = $_POST["userID"];
-    for ($i = 0; $i < count($currentUsers); $i++) {
-        if ($currentUsers[$i] === $userID) {
-            echo "<script type='text/javascript'>alert('$userID is a name already in the database.');window.location.href='addUser.php';</script>";
-            return false;
-        }
+    $sql = "SELECT UserID FROM Clients WHERE UserID = '$userID'";
+    $result = mysqli_query($link, $sql);
+    if (mysqli_num_rows($result) != 0) {
+        echo "<script>alert('$userID already exists.');window.location.href='addUser.php';</script>";
     }
-    $insertUserSqlStatement = "INSERT INTO Clients (UserID) VALUE ('$userID')";
-    if (mysqli_query($link, $insertUserSqlStatement)) {
-        echo "<script type='text/javascript'>alert('$userID successfully added.');</script>";
+    $sqlAdd = "INSERT INTO Clients (UserID) VALUE ('$userID')";
+    if (mysqli_query($link, $sqlAdd)) {
+        echo "<script>alert('$userID successfully added!');</script>";
     } else {
-        echo "<script type='text/javascript'>alert('Oops. Try Again Later.');</script>";
+        echo "Oops! Something went wrong. Please try again later.";
     }
 }
 mysqli_close($link);
