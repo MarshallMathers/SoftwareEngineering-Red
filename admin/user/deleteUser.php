@@ -64,11 +64,6 @@ mysqli_close($link);
                     <input type="reset" class="btn btn-default"/>
                     <a href="../index.php" class="btn btn-danger">Cancel</a>
                 </form>
-<<<<<<< HEAD
-=======
-                <br/>
-                <a href="../index.php" class="btn btn-danger">Cancel</a>
->>>>>>> 6f1226c87db172abb47f89084098eb357020fe3b
             </div>
             <div class="col-sm-4"></div>
         </div>
