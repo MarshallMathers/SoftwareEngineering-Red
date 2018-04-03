@@ -41,7 +41,7 @@ mysqli_close($link);
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>User ID</th>
+                            <th>UserID</th>
                         </tr>
                     </thead>
                     <?php
