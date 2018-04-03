@@ -86,41 +86,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <div class="container">
-            <div class="py-5 text-center">
-                <h2>Administrator Portal</h2>
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <h2>Administrator Portal</h2>
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 
-                    <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-                        <label for="usr">Username:</label>
-                        <center>
+                        <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+                            <label for="usr">Username:</label>
                             <input type="text" class="form-control" name="username" id="usr" style="width: 400px;">
                             <span class="help-block" style="color:red;">
                                 <?php echo $username_err; ?>
                             </span>
-                        </center>
-                    </div>
-                    <br>
-                    <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-                        <label for="pwd">Password:</label>
-                        <center>
+                        </div>
+                        <br>
+                        <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+                            <label for="pwd">Password:</label>
                             <input type="password" class="form-control" name="password" id="pwd" style="width: 400px;">
                             <span class="help-block" style="color:red;">
                                 <?php echo $password_err; ?>
                             </span>
-                        </center>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-primary" value="Sign In">
-                    </div>
-                    <br/>
-                    <br/>
-                </form>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="Sign In">
+                        </div>
+                        <br/>
+                        <br/>
+                    </form>
 
-                <br>
-                <br>
-                <h5> Not an Administrator? Sign in to the Volunteer Portal:</h5>
-                <a class="btn btn-outline-primary" href="../client/index.php">Volunteer Sign In</a>
+                    <br>
+                    <br>
+                    <h5> Not an Administrator? Sign in to the Volunteer Portal:</h5>
+                    <a class="btn btn-outline-primary" href="../client/index.php">Volunteer Sign In</a>
+                </div>
+                <div class="col-sm-4"></div>
             </div>
         </div>
     </body>
