@@ -1,6 +1,6 @@
 <?php
 	define('DBHOST','localhost');
-	define('DBNAME','headcountapp');
+	define('DBNAME','headCountApp');
 	define('DBUSER','root');
-	define('DBPASS','wit123');
+	define('DBPASS','p4ssw0rd');
 ?>
