@@ -1,7 +1,4 @@
-<?php
-	// Start the session
-	session_start();
-	
+<?php	
 	require("php/headCountApp.php");
 	
 	if ($ret === false) {
@@ -9,19 +6,22 @@
 		$host  = $_SERVER['HTTP_HOST'];
 		$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 		$extra = 'index.php';
+		$_SESSION["error"] = $msg;
 		header("Location: http://$host$uri/$extra");
 		exit;
 	} else {
-		if (!(isset($_COOKIE["user_ID"]))) {
+		/*if (!(isset($_COOKIE["user_ID"]))) {
 			setcookie("user_ID", $msg, time()+60*60*24*3);
 		}
-		$userID = (strlen($_COOKIE["user_ID"]) > 0) ? $_COOKIE["user_ID"] : $msg;
+		$userID = (strlen($_COOKIE["user_ID"]) > 0) ? $_COOKIE["user_ID"] : $msg;*/
+		$_SESSION["user_ID"] = $_POST["user_ID"];
 	}
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
+
+<head>
+	<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -41,17 +41,16 @@
 	-->
 	
 </head>
-
 <body>
 	<h1 style="background-color:lightgreen;">
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-light border-bottom box-shadow">
-      <h5 class="my-0 mr-md-auto font-weight-normal," background-color:DodgerBlue;> Boston Code Camp </h5> 
-      <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-10 color: blue"><?php echo $userID; ?></a> 
-        <p style="color:Blue;"> </p> 
+    	<h5 class="my-0 mr-md-auto font-weight-normal," background-color:DodgerBlue;> Boston Code Camp </h5> 
+    	<nav class="my-2 my-md-0 mr-md-3">
+        	<a class="p-10 color: blue"><?php echo $_SESSION["user_ID"]; ?></a> 
+        	<p style="color:Blue;"> </p> 
           <!--this will be the name of the logged in admin -->
-      </nav>
-      <a class="btn btn-outline-primary" href="index.php">Sign Out</a> <!-- remove the Username and Sign Out sections for the login page, they will be displayed after -->
+        </nav>
+        <a class="btn btn-outline-primary" href="index.php">Sign Out</a> <!-- remove the Username and Sign Out sections for the login page, they will be displayed after -->
     </div>
 	
 	<!-- your code goes below -->
@@ -87,9 +86,10 @@
 		</form>
 		
 		<div id="ackContainer">	
-			<?php echo $_COOKIE["error"]; ?>
+			<?php echo $_SESSION["error"]; ?>
 		</div>
 	</div>
 	
 </body>
+
 </html>

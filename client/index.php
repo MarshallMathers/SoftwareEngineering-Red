@@ -2,8 +2,10 @@
 	// Start the session
 	session_start();
 	
-	setCookie("user_ID", "", time() - 60*60);
-	setCookie("error", "", time() - 60*60);
+	//setCookie("user_ID", "", time() - 60*60);
+	//setCookie("error", "", time() - 60*60);
+	$_SESSION["user_ID"] = NULL;
+	$_SESSION["error"] = NULL;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,15 +29,10 @@
 	
 	<title>Client Login</title>
 </head>
-
 <body>
 
 	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-light border-bottom box-shadow">
-      <h5 class="my-0 mr-md-auto font-weight-normal">Boston Code Camp</h5>
-      <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark">Sign In</a> <!--this will be the name of the logged in admin -->
-      </nav>
-      <a class="btn btn-outline-primary" href="index.php">Sign Out</a> <!-- remove the Username and Sign Out sections for the login page, they will be displayed after -->
+    	<h5 class="my-0 mr-md-auto font-weight-normal">Boston Code Camp</h5>
     </div>
 
 	<div class="container">
@@ -48,7 +45,7 @@
 						<input type="text" name="user_ID" class="form-control"/>
 					</div>
 					<input type="submit" value="Submit" class="btn btn-primary"/>
-					<input type="hidden" value="login" name="type"/>
+					<input type="hidden" name="type" value="login"/>
 				</form>
 			</div>
 			<div class="col-sm-4"></div>
