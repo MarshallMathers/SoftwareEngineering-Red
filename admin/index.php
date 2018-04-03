@@ -121,6 +121,8 @@ include "../dbconfig.php";
                                         "<td>" . $tstamp . "</td>" . // Timestamp
                                         "</tr>";
                                 }
+                                // Close connection
+                                mysqli_close($link);
                             ?>
                         </table>
                     </div>
