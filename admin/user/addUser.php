@@ -12,8 +12,8 @@ include "../../dbconfig.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userID = $_POST["userID"];
     $sql = "SELECT UserID FROM Clients WHERE UserID = '$userID'";
-    $databaseQueryResult = mysqli_query($link, $sql);
-    if (mysqli_num_rows($databaseQueryResult) != 0) {
+    $result = mysqli_query($link, $sql);
+    if (mysqli_num_rows($result) != 0) {
         echo "<script>alert('$userID already exists.');window.location.href='addUser.php';</script>";
     } else {
         $sqlAdd = "INSERT INTO Clients (UserID) VALUE ('$userID')";
