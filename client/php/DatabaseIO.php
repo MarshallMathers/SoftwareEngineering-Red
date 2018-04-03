@@ -87,7 +87,7 @@
 	
 	// returns True if $userID is in the Clients table of the database; false otherwise
 	public function checkUserID($userID) {
-		$sql = "SELECT UserID FROM Clients WHERE UserID = ?";
+		$sql = "SELECT UserID FROM Clients WHERE UserID == ?";
 		$params = array($userID);
 		$res_userID = $this->query($sql, $params);
 		
@@ -96,7 +96,7 @@
 	}
 	
 	public function getRoomCapacity($roomID) {
-		$sql = "SELECT Capacity FROM Rooms WHERE RoomID = ?";
+		$sql = "SELECT Capacity FROM Rooms WHERE RoomID == ?";
 		$params = array($roomID);
 		$res_capacity = $this->query($sql, $params);
 		
