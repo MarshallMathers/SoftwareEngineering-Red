@@ -6,62 +6,7 @@ if (isset($_SESSION["userID"]) || !empty($_SESSION["userID"])) {
     header("location: index.php");
     exit;
 }
-// Include config file
-include "../dbconfig.php";
-
-// Define variables and initialize with empty values
-$userID = "";
-$userID_err = "";
-
-// Processing form data when form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Check if userID is empty
-    if (empty(trim($_POST["userID"]))) {
-        $userID_err = "Please enter userID.";
-    } else {
-        $userID = trim($_POST["userID"]);
-    }
-
-    // Validate credentials
-    if (empty($userID_err)) {
-        // Prepare a select statement
-        $sql = "SELECT userID FROM Clients WHERE userID = ?";
-
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_userID);
-
-            // Set parameters
-            $param_userID = trim($_POST["userID"]);
-
-            // Attempt to execute the prepared statement
-            if (mysqli_stmt_execute($stmt)) {
-                // Store result
-                mysqli_stmt_store_result($stmt);
-                
-                // Check if userID exists, if yes then verify password
-                if (mysqli_stmt_num_rows($stmt) == 1) {
-                    /* userID is correct, so start a new session and
-                    save the userID to the session */
-                    session_start();
-                    $_SESSION["userID"] = $userID;
-                    header("location: index.php");
-                } else {
-                    // Display an error message if userID doesn't exist
-                    $userID_err = "No account found with that userID.";
-                }
-            } else {
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-        }
-
-        // Close statement
-        mysqli_stmt_close($stmt);
-    }
-
-    // Close connection
-    mysqli_close($link);
-}
+require("php/headCountApp.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
