@@ -27,12 +27,14 @@ mysqli_close($link);
             <div class="col-sm-4 text-center">
                 <br />
                 <div>
-					<table border="1" style="width:100% border-width:1px">
-						<tr>
-							<th>Room ID</th>
-							<th>Room Name</th> 
-							<th>Capacity</th>
-						</tr>
+					<table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Room ID</th>
+                                <th>Room Name</th>
+                                <th>Capacity</th>
+                            </tr>
+                        </thead>
 						<?php
 							while ($row = mysqli_fetch_array($result)) {
 								echo "<tr><td>".$row['RoomID']."</td><td>".$row['Room']."</td><td>".$row['Capacity']."</td></tr>";	

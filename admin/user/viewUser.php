@@ -27,9 +27,11 @@ mysqli_close($link);
                 <br />
                 <div>
                     <table class="table table-bordered">
-                        <tr>
-                            <th>User ID</th>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                            </tr>
+                        </thead>
                         <?php
                         while ($row = mysqli_fetch_array($result)) {
                             echo "<tr><td>".$row['UserID']."</td></tr>";
