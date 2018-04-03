@@ -1,8 +1,8 @@
 <?php
 include '../../dbconfig.php';
 
-$sql1 = "SELECT Timeslot FROM timeslots";
-$result = mysqli_query($link,$sql1);
+$sql = "SELECT Room FROM rooms";
+$result = mysqli_query($link,$sql);
 
 if (!$result) {
     printf("Error: %s\n", mysqli_error($link));
@@ -10,19 +10,18 @@ if (!$result) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-   $timeslotID = $_POST["time_slot_ID"];
-   $sql2 = "DELETE FROM timeslots WHERE Timeslot = '$timeslotID'";
+   $roomID = $_POST["room_ID"];
+   $sql = "DELETE FROM rooms WHERE Room = '$roomID'";
    
-   if (mysqli_query($link, $sql2)){
-       echo "<script type='text/javascript'>alert('$timeslotID successfully deleted.');</script>";
-	   header("location: deleteTimeslot.php");
+   if (mysqli_query($link, $sql)){
+       echo "<script type='text/javascript'>alert('$roomID successfully deleted.');</script>";
+	   header("location: deleteRoom.php");
    }else{
        echo "<script type='text/javascript'>alert('Oops. Try Again Later.');</script>";
    }
 }
 mysqli_close($link);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +54,7 @@ mysqli_close($link);
                         <select id="time_slot_ID" name="time_slot_ID" class="form-control">
 						<?php
 						while ($row = mysqli_fetch_array($result)) {
-							echo "<option value='" . $row['Timselot'] . "'>" . $row['Timeslot'] . "</option>";
+							echo "<option value='" . $row['Timeslot'] . "'>" . $row['Timeslot'] . "</option>";
 						}
 						?>
 						</select>
