@@ -167,7 +167,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		</div>
 		<script>
 			function changeCapacity(){
-
+				<?php
+				$sqlCap = "SELECT Capacity FROM Rooms";
+				$resultCap = mysqli_query($link, $sqlCap);
+				
+				$row = mysqli_fetch_array($resultCap);
+				$capacity = $row["Capacity"];
+				echo "<script>document.getElementById('HeadCount').max = ".$capacity."</script>";
+				?>
 			}
 		</script>
 	</body>
