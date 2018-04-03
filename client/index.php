@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if (mysqli_num_rows($resultDuplicate) != 0){
 			echo "<script>if(confirm('This form already exists. Are you sure you want to override it?')){window.location = 'submitForm.php';}else{window.location = 'index.php';}</script>";
 		}else{
-			header("location: submitForm.php")
+			header("location: submitForm.php");
 		}
     }
 
