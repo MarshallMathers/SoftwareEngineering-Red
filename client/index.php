@@ -24,7 +24,7 @@ $_SESSION["timeslotID"] = "";
 $_SESSION["headCountType"] = "";
 $_SESSION["headCount"] = "";
 
-$sqlRoom = "SELECT RoomID, Room FROM Rooms";
+$sqlRoom = "SELECT RoomID, Room, Capacity FROM Rooms";
 $resultRoom = mysqli_query($link, $sqlRoom);
 
 $row = mysqli_fetch_array($resultRoom);
