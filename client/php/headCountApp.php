@@ -119,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				$ret = false;
 			}
 		} else {
-			$msg = $valid;
+			$_SESSION["ack"] = "Please enter a number within 110% of room capacity.";
 			$ret = false;
 		}
 	} else if ($type === "data") {
