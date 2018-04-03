@@ -1,3 +1,29 @@
+<?php
+include '../../dbconfig.php';
+
+$sql1 = "SELECT Timeslot FROM timeslots";
+$result = mysqli_query($link,$sql1);
+
+if (!$result) {
+    printf("Error: %s\n", mysqli_error($link));
+    exit();
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+   $timeslotID = $_POST["time_slot_ID"];
+   $sql2 = "DELETE FROM timeslots WHERE Timeslot = '$timeslotID'";
+   
+   if (mysqli_query($link, $sql2)){
+       echo "<script type='text/javascript'>alert('$timeslotID successfully deleted.');</script>";
+	   header("location: deleteTimeslot.php");
+   }else{
+       echo "<script type='text/javascript'>alert('Oops. Try Again Later.');</script>";
+   }
+}
+mysqli_close($link);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,8 +42,14 @@
                 <br />
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                     <div class="form-group">
-                        <label>Timeslot ID</label>
-                        <select id="time_slot_ID" name="time_slot_ID" class="form-control"></select>
+                        <label>Timeslot</label>
+                        <select id="time_slot_ID" name="time_slot_ID" class="form-control">
+						<?php
+						while ($row = mysqli_fetch_array($result)) {
+							echo "<option value='" . $row['Timselot'] . "'>" . $row['Timeslot'] . "</option>";
+						}
+						?>
+						</select>
                     </div>
                     <input type="submit" value="Delete" class="btn btn-primary" />
                     <br />

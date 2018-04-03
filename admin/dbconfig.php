@@ -12,7 +12,6 @@ try {
         DB_PASSWORD);
     // Set the PHP Data Object (PDO) error mode to exception
     $databaseConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Database connection successfully established";
 } catch (PDOException $databaseConnectionException) {
     die("Database Connection failed: " . $databaseConnectionException->getMessage());
 }
