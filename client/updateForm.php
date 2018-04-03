@@ -9,6 +9,11 @@ if (!isset($_SESSION["userID"]) || empty($_SESSION["userID"])) {
 // Include config file
 include "../dbconfig.php";
 
+if (empty($_SESSION["roomID"])) {
+	header("location: index.php");
+	exit;
+}
+
 $roomID = $_SESSION["roomID"];
 $timeslotID = $_SESSION["timeslotID"];
 $headCountType = $_SESSION["headCountType"];

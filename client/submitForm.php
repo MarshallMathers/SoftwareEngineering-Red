@@ -9,6 +9,11 @@ if (!isset($_SESSION["userID"]) || empty($_SESSION["userID"])) {
 // Include config file
 include "../dbconfig.php";
 
+if (empty($_SESSION["roomID"])) {
+	header("location: index.php");
+	exit;
+}
+
 // Prepare a select statement
 $sql = "INSERT INTO Forms (RoomID, TimeslotID, HeadcountType, HeadcountCount, UserID) VALUES (?, ?, ?, ?, ?)";
 
