@@ -2,8 +2,8 @@
 include '../../dbconfig.php';
 
 $sql = "SELECT * FROM Clients";
-$result = mysqli_query($link,$sql);
-if (!$result) {
+$databaseQueryResult = mysqli_query($link,$sql);
+if (!$databaseQueryResult) {
     printf("Error: %s\n", mysqli_error($link));
     exit();
 }
@@ -27,7 +27,7 @@ mysqli_close($link);
                 <?php echo htmlspecialchars($_SESSION["username"]); ?>
             </a>
         </nav>
-        <a class="btn btn-outline-primary" href="logout.php">Sign Out</a>
+        <a class="btn btn-outline-primary" href="../logout.php">Sign Out</a>
     </div>
     <div class="container">
         <div class="row">
@@ -42,7 +42,7 @@ mysqli_close($link);
                             </tr>
                         </thead>
                         <?php
-                        while ($row = mysqli_fetch_array($result)) {
+                        while ($row = mysqli_fetch_array($databaseQueryResult)) {
                             echo "<tr><td>".$row['UserID']."</td></tr>";
                         }
                         ?>
@@ -50,9 +50,6 @@ mysqli_close($link);
                 </div>
                 <br />
                 <a href="../index.php" class="btn btn-danger">Cancel</a>
-                <br />
-                <br />
-                <a href="../logout.php" class="btn btn-secondary">Logout</a>
             </div>
             <div class="col-sm-4"></div>
         </div>
