@@ -7,9 +7,8 @@
 	}
 	
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		require_once("php/headCountApp.php");
+		require("php/headCountApp.php");
 	}
-	
 ?>
 <!DOCTYPE html>
 <html lang="en">

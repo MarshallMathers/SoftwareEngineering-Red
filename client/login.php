@@ -5,9 +5,9 @@
 	$userID = "";
 	$userID_err = "";
 	
-	require_once("php/headCountApp.php");
+	require("php/headCountApp.php");
 	
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($userID_err)) {
 		$_SESSION["user_ID"] = $userID;
 		header("location: index.php");
 		exit;
