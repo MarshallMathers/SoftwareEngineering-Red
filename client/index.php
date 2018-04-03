@@ -43,7 +43,7 @@
         	<p style="color:Blue;"> </p> 
           <!--this will be the name of the logged in admin -->
         </nav>
-        <a class="btn btn-outline-primary" href="index.php">Sign Out</a> <!-- remove the Username and Sign Out sections for the login page, they will be displayed after -->
+        <a class="btn btn-outline-primary" href="logout.php">Sign Out</a> <!-- remove the Username and Sign Out sections for the login page, they will be displayed after -->
     </div>
 	
 	<!-- your code goes below -->
