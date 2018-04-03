@@ -18,7 +18,7 @@
 	// Opens a connection to the database. Returns TRUE if successful, FALSE otherwise. 
 	public function openConnection() {
 		try {
-			define(_SERVER, "127.0.0.1");
+			define(_SERVER, "localhost");
 			define(_USERNAME, "root");
 			define(_PASSWORD, "p4ssw0rd");
 			define(_NAME, "headCountApp");
