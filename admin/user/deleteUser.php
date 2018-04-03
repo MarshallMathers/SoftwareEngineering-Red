@@ -1,25 +1,29 @@
 <?php
-include '../../dbconfig.php';
-
-$selectUsersSqlStatement = "SELECT UserID FROM Clients";
-$databaseQueryResult = mysqli_query($link, $selectUsersSqlStatement);
-
-if (!$databaseQueryResult) {
-    printf("Error: %s\n", mysqli_error($link));
-    exit();
+// Initialize the session
+session_start();
+// If session variable is not set it will redirect to login page
+if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
+    header("location: login.php");
+    exit;
 }
+// Include config file
+include "../../dbconfig.php";
+
+$sql = "SELECT UserID FROM Clients";
+$result = mysqli_query($link, $sql);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $userID = $_POST["userID_ID"];
-    $deleteUserSqlStatement = "DELETE FROM Clients WHERE UserID = '$userID'";
+    $userID = $_POST["userID"];
+    $sqlDelete = "DELETE FROM Clients WHERE UserID = '$userID'";
 
-    if (mysqli_query($link, $deleteUserSqlStatement)) {
-        echo "<script type='text/javascript'>alert('$userID successfully deleted.');</script>";
+    if (mysqli_query($link, $sqlDelete)) {
+        echo "<script type='text/javascript'>alert('$userID successfully deleted!');</script>";
         header("location: deleteUser.php");
     } else {
-        echo "<script type='text/javascript'>alert('Oops. Try Again Later.');</script>";
+        echo "Oops! Something went wrong. Please try again later.";
     }
 }
+
 mysqli_close($link);
 ?>
 <!DOCTYPE html>
@@ -46,27 +50,20 @@ mysqli_close($link);
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4 text-center">
-                <br/>
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                     <div class="form-group">
                         <label>UserID</label>
-                        <select id="userID_ID" name="userID_ID" class="form-control"><?php
-                            while ($row = mysqli_fetch_array($databaseQueryResult)) {
+                        <select id="userID" name="userID" class="form-control"><?php
+                            while ($row = mysqli_fetch_array($result)) {
                                 echo "<option value='" . $row['UserID'] . "'>" . $row['UserID'] . "</option>";
                             }
                             ?>
                         </select>
                     </div>
                     <input type="submit" value="Delete" class="btn btn-primary"/>
-                    <br/>
-                    <br/>
                     <input type="reset" class="btn btn-default"/>
+                    <a href="../index.php" class="btn btn-danger">Cancel</a>
                 </form>
-                <br/>
-                <a href="../index.php" class="btn btn-danger">Cancel</a>
-                <br/>
-                <br/>
-                <a href="../logout.php" class="btn btn-secondary">Logout</a>
             </div>
             <div class="col-sm-4"></div>
         </div>
