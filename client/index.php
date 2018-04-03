@@ -9,11 +9,59 @@ if (!isset($_SESSION["userID"]) || empty($_SESSION["userID"])) {
 // Include config file
 include "../dbconfig.php";
 
+// Define variables and initialize with empty values
+$roomID = "";
+$timeslotID = "";
+$headCountType = "";
+$roomID_err = "";
+$timeslotID_err = "";
+$headCountType_err = "";
+
+$_SESSION["roomID"] = "";
+$_SESSION["timeslotID"] = "";
+$_SESSION["headCountType"] = "";
+$_SESSION["headCount"] = "";
+
 $sqlRoom = "SELECT RoomID, Room FROM Rooms";
 $resultRoom = mysqli_query($link, $sqlRoom);
 
 $sqlTimeslot = "SELECT TimeslotID, Timeslot FROM Timeslots";
 $resultTimeslot = mysqli_query($link, $sqlTimeslot);
+
+// Processing form data when form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if RoomID is empty
+    if (empty(trim($_POST["RoomID"]))) {
+        $roomID_err = "Please select Room.";
+    } else {
+        $roomID = trim($_POST["RoomID"]);
+	}
+	
+	// Check if TimeslotID is empty
+    if (empty(trim($_POST["TimeslotID"]))) {
+        $timeslotID_err = "Please select Timeslot.";
+    } else {
+        $timeslotID = trim($_POST["TimeslotID"]);
+	}
+	
+	// Check if HeadCountType is empty
+    if (empty(trim($_POST["HeadCountType"]))) {
+        $headCountType_err = "Please select Headcount Type.";
+    } else {
+        $headCountType = trim($_POST["HeadCountType"]);
+	}
+
+    // Validate credentials
+    if (empty($roomID_err) && empty($timeslotID_err) && empty($headCountType_err)) {
+		$_SESSION["roomID"] = $roomID;
+		$_SESSION["timeslotID"] = $timeslotID;
+		$_SESSION["headCountType"] = $headCountType;
+		header("location: headCount.php");
+    }
+
+    // Close connection
+    mysqli_close($link);
+}
 ?>
 	<!DOCTYPE html>
 	<html lang="en">
@@ -45,7 +93,7 @@ $resultTimeslot = mysqli_query($link, $sqlTimeslot);
 			<div class="row">
 				<div class="col-sm-4"></div>
 				<div class="col-sm-4 text-center">
-					<form action="headCount.php" method="post">
+					<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
 						<div class="form-group <?php echo (!empty($roomID_err)) ? "has-error" : ""; ?>">
 							<label for="RoomID">Room</label>
 							<select id="RoomID" name="RoomID" class="form-control">

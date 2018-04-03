@@ -10,51 +10,25 @@ if (!isset($_SESSION["userID"]) || empty($_SESSION["userID"])) {
 include "../dbconfig.php";
 
 // Define variables and initialize with empty values
-$roomID = "";
-$timeslotID = "";
-$headCountType = "";
 $headCount = "";
-$roomID_err = "";
-$timeslotID_err = "";
-$headCountType_err = "";
 $headCount_err = "";
 
-$_SESSION["roomID"] = "";
-$_SESSION["timeslotID"] = "";
-$_SESSION["headCountType"] = "";
-$_SESSION["headCount"] = "";
+if (empty($_SESSION["RoomID"])) {
+	header("location: index.php");
+	exit;
+}
 
-$sqlRoom = "SELECT RoomID, Room, Capacity FROM Rooms";
+$roomID = $_SESSION["RoomID"];
+$timeslotID = $_SESSION["timeslotID"];
+$headCountType = $_SESSION["headCountType"];
+
+$sqlRoom = "SELECT Capacity FROM Rooms WHERE RoomID = '$roomID'";
 $resultRoom = mysqli_query($link, $sqlRoom);
-
 $row = mysqli_fetch_array($resultRoom);
 $capacity = $row["Capacity"];
 
-$sqlTimeslot = "SELECT TimeslotID, Timeslot FROM Timeslots";
-$resultTimeslot = mysqli_query($link, $sqlTimeslot);
-
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Check if RoomID is empty
-    if (empty(trim($_POST["RoomID"]))) {
-        $roomID_err = "Please select Room.";
-    } else {
-        $roomID = trim($_POST["RoomID"]);
-	}
-	
-	// Check if TimeslotID is empty
-    if (empty(trim($_POST["TimeslotID"]))) {
-        $timeslotID_err = "Please select Timeslot.";
-    } else {
-        $timeslotID = trim($_POST["TimeslotID"]);
-	}
-	
-	// Check if HeadCountType is empty
-    if (empty(trim($_POST["HeadCountType"]))) {
-        $headCountType_err = "Please select Headcount Type.";
-    } else {
-        $headCountType = trim($_POST["HeadCountType"]);
-	}
 	
 	// Check if HeadCount is empty
     if (empty(trim($_POST["HeadCount"]))) {
@@ -64,14 +38,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validate credentials
-    if (empty($roomID_err) && empty($timeslotID_err) && empty($headCountType_err) && empty($headCount_err)) {
+    if (empty($headCount_err)) {
+        $_SESSION["headCount"] = $headCount;
 		// Check for duplicates
 		$sqlDuplicate = "SELECT * FROM Forms WHERE RoomID = '$roomID' AND TimeslotID = '$timeslotID' AND HeadcountType = '$headCountType'";
 		$resultDuplicate = mysqli_query($link, $sqlDuplicate);
-		$_SESSION["roomID"] = $roomID;
-		$_SESSION["timeslotID"] = $timeslotID;
-		$_SESSION["headCountType"] = $headCountType;
-		$_SESSION["headCount"] = $headCount;
 		if (mysqli_num_rows($resultDuplicate) != 0){
 			echo "<script>if(confirm('This form already exists. Are you sure you want to override it?')){window.location = 'updateForm.php';}else{window.location = 'index.php';}</script>";
 		}else{
