@@ -97,6 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		else { $userID = trim($_POST["user_ID"]); }
 		
 		if (empty($userID_err)) {
+			alert("penis");
 			$valid = $app->login($userID);
 			if ($valid === true) {
 				$_SESSION["ack"] = "Success";
