@@ -27,6 +27,7 @@ $resultTimeslot = mysqli_query($link, $sqlTimeslot);
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	echo "fuck";
     // Check if RoomID is empty
     if (empty(trim($_POST["RoomID"]))) {
         $roomID_err = "Please select Room.";
