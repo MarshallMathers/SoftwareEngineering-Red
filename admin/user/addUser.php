@@ -15,12 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = mysqli_query($link, $sql);
     if (mysqli_num_rows($result) != 0) {
         echo "<script>alert('$userID already exists.');window.location.href='addUser.php';</script>";
-    }
-    $sqlAdd = "INSERT INTO Clients (UserID) VALUE ('$userID')";
-    if (mysqli_query($link, $sqlAdd)) {
-        echo "<script>alert('$userID successfully added!');</script>";
     } else {
-        echo "Oops! Something went wrong. Please try again later.";
+        $sqlAdd = "INSERT INTO Clients (UserID) VALUE ('$userID')";
+        if (mysqli_query($link, $sqlAdd)) {
+            echo "<script>alert('$userID successfully added!');</script>";
+        } else {
+            echo "Oops! Something went wrong. Please try again later.";
+        }
     }
 }
 mysqli_close($link);
