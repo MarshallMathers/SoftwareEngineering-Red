@@ -4,7 +4,6 @@
 	
 	require("php/headCountApp.php");
 	
-	$userID = "TEST";
 	if ($ret === false) {
 		//re-direct to index.php
 		$host  = $_SERVER['HTTP_HOST'];

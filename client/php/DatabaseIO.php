@@ -4,23 +4,10 @@
  * Contributors: Jacob Hayes, Thomas Cox
  */
  
- require(__DIR__."/../../dbconfig.php");
- if (isset($link)) {
- 	$link->close();
- 	$link=NULL;
- }
- 
  class DatabaseIO {
 	private $conn;													# Connection resource
 	
-	private $servername;
-	private $username;
-	private $password;
-	
 	public function __construct() {
-		$this->servername = "127.0.0.1";
-		$this->username = "root";
-		$this->password = "p4ssw0rd";
 		$this->conn = NULL;
 	}
 		
@@ -31,9 +18,12 @@
 	// Opens a connection to the database. Returns TRUE if successful, FALSE otherwise. 
 	public function openConnection() {
 		try {
-    		$this->conn = new PDO("mysql:host=".DB_SERVER.";dbname=".DB_NAME, DB_USERNAME, DB_PASSWORD);
+			define(_SERVER, "127.0.0.1");
+			define(_USERNAME, "root");
+			define(_PASSWORD, "p4ssw0rd");
+			define(_NAME, "headCountApp");
+    		$this->conn = new PDO("mysql:host="._SERVER.";dbname="._NAME, _USERNAME, _PASSWORD);
     		//$this->conn = new PDO("sqlite:".__DIR__."../../../database/headCountApp.db");
-    		//:host=".$host.";dbname=headCountApp.db", $this->$username, $this->$password);
    			// set the PDO error mode to exception
     		$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch(PDOException $e) {
@@ -49,8 +39,7 @@
 	// Submits the headcount data in the $data param of type FormData.
 	public function submitHeadCountData($data) {
 		/*
-		INSERT INTO Form (RoomID, TimeslotID, HeadcountType,
-			HeadcountCount, UserID, Timestamp)
+		INSERT INTO Form (RoomID, TimeslotID, HeadcountType, HeadcountCount, UserID, Timestamp)
 		VALUES (?,?,?,?,?,?) 		
 		*/
 		

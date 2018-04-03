@@ -1,4 +1,7 @@
 <?php
+	// Start the session
+	session_start();
+	
 	setCookie("user_ID", "", time() - 60*60);
 	setCookie("error", "", time() - 60*60);
 ?>
