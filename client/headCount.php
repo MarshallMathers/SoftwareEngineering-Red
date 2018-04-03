@@ -31,8 +31,7 @@ $capacity = $row["Capacity"];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 	// Check if HeadCount is empty
-	echo trim($_POST["HeadCount"]);
-    if (empty(trim($_POST["HeadCount"]))) {
+    if (trim($_POST["HeadCount"]) == "") {
         $headCount_err = "Please enter Headcount.";
     } else {
         $headCount = trim($_POST["HeadCount"]);
