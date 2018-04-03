@@ -92,9 +92,13 @@ $app = new HeadCountApp();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$type = $_POST["type"];
 	if ($type === "login") {
+		alert("vagina");
 		// Check if username is empty
 		if (empty(trim($_POST["user_ID"]))) { $userID_err = 'Please enter a userID'; }
-		else { $userID = trim($_POST["user_ID"]); }
+		else {
+			alert("vag");
+			$userID = trim($_POST["user_ID"]); 
+		}
 		
 		if (empty($userID_err)) {
 			alert("penis");
