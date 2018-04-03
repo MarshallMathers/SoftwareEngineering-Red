@@ -62,17 +62,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
-			mysqli_stmt_bind_param($stmt, "ssss", $param_roomID, $param_timeslotID, $param_headCountType, $param_headCount);
+			mysqli_stmt_bind_param($stmt, "sssss", $param_roomID, $param_timeslotID, $param_headCountType, $param_headCount, $param_userID);
 			
 			// Set parameters
-			echo $roomID;
-			echo $timeslotID;
-			echo $headCountType;
-			echo $headCount;
 			$param_roomID = $roomID;
 			$param_timeslotID = $timeslotID;
 			$param_headCountType = $headCountType;
 			$param_headCount = $headCount;
+			$param_userID = $_SESSION["userID"];
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
