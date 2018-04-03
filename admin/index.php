@@ -83,45 +83,45 @@ include "dbconfig.php";
                     <br/>
                     <div>
                         <h2>Room Headcounts</h2>
-                        <br>
+                        <br/>
                         <table class="table table-bordered">
-                            <thead>
-                                <?php
+                            <?php
+                                $sql = "SELECT * FROM Forms ORDER BY RoomID";
 
-                    $sql = "SELECT * FROM Forms ORDER BY RoomID";
+                                $result = $databaseConnection->query($sql);
 
-                    $result = $databaseConnection->query($sql);
+                                echo
+                                    "<thead>" .
+                                    "<th>FormID</th>" .
+                                    "<th>RoomID</th>" .
+                                    "<th>TimeslotID</th>" .
+                                    "<th>Headcount Type</th>" .
+                                    "<th>Headcount Count</th>" .
+                                    "<th>UserID</th>" .
+                                    "<th>Timestamp</th>" .
+                                    "</thead>";
 
-                    echo
-                        "<th>FormID</th>" .
-                        "<th>RoomID</th>" .
-                        "<th>TimeslotID</th>" .
-                        "<th>HeadcountType</th>" .
-                        "<th>Headcount Count</th>" .
-                        "<th>UserID</th>" .
-                        "<th>Timestamp</th>" .
-                        "</thead>";
+                                while ($row = $result->fetch()) {
+                                    $formid = $row['FormID'];
+                                    $roomid = $row['RoomID'];
+                                    $timeslotid = $row['TimeslotID'];
+                                    $headcounttype = $row['HeadcountType'];
+                                    $headcount = $row['HeadcountCount'];
+                                    $userid = $row['UserID'];
+                                    $tstamp = $row['Timestamp'];
 
-                    while ($row = $result->fetch()) {
-                        $formid = $row['FormID'];
-                        $roomid = $row['RoomID'];
-                        $timeslotid = $row['TimeslotID'];
-                        $headcounttype = $row['HeadcountType'];
-                        $headcount = $row['HeadcountCount'];
-                        $userid = $row['UserID'];
-                        $tstamp = $row['Timestamp'];
-
-                        echo "<tr>" .
-                            "<td>" . $formid . "</td>" . // FormID
-                            "<td>" . $roomid . "</td>" . // RoomID
-                            "<td>" . $timeslotid . "</td>" . // TimeslotID
-                            "<td>" . $headcounttype . "</td>" . // Headcountype
-                            "<td>" . $headcount . "</td>" . // HeadcountCount
-                            "<td>" . $userid . "</td>" . // UserID
-                            "<td>" . $tstamp . "</td>" . // Timestamp
-                            "</tr>";
-                    }
-                    ?>
+                                    echo "<tr>" .
+                                        "<td>" . $formid . "</td>" . // FormID
+                                        "<td>" . $roomid . "</td>" . // RoomID
+                                        "<td>" . $timeslotid . "</td>" . // TimeslotID
+                                        "<td>" . $headcounttype . "</td>" . // Headcountype
+                                        "<td>" . $headcount . "</td>" . // HeadcountCount
+                                        "<td>" . $userid . "</td>" . // UserID
+                                        "<td>" . $tstamp . "</td>" . // Timestamp
+                                        "</tr>";
+                                }
+                            ?>
+                        </table>
                     </div>
                 </div>
             </div>
