@@ -9,13 +9,82 @@ if (!isset($_SESSION["userID"]) || empty($_SESSION["userID"])) {
 // Include config file
 include "../dbconfig.php";
 
-$sqlRoom = "SELECT Room FROM Rooms";
+// Define variables and initialize with empty values
+$roomID = "";
+$timeslotID = "";
+$headCountType = "";
+$headCount = "";
+$roomID_err = "";
+$timeslotID_err = "";
+$headCountType_err = "";
+$headCount_err = "";
+
+$sqlRoom = "SELECT RoomID, Room FROM Rooms";
 $resultRoom = mysqli_query($link, $sqlRoom);
 
-$sqlTimeslot = "SELECT Timeslot FROM Timeslots";
+$sqlTimeslot = "SELECT TimeslotID, Timeslot FROM Timeslots";
 $resultTimeslot = mysqli_query($link, $sqlTimeslot);
 
+// Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if RoomID is empty
+    if (empty(trim($_POST["RoomID"]))) {
+        $roomID_err = "Please select Room.";
+    } else {
+        $roomID = trim($_POST["RoomID"]);
+	}
+	
+	// Check if TimeslotID is empty
+    if (empty(trim($_POST["TimeslotID"]))) {
+        $timeslotID_err = "Please select Timeslot.";
+    } else {
+        $timeslotID = trim($_POST["TimeslotID"]);
+	}
+	
+	// Check if HeadCountType is empty
+    if (empty(trim($_POST["HeadCountType"]))) {
+        $headCountType_err = "Please select Headcount Type.";
+    } else {
+        $headCountType = trim($_POST["HeadCountType"]);
+	}
+	
+	// Check if HeadCount is empty
+    if (empty(trim($_POST["HeadCount"]))) {
+        $headCount_err = "Please enter Headcount.";
+    } else {
+        $headCount = trim($_POST["HeadCount"]);
+    }
+
+    // Validate credentials
+    if (empty($roomID_err) && empty($timeslotID_err) && empty($headCountType_err) && empty($headCount_err)) {
+        // Prepare a select statement
+        $sql = "INSERT INTO Forms (RoomID, TimeslotID, HeadcountType, HeadcountCount) VALUES (?, ?, ?, ?)";
+
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            // Bind variables to the prepared statement as parameters
+			mysqli_stmt_bind_param($stmt, "ssss", $param_roomID, $param_timeslotID, $param_headCountType, $param_headCount);
+			
+			// Set parameters
+			$param_roomID = $roomID;
+			$param_timeslotID = $timeslotID;
+			$param_headCountType = $headCountType;
+			$param_headCount = $headCount;
+
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+				echo "Form successfully submitted!";
+				header("location: index.php");
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+        }
+
+        // Close statement
+        mysqli_stmt_close($stmt);
+    }
+
+    // Close connection
+    mysqli_close($link);
 }
 ?>
 	<!DOCTYPE html>
@@ -54,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<select id="room_name" name="room_name" class="form-control">
 							<?php
 							while ($row = mysqli_fetch_array($resultRoom)) {
-								echo "<option value='" . $row['Room'] . "'>" . $row['Room'] . "</option>";
+								echo "<option value='" . $row['RoomID'] . "'>" . $row['Room'] . "</option>";
 							}
 							?>
 							</select>
@@ -64,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<select id="time_slot" name="time_slot" class="form-control">
 							<?php
 							while ($row = mysqli_fetch_array($resultTimeslot)) {
-								echo "<option value='" . $row['Timeslot'] . "'>" . $row['Timeslot'] . "</option>";
+								echo "<option value='" . $row['TimeslotID'] . "'>" . $row['Timeslot'] . "</option>";
 							}
 							?>
 							</select>
