@@ -66,10 +66,18 @@
 
 			<div class="form-group">
 				<label for="head_count_slot">Head Count Slot:</label>
-				<div class="btn-group btn-group">
-					<input type="radio" name="head_count_slot" class="btn btn-radio" value="beg" required>Beginning</input>
-					<input type="radio" name="head_count_slot" class="btn btn-radio" value="mid" required>Middle</input>
-					<input type="radio" name="head_count_slot" class="btn btn-radio" value="end" required>End</input>
+				<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					<label class="btn btn-secondary active">
+                    			<input type="radio" name="options" id="option1" autocomplete="off" checked> Beginning
+               				</label>
+                
+					<label class="btn btn-secondary">
+					<input type="radio" name="options" id="option2" autocomplete="off"> Middle
+					</label>
+
+					<label class="btn btn-secondary">
+					<input type="radio" name="options" id="option3" autocomplete="off"> End
+					</label>
 				</div>
 			</div>
 
