@@ -1,4 +1,11 @@
 <?php
+// Initialize the session
+session_start();
+// If session variable is not set it will redirect to login page
+if (isset($_SESSION["username"]) || !empty($_SESSION["username"])) {
+    header("location: index.php");
+    exit;
+}
 // Include config file
 include "../dbconfig.php";
 
@@ -12,16 +19,16 @@ $password_err = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if username is empty
     if (empty(trim($_POST["username"]))) {
-        $username_err = 'Please enter username.';
+        $username_err = "Please enter username.";
     } else {
         $username = trim($_POST["username"]);
     }
 
     // Check if password is empty
-    if (empty(trim($_POST['password']))) {
-        $password_err = 'Please enter password.';
+    if (empty(trim($_POST["password"]))) {
+        $password_err = "Please enter password.";
     } else {
-        $password = trim($_POST['password']);
+        $password = trim($_POST["password"]);
     }
 
     // Validate credentials
@@ -50,16 +57,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             /* Password is correct, so start a new session and
                             save the username to the session */
                             session_start();
-                            $_SESSION['username'] = $username;
+                            $_SESSION["username"] = $username;
                             header("location: index.php");
                         } else {
                             // Display an error message if password is not valid
-                            $password_err = 'The password you entered was not valid.';
+                            $password_err = "The password you entered was not valid.";
                         }
                     }
                 } else {
                     // Display an error message if username doesn't exist
-                    $username_err = 'No account found with that username.';
+                    $username_err = "No account found with that username.";
                 }
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
@@ -93,15 +100,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4 text-center">
                     <h2>Administrator Portal Login</h2>
-                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                        <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+                    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                        <div class="form-group <?php echo (!empty($username_err)) ? "has-error" : ""; ?>">
                             <label for="usr">Username:</label>
                             <input type="text" class="form-control" name="username" id="usr">
                             <span class="help-block" style="color:red;">
                                 <?php echo $username_err; ?>
                             </span>
                         </div>
-                        <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+                        <div class="form-group <?php echo (!empty($password_err)) ? "has-error" : ""; ?>">
                             <label for="pwd">Password:</label>
                             <input type="password" class="form-control" name="password" id="pwd">
                             <span class="help-block" style="color:red;">
@@ -113,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                     </form>
                     <h5>Not an Administrator?</h5>
-                    <a class="btn btn-outline-primary" href="../client/index.php">Volunteer Sign In</a>
+                    <a class="btn btn-outline-primary" href="../client/login.php">Volunteer Sign In</a>
                 </div>
                 <div class="col-sm-4"></div>
             </div>

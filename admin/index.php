@@ -2,7 +2,7 @@
 // Initialize the session
 session_start();
 // If session variable is not set it will redirect to login page
-if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
+if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
     header("location: login.php");
     exit;
 }
@@ -27,7 +27,7 @@ include "../dbconfig.php";
             <h5 class="my-0 mr-md-auto font-weight-normal">Boston Code Camp</h5>
             <nav class="my-2 my-md-0 mr-md-3">
                 <a class="p-2 text-dark">
-                    <?php echo htmlspecialchars($_SESSION['username']); ?>
+                    <?php echo htmlspecialchars($_SESSION["username"]); ?>
                 </a>
             </nav>
             <a class="btn btn-outline-primary" href="logout.php">Sign Out</a>
@@ -105,12 +105,12 @@ include "../dbconfig.php";
                                     "</thead>";
 
                                 while ($row = mysqli_fetch_array($result)) {
-                                    $room = $row['Room'];
-                                    $timeslot = $row['Timeslot'];
-                                    $headcounttype = $row['HeadcountType'];
-                                    $headcount = $row['HeadcountCount'];
-                                    $userid = $row['UserID'];
-                                    $tstamp = $row['Timestamp'];
+                                    $room = $row["Room"];
+                                    $timeslot = $row["Timeslot"];
+                                    $headcounttype = $row["HeadcountType"];
+                                    $headcount = $row["HeadcountCount"];
+                                    $userid = $row["UserID"];
+                                    $tstamp = $row["Timestamp"];
 
                                     echo "<tr>" .
                                         "<td>" . $room . "</td>" . // RoomID
