@@ -1,6 +1,9 @@
 <?php	
 	require("php/headCountApp.php");
 	
+	// Initialize the session
+	session_start();
+	
 	if ($ret === false) {
 		//re-direct to index.php
 		$host  = $_SERVER['HTTP_HOST'];
@@ -82,7 +85,6 @@
 		<input type="submit"/>
 		<input type="reset"/>
 		<input type="hidden" name="type" value="submit"/>
-		<input type="hidden" name="user_ID" value="<?php echo $_COOKIE["user_ID"]; ?>"/>
 		</form>
 		
 		<div id="ackContainer">	
