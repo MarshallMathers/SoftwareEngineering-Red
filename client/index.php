@@ -18,9 +18,6 @@
 		<title>HeadCountApp</title>
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-		<script src="scripts/client.js"></script>
-		<!-- change to what you want the tab's title to be -->
 		<!--
    		/* Team: Red
 	 	* Group: Client
@@ -41,43 +38,28 @@
 		</div>
 		<!-- your code goes below -->
 		<div>
-			<div id="ackContainer">
-				<?php echo $_SESSION["ack"]; ?>
-			</div>
-			<form action="<?php $_SERVER['PHP_SELF']?>" method="POST" class="container">
+			<form action="<?php echo $_SERVER[" PHP_SELF "]; ?>" method="post">
 				<div class="form-group">
-					<label for="room_ID">Room ID:</label>
-					<select id="room_ID" name="room_ID">
-					</select>
+					<label for="room_name">Room</label>
+					<select id="room_name" name="room_name" class="form-control"></select>
 				</div>
-
 				<div class="form-group">
-					<label for="time_slot">Time Slot:</label>
-					<select id="time_slot" name="time_slot" required>
-					</select>
+					<label for="time_slot">Timeslot</label>
+					<select id="time_slot" name="time_slot" class="form-control"></select>
 				</div>
-
 				<div class="form-group">
-					<label for="head_count_slot">Head Count Slot:</label>
-					<div class="btn-group btn-group-toggle" data-toggle="buttons">
-						<label class="btn btn-secondary active">
-							<input type="radio" name="options" id="option1" autocomplete="off" checked> Beginning
-						</label>
-
-						<label class="btn btn-secondary">
-							<input type="radio" name="options" id="option2" autocomplete="off"> Middle
-						</label>
-
-						<label class="btn btn-secondary">
-							<input type="radio" name="options" id="option3" autocomplete="off"> End
-						</label>
+					<label for="head_count_type">Headcount Type</label>
+					<div class="form-group">
+						<input type="radio" name="options" id="option1" class="form-control">Beginning
+						<input type="radio" name="options" id="option2" class="form-control">Middle
+						<input type="radio" name="options" id="option3" class="form-control">End
 					</div>
 				</div>
-
-				<input type="number" name="head_count" value="0" min="0" required/>
-				<input type="submit" />
-				<input type="reset" />
-				<input type="hidden" name="type" value="submit" />
+				<div class="form-group">
+					<input type="number" name="head_count" value="0" min="0" class="form-control" />
+				</div>
+				<input type="submit" class="btn btn-primary" />
+				<input type="reset" class="btn btn-default" />
 			</form>
 		</div>
 	</body>
