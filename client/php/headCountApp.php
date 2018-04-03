@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$type = $_POST["type"];
 	if ($type === "login") {
 		// Check if username is empty
-		if (empty(trim($_POST["user_ID"]))) { $userID_err = 'Please enter a user ID'; }
+		if (empty(trim($_POST["user_ID"]))) { $userID_err = 'Please enter a userID'; }
 		else { $userID = trim($_POST["user_ID"]); }
 		
 		if (empty($userID_err)) {
