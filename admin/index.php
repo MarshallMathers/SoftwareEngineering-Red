@@ -6,107 +6,91 @@ if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
     header("location: login.php");
     exit;
 }
-require_once("config_headcnt.php");
-
-try {
-    $connString = "mysql:host=" . DBHOST . ";dbname=" . DBNAME;
-    $user = DBUSER;
-    $pass = DBPASS;
-    $pdo = null;
-} catch (PDOException $e) {
-    print "ERROR!: " . $e->getMessage() . "<br/>";
-    die();
-}
+// Include config file
+include "dbconfig.php";
 ?>
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="utf-8"/>
-    <title>HeadCountApp</title>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.1/umd/popper.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js"></script>
-</head>
+    <head>
+        <meta charset="utf-8" />
+        <title>HeadCountApp</title>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.1/umd/popper.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js"></script>
+    </head>
 
-<body>
-
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-light border-bottom box-shadow">
-    <h5 class="my-0 mr-md-auto font-weight-normal">Boston Code Camp</h5>
-    <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
-        <!--this will be the name of the logged in admin -->
-    </nav>
-    <a class="btn btn-outline-primary" href="logout.php">Sign Out</a> <!-- Sign out button -->
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12 text-center">
-            <br/>
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                    Users
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="user/viewUser.php">View Users</a>
-                    <a class="dropdown-item" href="user/addUser.php">Add Users</a>
-                    <a class="dropdown-item" href="user/modifyUser.php">Modify Users</a>
-                    <a class="dropdown-item" href="user/deleteUser.php">Delete Users</a>
-                </div>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                    Rooms
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="room/viewRoom.php">View Rooms</a>
-                    <a class="dropdown-item" href="room/addRoom.php">Add Rooms</a>
-                    <a class="dropdown-item" href="room/modifyRoom.php">Modify Rooms</a>
-                    <a class="dropdown-item" href="room/deleteRoom.php">Delete Rooms</a>
-                </div>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                    Timeslots
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="timeslot/viewTimeslot.php">View Timeslots</a>
-                    <a class="dropdown-item" href="timeslot/addTimeslot.php">Add Timeslots</a>
-                    <a class="dropdown-item" href="timeslot/modifyTimeslot.php">Modify Timeslots</a>
-                    <a class="dropdown-item" href="timeslot/deleteTimeslot.php">Delete Timeslots</a>
-                </div>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                    Forms
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="form/addForm.php">Add Forms</a>
-                    <a class="dropdown-item" href="form/modifyForm.php">Modify Forms</a>
-                    <a class="dropdown-item" href="form/deleteForm.php">Delete Forms</a>
-                </div>
-            </div>
-            <br/>
-            <br/>
-            <div class="container">
-                <CENTER>
-                    <h2>Room Count View</h2></CENTER>
-                <br>
-                <table class="table table-bordered">
-                    <thead>
-                    <?php
-                    $pdo = new PDO($connString, $user, $pass);
+    <body>
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-light border-bottom box-shadow">
+            <h5 class="my-0 mr-md-auto font-weight-normal">Boston Code Camp</h5>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-dark">
+                    <?php echo htmlspecialchars($_SESSION['username']); ?>
+                </a>
+            </nav>
+            <a class="btn btn-outline-primary" href="logout.php">Sign Out</a>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <br/>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Users
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="user/viewUser.php">View Users</a>
+                            <a class="dropdown-item" href="user/addUser.php">Add Users</a>
+                            <a class="dropdown-item" href="user/modifyUser.php">Modify Users</a>
+                            <a class="dropdown-item" href="user/deleteUser.php">Delete Users</a>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Rooms
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="room/viewRoom.php">View Rooms</a>
+                            <a class="dropdown-item" href="room/addRoom.php">Add Rooms</a>
+                            <a class="dropdown-item" href="room/modifyRoom.php">Modify Rooms</a>
+                            <a class="dropdown-item" href="room/deleteRoom.php">Delete Rooms</a>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Timeslots
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="timeslot/viewTimeslot.php">View Timeslots</a>
+                            <a class="dropdown-item" href="timeslot/addTimeslot.php">Add Timeslots</a>
+                            <a class="dropdown-item" href="timeslot/modifyTimeslot.php">Modify Timeslots</a>
+                            <a class="dropdown-item" href="timeslot/deleteTimeslot.php">Delete Timeslots</a>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Forms
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="form/addForm.php">Add Forms</a>
+                            <a class="dropdown-item" href="form/modifyForm.php">Modify Forms</a>
+                            <a class="dropdown-item" href="form/deleteForm.php">Delete Forms</a>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div>
+                        <h2>Room Headcounts</h2>
+                        <br>
+                        <table class="table table-bordered">
+                            <thead>
+                                <?php
 
                     $sql = "SELECT * FROM Forms";
 
-                    $result = $pdo->query($sql);
+                    $result = $databaseConnection->query($sql);
 
                     echo
                         "<th>FormID</th>" .
@@ -139,10 +123,10 @@ try {
                             "</tr>";
                     }
                     ?>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-</body>
+    </body>
 
-</html>
+    </html>
