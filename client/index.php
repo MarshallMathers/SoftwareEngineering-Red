@@ -1,14 +1,22 @@
 <?php
-	// Initialize the session
-	session_start();
-	if (!isset($_SESSION["userID"]) || empty($_SESSION["userID"])) {
-    	header("location: login.php");
-  		exit;
-	}
-	
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		require("php/headCountApp.php");
-	}
+// Initialize the session
+session_start();
+// If session variable is not set it will redirect to login page
+if (!isset($_SESSION["userID"]) || empty($_SESSION["userID"])) {
+	header("location: login.php");
+	exit;
+}
+// Include config file
+include "../dbconfig.php";
+
+$sqlRoom = "SELECT Room FROM rooms";
+$resultRoom = mysqli_query($link, $sqlRoom);
+
+$sqlTimeslot = "SELECT Timeslot FROM timeslots";
+$resultTimeslot = mysqli_query($link, $sqlTimeslot);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+}
 ?>
 	<!DOCTYPE html>
 	<html lang="en">
@@ -44,22 +52,34 @@
 					<form action="<?php echo $_SERVER[" PHP_SELF "]; ?>" method="post">
 						<div class="form-group">
 							<label for="room_name">Room</label>
-							<select id="room_name" name="room_name" class="form-control"></select>
+							<select id="room_name" name="room_name" class="form-control">
+							<?php
+							while ($row = mysqli_fetch_array($resultRoom)) {
+								echo "<option value='" . $row['Room'] . "'>" . $row['Room'] . "</option>";
+							}
+							?>
+							</select>
 						</div>
 						<div class="form-group">
 							<label for="time_slot">Timeslot</label>
-							<select id="time_slot" name="time_slot" class="form-control"></select>
+							<select id="time_slot" name="time_slot" class="form-control">
+							<?php
+							while ($row = mysqli_fetch_array($resultTimeslot)) {
+								echo "<option value='" . $row['Timeslot'] . "'>" . $row['Timeslot'] . "</option>";
+							}
+							?>
+							</select>
 						</div>
 						<div class="form-group">
 							<label for="head_count_type">Headcount Type</label>
 							<div class="radio-inline">
-								<input type="radio" name="options" id="option1"> Beginning
-								<input type="radio" name="options" id="option2"> Middle
-								<input type="radio" name="options" id="option3"> End
+								<input type="radio" name="options" id="option1" value="Beginning"> Beginning
+								<input type="radio" name="options" id="option2" value="Middle"> Middle
+								<input type="radio" name="options" id="option3" value="End"> End
 							</div>
 						</div>
 						<div class="form-group">
-							<input type="number" name="head_count" value="0" min="0" pattern= "[0-9]" class="form-control" />
+							<input type="number" name="head_count" value="0" min="0" pattern="[0-9]" class="form-control" />
 						</div>
 						<input type="submit" class="btn btn-primary" value="Submit" />
 						<input type="reset" class="btn btn-default" />

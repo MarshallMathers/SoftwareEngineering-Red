@@ -4,12 +4,7 @@
 include '../../dbconfig.php';
 
 $sql = "SELECT Room FROM rooms";
-$result = mysqli_query($link,$sql);
-
-if (!$result) {
-    printf("Error: %s\n", mysqli_error($link));
-    exit();
-}
+$result = mysqli_query($link, $sql);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
    $roomID = $_POST["room_ID"];
