@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $headCount = trim($_POST["HeadCount"]);
     }
-
+echo "shit";
     // Validate credentials
     if (empty($roomID_err) && empty($timeslotID_err) && empty($headCountType_err) && empty($headCount_err)) {
         // Prepare a select statement
