@@ -7,8 +7,10 @@
 	
 	require_once("php/headCountApp.php");
 	
-	$_SESSION["user_ID"] = $userID;
-	header("location: index.php");
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		$_SESSION["user_ID"] = $userID;
+		header("location: index.php");
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +43,7 @@
 		<div class="row">
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4 text-center">
-				<h2>Administrator Portal</h2>
+				<h2>Login to submit Headcounts</h2>
 				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 					<div class="form-group <?php echo (!empty($userID_err)) ? 'has-error' : ''; ?>">
 						<label for="user_ID">User ID:</label>
