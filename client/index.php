@@ -70,7 +70,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<meta charset="utf-8" />
 		<title>HeadCountApp</title>
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css">
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		
 		<!--
    		/* Team: Red
 	 	* Group: Client
