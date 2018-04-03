@@ -87,11 +87,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="container">
             <div class="py-5 text-center">
-                <h2>Administrator Portal - Login</h2>
+                <h2>Administrator Portal</h2>
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 
                     <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-                        <label for="usr">Name:</label>
+                        <label for="usr">Username:</label>
                         <center>
                             <input type="text" class="form-control" name="username" id="usr" style="width: 400px;">
                             <span class="help-block" style="color:red;">
