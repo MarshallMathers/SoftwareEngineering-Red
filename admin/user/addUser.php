@@ -1,5 +1,13 @@
 <?php
-include '../../dbconfig.php';
+// Initialize the session
+session_start();
+// If session variable is not set it will redirect to login page
+if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
+    header("location: login.php");
+    exit;
+}
+// Include config file
+include "../dbconfig.php";
 
 $selectUsersSqlStatement = "SELECT UserID FROM Clients";
 $result = mysqli_query($link, $selectUsersSqlStatement);
@@ -57,15 +65,9 @@ mysqli_close($link);
                         <input type="text" id="userID" name="userID" class="form-control"/>
                     </div>
                     <input type="submit" value="Add" class="btn btn-primary"/>
-                    <br/>
-                    <br/>
                     <input type="reset" class="btn btn-default"/>
+                    <a href="../index.php" class="btn btn-danger">Cancel</a>
                 </form>
-                <br/>
-                <a href="../index.php" class="btn btn-danger">Cancel</a>
-                <br/>
-                <br/>
-                <a href="../logout.php" class="btn btn-secondary">Logout</a>
             </div>
             <div class="col-sm-4"></div>
         </div>
