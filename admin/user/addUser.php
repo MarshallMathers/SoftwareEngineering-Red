@@ -12,8 +12,8 @@ include "../../dbconfig.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userID = $_POST["userID"];
     $sql = "SELECT UserID FROM Clients WHERE UserID = '$userID'";
-    $result = mysqli_query($link, $sql);
-    if (mysqli_num_rows($result) != 0) {
+    $databaseQueryResult = mysqli_query($link, $sql);
+    if (mysqli_num_rows($databaseQueryResult) != 0) {
         echo "<script>alert('$userID already exists.');window.location.href='addUser.php';</script>";
     } else {
         $sqlAdd = "INSERT INTO Clients (UserID) VALUE ('$userID')";
@@ -44,7 +44,7 @@ mysqli_close($link);
                 <?php echo htmlspecialchars($_SESSION["username"]); ?>
             </a>
         </nav>
-        <a class="btn btn-outline-primary" href="logout.php">Sign Out</a>
+        <a class="btn btn-outline-primary" href="../logout.php">Sign Out</a>
     </div>
     <div class="container">
         <div class="row">

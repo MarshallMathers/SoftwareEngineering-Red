@@ -42,7 +42,7 @@ mysqli_close($link);
                 <?php echo htmlspecialchars($_SESSION["username"]); ?>
             </a>
         </nav>
-        <a class="btn btn-outline-primary" href="logout.php">Sign Out</a>
+        <a class="btn btn-outline-primary" href="../logout.php">Sign Out</a>
     </div>
     <div class="container">
         <div class="row">
@@ -67,9 +67,6 @@ mysqli_close($link);
                 </form>
                 <br />
                 <a href="../index.php" class="btn btn-danger">Cancel</a>
-                <br />
-                <br />
-                <a href="../logout.php" class="btn btn-secondary">Logout</a>
             </div>
             <div class="col-sm-4"></div>
         </div>
