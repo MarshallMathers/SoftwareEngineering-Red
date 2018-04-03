@@ -6,8 +6,9 @@
   		exit;
 	}
 	
-	require_once("php/headCountApp.php");
-	
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		require_once("php/headCountApp.php");
+	}
 	
 ?>
 <!DOCTYPE html>
