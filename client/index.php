@@ -60,36 +60,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		// Check for duplicates
 		$sqlDuplicate = "SELECT * FROM Forms WHERE RoomID = '$roomID' AND TimeslotID = '$timeslotID' AND HeadcountType = '$headCountType'";
 		$resultDuplicate = mysqli_query($link, $sqlDuplicate);
+		$bool = false;
 		if (mysqli_num_rows($resultDuplicate) != 0){
-			if(echo "<script>confirm('This form already exists. Are you sure you want to override it?')</script>")
-			{
-				// Prepare a select statement
-				$sql = "INSERT INTO Forms (RoomID, TimeslotID, HeadcountType, HeadcountCount, UserID) VALUES (?, ?, ?, ?, ?)";
-
-				if ($stmt = mysqli_prepare($link, $sql)) {
-					// Bind variables to the prepared statement as parameters
-					mysqli_stmt_bind_param($stmt, "sssss", $param_roomID, $param_timeslotID, $param_headCountType, $param_headCount, $param_userID);
-					
-					// Set parameters
-					$param_roomID = $roomID;
-					$param_timeslotID = $timeslotID;
-					$param_headCountType = $headCountType;
-					$param_headCount = $headCount;
-					$param_userID = $_SESSION["userID"];
-		
-					// Attempt to execute the prepared statement
-					if (mysqli_stmt_execute($stmt)) {
-						echo "<script>alert('Form successfully submitted!');window.location = 'index.php';</script>";
-					} else {
-						echo "<script>alert('Oops! Something went wrong. Please try again later.');window.location = 'index.php';</script>";
-					}
-				}
-		
-				// Close statement
-				mysqli_stmt_close($stmt);
-			}else{
-				echo "<script>window.location = 'index.php';}</script>";
+			echo "<script>if(confirm('This form already exists. Are you sure you want to override it?')){$bool=true}else{window.location = 'index.php';}</script>";
 		}
+
+		if ($bool){
+			// Prepare a select statement
+			$sql = "INSERT INTO Forms (RoomID, TimeslotID, HeadcountType, HeadcountCount, UserID) VALUES (?, ?, ?, ?, ?)";
+
+			if ($stmt = mysqli_prepare($link, $sql)) {
+				// Bind variables to the prepared statement as parameters
+				mysqli_stmt_bind_param($stmt, "sssss", $param_roomID, $param_timeslotID, $param_headCountType, $param_headCount, $param_userID);
+				
+				// Set parameters
+				$param_roomID = $roomID;
+				$param_timeslotID = $timeslotID;
+				$param_headCountType = $headCountType;
+				$param_headCount = $headCount;
+				$param_userID = $_SESSION["userID"];
+
+				// Attempt to execute the prepared statement
+				if (mysqli_stmt_execute($stmt)) {
+					echo "<script>alert('Form successfully submitted!');window.location = 'index.php';</script>";
+				} else {
+					echo "<script>alert('Oops! Something went wrong. Please try again later.');window.location = 'index.php';</script>";
+				}
+			}
+		}
+
+        // Close statement
+        mysqli_stmt_close($stmt);
     }
 
     // Close connection
