@@ -27,7 +27,6 @@ $resultTimeslot = mysqli_query($link, $sqlTimeslot);
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	echo "fuck";
     // Check if RoomID is empty
     if (empty(trim($_POST["RoomID"]))) {
         $roomID_err = "Please select Room.";
@@ -55,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $headCount = trim($_POST["HeadCount"]);
     }
-echo "shit";
+
     // Validate credentials
     if (empty($roomID_err) && empty($timeslotID_err) && empty($headCountType_err) && empty($headCount_err)) {
         // Prepare a select statement
@@ -119,7 +118,7 @@ echo "shit";
 				<div class="col-sm-4"></div>
 				<div class="col-sm-4 text-center">
 					<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-						<div class="form-group">
+						<div class="form-group <?php echo (!empty($roomID_err)) ? "has-error" : ""; ?>">
 							<label for="RoomID">Room</label>
 							<select id="RoomID" name="RoomID" class="form-control">
 							<?php
@@ -128,8 +127,11 @@ echo "shit";
 							}
 							?>
 							</select>
+							<span class="help-block" style="color:red;">
+								<?php echo $roomID_err; ?>
+							</span>
 						</div>
-						<div class="form-group">
+						<div class="form-group <?php echo (!empty($timeslotID_err)) ? "has-error" : ""; ?>">
 							<label for="TimeslotID">Timeslot</label>
 							<select id="TimeslotID" name="TimeslotID" class="form-control">
 							<?php
@@ -138,18 +140,27 @@ echo "shit";
 							}
 							?>
 							</select>
+							<span class="help-block" style="color:red;">
+								<?php echo $timeslotID_err; ?>
+							</span>
 						</div>
-						<div class="form-group">
+						<div class="form-group <?php echo (!empty($headCountType_err)) ? "has-error" : ""; ?>">
 							<label for="HeadCountType">Headcount Type</label>
 							<div class="radio-inline">
 								<input type="radio" name="HeadCountType" id="HeadCountType" value="Beginning"> Beginning
 								<input type="radio" name="HeadCountType" id="HeadCountType" value="Middle"> Middle
 								<input type="radio" name="HeadCountType" id="HeadCountType" value="End"> End
 							</div>
+							<span class="help-block" style="color:red;">
+								<?php echo $headCountType_err; ?>
+							</span>
 						</div>
-						<div class="form-group">
+						<div class="form-group <?php echo (!empty($headCount_err)) ? "has-error" : ""; ?>">
 							<label for="HeadCount">Headcount</label>
 							<input type="number" name="HeadCount" value="0" min="0" pattern="[0-9]" class="form-control" />
+							<span class="help-block" style="color:red;">
+								<?php echo $headCount_err; ?>
+							</span>
 						</div>
 						<input type="submit" class="btn btn-primary" value="Submit" />
 						<input type="reset" class="btn btn-default" />
