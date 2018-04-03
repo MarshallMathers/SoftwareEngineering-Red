@@ -86,7 +86,12 @@ include "dbconfig.php";
                         <br/>
                         <table class="table table-bordered">
                             <?php
-                                $sql = "SELECT * FROM Forms ORDER BY RoomID";
+                                $sql = "
+                                SELECT Rooms.Room, Timeslots.Timeslot, Forms.HeadcountType, Forms.HeadcountCount, Forms.UserID, Forms.Timestamp
+                                FROM Forms
+                                LEFT JOIN Rooms ON Forms.RoomID = Rooms.RoomID
+                                LEFT JOIN Timeslots ON Forms.TimeslotID = Timeslots.TimeslotID
+                                ";
 
                                 $result = $databaseConnection->query($sql);
 
