@@ -7,7 +7,7 @@ if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
     exit;
 }
 // Include config file
-include "dbconfig.php";
+include "../dbconfig.php";
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -92,7 +92,7 @@ include "dbconfig.php";
                                 ORDER BY RoomID, HeadcountType='End', HeadcountType='Middle', HeadcountType='Beginning'
                                 ";
 
-                                $result = $databaseConnection->query($sql);
+                                $result = mysqli_query($link, $sql);
 
                                 echo
                                     "<thead>" .
@@ -104,7 +104,7 @@ include "dbconfig.php";
                                     "<th>Timestamp</th>" .
                                     "</thead>";
 
-                                while ($row = $result->fetch()) {
+                                while ($row = mysqli_fetch_array($result)) {
                                     $room = $row['Room'];
                                     $timeslot = $row['Timeslot'];
                                     $headcounttype = $row['HeadcountType'];
