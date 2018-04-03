@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate credentials
     if (empty($roomID_err) && empty($timeslotID_err) && empty($headCountType_err) && empty($headCount_err)) {
         // Prepare a select statement
-        $sql = "INSERT INTO Forms (RoomID, TimeslotID, HeadcountType, HeadcountCount) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO Forms (RoomID, TimeslotID, HeadcountType, HeadcountCount, UserID) VALUES (?, ?, ?, ?, ?)";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
