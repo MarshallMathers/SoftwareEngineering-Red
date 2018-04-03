@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4 text-center">
-                    <h2>Administrator Portal</h2>
+                    <h2>Administrator Portal Login</h2>
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                         <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                             <label for="usr">Username:</label>
