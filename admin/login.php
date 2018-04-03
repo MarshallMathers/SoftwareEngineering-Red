@@ -1,6 +1,6 @@
 <?php
 // Include config file
-include "dbconfig.php";
+include "../dbconfig.php";
 
 // Define variables and initialize with empty values
 $username = "";
@@ -29,18 +29,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Prepare a select statement
         $sql = "SELECT username, password FROM Admins WHERE username = :username";
 
-        if ($stmt = $databaseConnection->prepare($sql)) {
+        if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(':username', $param_username, PDO::PARAM_STR);
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
 
             // Set parameters
             $param_username = trim($_POST["username"]);
 
             // Attempt to execute the prepared statement
-            if ($stmt->execute()) {
+            if (mysqli_stmt_execute($stmt)) {
+                // Store result
+                mysqli_stmt_store_result($stmt);
+                
                 // Check if username exists, if yes then verify password
-                if ($stmt->rowCount() == 1) {
-                    if ($row = $stmt->fetch()) {
+                if (mysqli_stmt_num_rows($stmt) == 1) {
+                    // Bind result variables
+                    mysqli_stmt_bind_result($stmt, $username, $hashed_password);
+                    if (mysqli_stmt_fetch($stmt)) {
                         $hashed_password = $row['password'];
                         if (password_verify($password, $hashed_password)) {
                             /* Password is correct, so start a new session and
@@ -63,11 +68,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Close statement
-        unset($stmt);
+        mysqli_stmt_close($stmt);
     }
 
     // Close connection
-    unset($databaseConnection);
+    mysqli_close($link);
 }
 ?>
     <!DOCTYPE html>
