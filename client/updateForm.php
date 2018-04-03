@@ -29,7 +29,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
     // Attempt to execute the prepared statement
     if (mysqli_stmt_execute($stmt)) {
-        echo "<script>alert('Form successfully submitted!');window.location = 'index.php';</script>";
+        echo "<script>alert('Form successfully updated!');window.location = 'index.php';</script>";
     } else {
         echo "<script>alert('Oops! Something went wrong. Please try again later.');window.location = 'index.php';</script>";
     }
