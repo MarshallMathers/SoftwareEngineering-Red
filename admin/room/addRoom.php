@@ -1,11 +1,25 @@
 <?php
 include '../../dbconfig.php';
 
+$sql1 = "SELECT Room FROM rooms";
+$result = mysqli_query($link,$sql1);
+$currentRooms = array();
+
+while ($row = mysqli_fetch_array($result)) {
+	$currentRooms[]=$row['Room'];
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
    $room = $_POST["room_name"];
+	for ($i=0;$i<count($currentRooms);$i++){
+		if ($currentRooms[$i] === $room){
+			echo "<script type='text/javascript'>alert('$room is a name already in the database.');window.location.href='addRoom.php';</script>";
+			return false;
+		}
+	}
    $capacity = $_POST["capacity"];
-   $sql = "INSERT INTO Rooms (Room, Capacity) VALUES ('$room', '$capacity')";
-   if (mysqli_query($link, $sql)){
+   $sql2 = "INSERT INTO Rooms (Room, Capacity) VALUES ('$room', '$capacity')";
+   if (mysqli_query($link, $sql2)){
        echo "<script type='text/javascript'>alert('$room successfully added with a capacity of $capacity.');</script>";
    }else{
        echo "<script type='text/javascript'>alert('Oops. Try Again Later.');</script>";
