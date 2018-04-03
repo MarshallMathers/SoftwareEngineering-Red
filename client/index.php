@@ -1,7 +1,7 @@
 <?php
 	// Initialize the session
 	session_start();
-	if (!isset($_SESSION["user_ID"]) || empty($_SESSION["user_ID")) {
+	if (!isset($_SESSION["user_ID"]) || empty($_SESSION["user_ID"])) {
     	header("location: login.php");
   		exit;
 	}
