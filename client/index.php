@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$resultDuplicate = mysqli_query($link, $sqlDuplicate);
 		$bool = false;
 		if (mysqli_num_rows($resultDuplicate) != 0){
-			echo "<script>if(confirm('This form already exists. Are you sure you want to override it?')){$bool=true}else{window.location = 'index.php';}</script>";
+			echo "<script>if(confirm('This form already exists. Are you sure you want to override it?')){".$bool=true."}else{window.location = 'index.php';}</script>";
 		}
 
 		if ($bool){
