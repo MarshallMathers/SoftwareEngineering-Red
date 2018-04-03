@@ -65,6 +65,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			mysqli_stmt_bind_param($stmt, "ssss", $param_roomID, $param_timeslotID, $param_headCountType, $param_headCount);
 			
 			// Set parameters
+			echo $roomID;
+			echo $timeslotID;
+			echo $headCountType;
+			echo $headCount;
 			$param_roomID = $roomID;
 			$param_timeslotID = $timeslotID;
 			$param_headCountType = $headCountType;
