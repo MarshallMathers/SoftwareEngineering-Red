@@ -44,7 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			</nav>
 			<a class="btn btn-outline-primary" href="logout.php">Sign Out</a>
 		</div>
-		<!-- your code goes below -->
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-4"></div>
@@ -73,9 +72,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<div class="form-group">
 							<label for="head_count_type">Headcount Type</label>
 							<div class="radio-inline">
-								<input type="radio" name="options" id="option1" value="Beginning"> Beginning
-								<input type="radio" name="options" id="option2" value="Middle"> Middle
-								<input type="radio" name="options" id="option3" value="End"> End
+								<input type="radio" name="head_count_type" id="head_count_type" value="Beginning"> Beginning
+								<input type="radio" name="head_count_type" id="head_count_type" value="Middle"> Middle
+								<input type="radio" name="head_count_type" id="head_count_type" value="End"> End
 							</div>
 						</div>
 						<div class="form-group">
