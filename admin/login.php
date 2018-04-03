@@ -1,6 +1,6 @@
 <?php
 // Include config file
-require_once 'dbconfig.php';
+include "dbconfig.php";
 
 // Define variables and initialize with empty values
 $username = "";
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if password is empty
     if (empty(trim($_POST['password']))) {
-        $password_err = 'Please enter your password.';
+        $password_err = 'Please enter password.';
     } else {
         $password = trim($_POST['password']);
     }
@@ -70,57 +70,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     unset($databaseConnection);
 }
 ?>
-<!doctype html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!DOCTYPE html>
+    <html lang="en">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <head>
+        <meta charset="utf-8" />
+        <title>HeadCountApp</title>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    </head>
 
-    <title>Admin Login Portal</title> <!-- change to what you want the tab's title to be -->
+    <body>
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-light border-bottom box-shadow">
+            <h5 class="my-0 mr-md-auto font-weight-normal">Boston Code Camp</h5>
+        </div>
 
-</head>
-<body>
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-light border-bottom box-shadow">
-    <h5 class="my-0 mr-md-auto font-weight-normal">Boston Code Camp</h5>
-</div>
+        <div class="container">
+            <div class="py-5 text-center">
+                <h2>Administrator Portal - Login</h2>
+                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 
-<div class="container">
-    <div class="py-5 text-center">
-        <h2>Login - Administrator Portal</h2>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+                        <label for="usr">Name:</label>
+                        <center>
+                            <input type="text" class="form-control" name="username" id="usr" style="width: 400px;">
+                            <span class="help-block" style="color:red;">
+                                <?php echo $username_err; ?>
+                            </span>
+                        </center>
+                    </div>
+                    <br>
+                    <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+                        <label for="pwd">Password:</label>
+                        <center>
+                            <input type="password" class="form-control" name="password" id="pwd" style="width: 400px;">
+                            <span class="help-block" style="color:red;">
+                                <?php echo $password_err; ?>
+                            </span>
+                        </center>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Sign In">
+                    </div>
+                    <br/>
+                    <br/>
+                </form>
 
-            <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-                <label for="usr">Name:</label>
-                <center>
-                    <input type="text" class="form-control" name="username" id="usr" value="<?php echo $username; ?>"
-                           style="width: 400px;">
-                    <span class="help-block"><?php echo $username_err; ?></span>
-                </center>
+                <br>
+                <br>
+                <h5> Not an Administrator? Sign in to the Volunteer Portal:</h5>
+                <a class="btn btn-outline-primary" href="../client/index.php">Volunteer Sign In</a>
             </div>
-            <br>
-            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-                <label for="pwd">Password:</label>
-                <center>
-                    <input type="password" class="form-control" name="password" id="pwd" style="width: 400px;">
-                    <span class="help-block"><?php echo $password_err; ?></span>
-                </center>
-            </div>
-            <br>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Sign In">
-            </div>
-            <br/><br/>
-        </form>
+        </div>
+    </body>
 
-        <br><br>
-        <h5> Not an administrator? Sign in to the Volunteer Portal:</h5>
-        <a class="btn btn-outline-primary" href="../client/index.php">Volunteer Sign In</a>
-    </div>
-</div>
-</body>
-</html>
+    </html>
