@@ -61,6 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$sqlDuplicate = "SELECT * FROM Forms WHERE RoomID = '$roomID' AND TimeslotID = '$timeslotID' AND HeadcountType = '$headCountType'";
 		$resultDuplicate = mysqli_query($link, $sqlDuplicate);
 		if (mysqli_num_rows($resultDuplicate) != 0){
+			echo "fuck";
 			echo "<script>confirm('test');</script>";
 		}
 
