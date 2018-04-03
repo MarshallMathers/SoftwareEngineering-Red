@@ -91,15 +91,15 @@ include "dbconfig.php";
                                 FROM Forms
                                 LEFT JOIN Rooms ON Forms.RoomID = Rooms.RoomID
                                 LEFT JOIN Timeslots ON Forms.TimeslotID = Timeslots.TimeslotID
+                                ORDER BY RoomID
                                 ";
 
                                 $result = $databaseConnection->query($sql);
 
                                 echo
                                     "<thead>" .
-                                    "<th>FormID</th>" .
-                                    "<th>RoomID</th>" .
-                                    "<th>TimeslotID</th>" .
+                                    "<th>Room</th>" .
+                                    "<th>Timeslot</th>" .
                                     "<th>Headcount Type</th>" .
                                     "<th>Headcount Count</th>" .
                                     "<th>UserID</th>" .
@@ -107,18 +107,16 @@ include "dbconfig.php";
                                     "</thead>";
 
                                 while ($row = $result->fetch()) {
-                                    $formid = $row['FormID'];
-                                    $roomid = $row['RoomID'];
-                                    $timeslotid = $row['TimeslotID'];
+                                    $room = $row['Room'];
+                                    $timeslot = $row['Timeslot'];
                                     $headcounttype = $row['HeadcountType'];
                                     $headcount = $row['HeadcountCount'];
                                     $userid = $row['UserID'];
                                     $tstamp = $row['Timestamp'];
 
                                     echo "<tr>" .
-                                        "<td>" . $formid . "</td>" . // FormID
-                                        "<td>" . $roomid . "</td>" . // RoomID
-                                        "<td>" . $timeslotid . "</td>" . // TimeslotID
+                                        "<td>" . $room . "</td>" . // RoomID
+                                        "<td>" . $timeslot . "</td>" . // TimeslotID
                                         "<td>" . $headcounttype . "</td>" . // Headcountype
                                         "<td>" . $headcount . "</td>" . // HeadcountCount
                                         "<td>" . $userid . "</td>" . // UserID
