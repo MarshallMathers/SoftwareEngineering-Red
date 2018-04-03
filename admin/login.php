@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <input type="submit" class="btn btn-primary" value="Sign In">
                         </div>
                     </form>
-                    <h5> Not an Administrator? Sign in to the Volunteer Portal:</h5>
+                    <h5>Not an Administrator?</h5>
                     <a class="btn btn-outline-primary" href="../client/index.php">Volunteer Sign In</a>
                 </div>
                 <div class="col-sm-4"></div>
