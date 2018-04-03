@@ -59,7 +59,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<input type="number" name="head_count" value="0" min="0" class="form-control" />
+							<input type="number" name="head_count" value="0" min="0" pattern= "[0-9]" class="form-control" />
 						</div>
 						<input type="submit" class="btn btn-primary" value="Submit" />
 						<input type="reset" class="btn btn-default" />
