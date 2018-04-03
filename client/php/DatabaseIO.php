@@ -91,6 +91,7 @@
 		$sql = "SELECT UserID FROM Clients WHERE UserID == ?";
 		$params = array($userID);
 		$res_userID = $this->query($sql, $params);
+		echo "fuck2";
 		
 		if (count($res_userID) < 1) { return false; } 
 		else { return true; }
