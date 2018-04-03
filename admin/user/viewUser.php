@@ -1,12 +1,17 @@
 <?php
-include '../../dbconfig.php';
+// Initialize the session
+session_start();
+// If session variable is not set it will redirect to login page
+if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
+    header("location: login.php");
+    exit;
+}
+// Include config file
+include "../../dbconfig.php";
 
 $sql = "SELECT * FROM Clients";
-$databaseQueryResult = mysqli_query($link,$sql);
-if (!$databaseQueryResult) {
-    printf("Error: %s\n", mysqli_error($link));
-    exit();
-}
+$result = mysqli_query($link, $sql);
+
 mysqli_close($link);
 ?>
 <!DOCTYPE html>
@@ -33,22 +38,18 @@ mysqli_close($link);
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4 text-center">
-                <br />
-                <div>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>User ID</th>
-                            </tr>
-                        </thead>
-                        <?php
-                        while ($row = mysqli_fetch_array($databaseQueryResult)) {
-                            echo "<tr><td>".$row['UserID']."</td></tr>";
-                        }
-                        ?>
-                    </table>
-                </div>
-                <br />
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                        </tr>
+                    </thead>
+                    <?php
+                    while ($row = mysqli_fetch_array($result)) {
+                        echo "<tr><td>".$row['UserID']."</td></tr>";
+                    }
+                    ?>
+                </table>
                 <a href="../index.php" class="btn btn-danger">Cancel</a>
             </div>
             <div class="col-sm-4"></div>
