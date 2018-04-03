@@ -52,16 +52,16 @@
 						</div>
 						<div class="form-group">
 							<label for="head_count_type">Headcount Type</label>
-							<div class="form-group">
-								<input type="radio" name="options" id="option1" class="form-control">Beginning
-								<input type="radio" name="options" id="option2" class="form-control">Middle
-								<input type="radio" name="options" id="option3" class="form-control">End
+							<div class="radio-inline">
+								<input type="radio" name="options" id="option1">Beginning
+								<input type="radio" name="options" id="option2">Middle
+								<input type="radio" name="options" id="option3">End
 							</div>
 						</div>
 						<div class="form-group">
 							<input type="number" name="head_count" value="0" min="0" class="form-control" />
 						</div>
-						<input type="submit" class="btn btn-primary" />
+						<input type="submit" class="btn btn-primary" value="Submit" />
 						<input type="reset" class="btn btn-default" />
 					</form>
 				</div>
