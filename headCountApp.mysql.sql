@@ -59,11 +59,11 @@ INSERT INTO `Clients` (`UserID`) VALUES ('test');
 /*******************************************
    Creating dummy data
 ********************************************/
-INSERT INTO `Timeslots` (`Timeslot`) VALUES ('2:00 PM');
-INSERT INTO `Timeslots` (`Timeslot`) VALUES ('1:00 PM');
-INSERT INTO `Timeslots` (`Timeslot`) VALUES ('3:00 PM');
-INSERT INTO `Timeslots` (`Timeslot`) VALUES ('12:00 AM');
-INSERT INTO `Timeslots` (`Timeslot`) VALUES ('11:00 AM');
+INSERT INTO `Timeslots` (`Timeslot`) VALUES ('2:00 PM - 3:00 PM');
+INSERT INTO `Timeslots` (`Timeslot`) VALUES ('1:00 PM - 2:00 PM');
+INSERT INTO `Timeslots` (`Timeslot`) VALUES ('3:00 PM - 4:00 PM');
+INSERT INTO `Timeslots` (`Timeslot`) VALUES ('12:00 PM - 1:00 PM');
+INSERT INTO `Timeslots` (`Timeslot`) VALUES ('11:00 AM - 12:00 PM');
 
 INSERT INTO `Rooms` (`Room`, `Capacity`) VALUES ('room1',80);
 INSERT INTO `Rooms` (`Room`, `Capacity`) VALUES ('room2',180);
