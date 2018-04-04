@@ -63,10 +63,10 @@ mysqli_close($link);
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4 text-center">
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
                     <div class="form-group <?php echo (!empty($userID_err)) ? "has-error" : ""; ?>">
                         <label>UserID</label>
-                        <input type="text" id="userID" name="userID" class="form-control"/>
+                        <input type="text" id="userID" name="userID" max="20" class="form-control"/>
                         <span class="help-block" style="color:red;">
 						    <?php echo $userID_err; ?>
 						</span>

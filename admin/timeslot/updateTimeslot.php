@@ -7,10 +7,12 @@ if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
     exit;
 }
 // Include config file
-include '../../dbconfig.php';
+include "../../dbconfig.php";
 
-$timeslot = "";
-$timeslot_err = "";
+$timeslotStart = "";
+$timeslotEnd = "";
+$timeslotStart_err = "";
+$timeslotEnd_err = "";
 
 if (empty($_POST["timeslotID"])) {
 	header("location: ../index.php");
@@ -22,17 +24,30 @@ $sql = "SELECT Timeslot FROM Timeslots WHERE TimeslotID = '$timeslotID'";
 $result = mysqli_query($link, $sql);
 $row = mysqli_fetch_array($result);
 $timeslot = $row["Timeslot"];
+$timeslotArray = explode(" - ",$timeslot);
+$timeslotStart = date("H:i", strtotime($timeslotArray[0]));
+$timeslotEnd = date("H:i", strtotime($timeslotArray[1]));
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["old_timeslotID"])) {
 
-    // Check if Timeslot is empty
-    if (empty(trim($_POST["time_slot"]))) {
-        $timeslot_err = "Please enter Timeslot.";
+    // Check if Timeslot Start is empty
+    if (empty(trim($_POST["time_slot_start"]))) {
+        $timeslotStart_err = "Please enter Timeslot Start.";
     } else {
-        $timeslot = trim($_POST["time_slot"]);
+        $timeslotStart = trim($_POST["time_slot_start"]);
     }
 
-    if (empty($timeslot_err)){
+    // Check if Timeslot End is empty
+    if (empty(trim($_POST["time_slot_end"]))) {
+        $timeslotEnd_err = "Please enter Timeslot End.";
+    } else {
+        $timeslotEnd = trim($_POST["time_slot_end"]);
+    }
+
+    if (empty($timeslotStart_err) && empty($timeslotEnd_err)){
+        $timeslotStart = date("g:i A", strtotime($timeslotStart));
+        $timeslotEnd = date("g:i A", strtotime($timeslotEnd));
+        $timeslot = $timeslotStart . " - " . $timeslotEnd;
         $oldTimeslot = $_POST["old_timeslot"];
         $sql = "SELECT Timeslot FROM Timeslots WHERE Timeslot = '$timeslot'";
         $result = mysqli_query($link, $sql);
@@ -76,12 +91,19 @@ mysqli_close($link);
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4 text-center">
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                    <div class="form-group <?php echo (!empty($timeslot_err)) ? "has-error" : ""; ?>">
-                        <label>Timeslot</label>
-                        <input type="text" id="time_slot" name="time_slot" class="form-control" value="<?php echo $timeslot; ?>" />
+                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                    <div class="form-group <?php echo (!empty($timeslotStart_err)) ? "has-error" : ""; ?>">
+                        <label>Timeslot Start</label>
+                        <input type="time" id="time_slot_start" name="time_slot_start" value="<?php echo $timeslotStart; ?>" class="form-control" />
                         <span class="help-block" style="color:red;">
-						    <?php echo $timeslot_err; ?>
+						    <?php echo $timeslotStart_err; ?>
+						</span>
+                    </div>
+                    <div class="form-group <?php echo (!empty($timeslotEnd_err)) ? "has-error" : ""; ?>">
+                        <label>Timeslot End</label>
+                        <input type="time" id="time_slot_end" name="time_slot_end" value="<?php echo $timeslotEnd; ?>" class="form-control" />
+                        <span class="help-block" style="color:red;">
+						    <?php echo $timeslotEnd_err; ?>
 						</span>
                     </div>
                     <input type="hidden" id="timeslotID" name="timeslotID" value="<?php echo $_POST["timeslotID"]; ?>" />
