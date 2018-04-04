@@ -13,7 +13,7 @@ DROP DATABASE IF EXISTS `headCountApp`;
 /*******************************************
    Create database 
 ********************************************/
-CREATE DATABASE `headCountApp`;
+CREATE DATABASE `headCountApp` DEFAULT CHARACTER SET latin1 DEFAULT COLLATE latin1_general_cs;
 USE `headCountApp`;
 
 /*******************************************
