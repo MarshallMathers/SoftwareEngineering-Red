@@ -3,24 +3,35 @@
 session_start();
 // If session variable is not set it will redirect to login page
 if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
-    header("location: login.php");
+    header("location: ../login.php");
     exit;
 }
 // Include config file
 include "../../dbconfig.php";
 
+$userID = "";
+$userID_err = "";
+
 $sql = "SELECT UserID FROM Clients";
-$sqlQueryResult = mysqli_query($link, $sql);
+$result = mysqli_query($link, $sql);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $userID = $_POST["userID"];
-    $deleteUserSql = "DELETE FROM Clients WHERE UserID = '$userID'";
 
-    if (mysqli_query($link, $deleteUserSql)) {
-        echo "<script type='text/javascript'>alert('$userID successfully deleted!');</script>";
-        header("location: deleteUser.php");
+    // Check if UserID is empty
+    if (empty(trim($_POST["userID"]))) {
+        $userID_err = "There are no users available to delete.";
     } else {
-        echo "Oops! Something went wrong. Please try again later.";
+        $userID = trim($_POST["userID"]);
+    }
+
+    if (empty($userID_err)){
+        $sqlDelete = "DELETE FROM Clients WHERE UserID = '$userID'";
+
+        if (mysqli_query($link, $sqlDelete)) {
+            echo "<script>alert('$userID was successfully deleted!');window.location.href='deleteUser.php';</script>";
+        } else {
+            echo "Oops! Something went wrong. Please try again later.";
+        }
     }
 }
 
@@ -51,14 +62,18 @@ mysqli_close($link);
             <div class="col-sm-4"></div>
             <div class="col-sm-4 text-center">
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                    <div class="form-group">
-                        <label for="userID">UserID</label>
-                        <select id="userID" name="userID" class="form-control"><?php
-                            while ($row = mysqli_fetch_array($sqlQueryResult)) {
+                    <div class="form-group <?php echo (!empty($userID_err)) ? "has-error" : ""; ?>">
+                        <label>UserID</label>
+                        <select id="userID" name="userID" class="form-control">
+                            <?php
+                            while ($row = mysqli_fetch_array($result)) {
                                 echo "<option value='" . $row['UserID'] . "'>" . $row['UserID'] . "</option>";
                             }
                             ?>
                         </select>
+                        <span class="help-block" style="color:red;">
+						    <?php echo $userID_err; ?>
+						</span>
                     </div>
                     <input type="submit" value="Delete" class="btn btn-primary"/>
                     <input type="reset" class="btn btn-default"/>

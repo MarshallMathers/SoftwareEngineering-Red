@@ -16,8 +16,6 @@ include "../dbconfig.php";
         <meta charset="utf-8" />
         <title>HeadCountApp</title>
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css">
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-        <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.1/umd/popper.js"></script>
@@ -71,21 +69,13 @@ include "../dbconfig.php";
                             <a class="dropdown-item" href="timeslot/deleteTimeslot.php">Delete Timeslots</a>
                         </div>
                     </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Forms
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="form/addForm.php">Add Forms</a>
-                            <a class="dropdown-item" href="form/modifyForm.php">Modify Forms</a>
-                            <a class="dropdown-item" href="form/deleteForm.php">Delete Forms</a>
-                            <a class="dropdown-item" href="index.php">View Forms</a>
-                        </div>
-                    </div>
                     <br/>
                     <br/>
                     <div>
                         <h2>Room Headcounts</h2>
+                        <br/>
+                        <a href="clearForms.php" class="btn btn-primary" onclick="return confirm('Are you sure you want to clear all forms?');">Clear Forms</a>
+                        <br/>
                         <br/>
                         <table class="table table-bordered">
                             <?php

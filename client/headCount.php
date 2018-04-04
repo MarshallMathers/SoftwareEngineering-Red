@@ -60,16 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	<head>
 		<meta charset="utf-8" />
 		<title>HeadCountApp</title>
-		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-        <link rel="icon" href="/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		<!--
-   		/* Team: Red
-	 	* Group: Client
-	 	* Contributors: Jacob Hayes, Zeily Perez, Ian Marshall
-	 	*/
-		-->
 	</head>
 
 	<body>
@@ -88,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				<div class="col-sm-4 text-center">
 					<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
 						<div class="form-group <?php echo (!empty($headCount_err)) ? "has-error" : ""; ?>">
-							<label for="HeadCount">Headcount</label>
+							<label>Headcount</label>
 							<input type="number" id="HeadCount" name="HeadCount" min="0" max="<?php echo $capacity*1.1; ?>" pattern="[0-9]" class="form-control" />
 							<span class="help-block" style="color:red;">
 								<?php echo $headCount_err; ?>

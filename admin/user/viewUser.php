@@ -3,7 +3,7 @@
 session_start();
 // If session variable is not set it will redirect to login page
 if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
-    header("location: login.php");
+    header("location: ../login.php");
     exit;
 }
 // Include config file
@@ -38,6 +38,9 @@ mysqli_close($link);
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4 text-center">
+                <a href="clearUsers.php" class="btn btn-primary" onclick="return confirm('Are you sure you want to clear all users?');">Clear Users</a>
+                <br/>
+                <br/>
                 <table class="table table-bordered">
                     <thead>
                         <tr>

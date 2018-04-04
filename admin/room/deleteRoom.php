@@ -1,28 +1,43 @@
 <?php
-
 // Initialize the session
 session_start();
 // If session variable is not set it will redirect to login page
 if (!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
-    header("location: login.php");
+    header("location: ../login.php");
     exit;
 }
-
+// Include config file
 include '../../dbconfig.php';
 
-$sql = "SELECT Room FROM rooms";
+$roomID = "";
+$roomID_err = "";
+
+$sql = "SELECT RoomID, Room FROM Rooms";
 $result = mysqli_query($link, $sql);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-   $roomID = $_POST["room_ID"];
-   $sql = "DELETE FROM rooms WHERE Room = '$roomID'";
-   
-   if (mysqli_query($link, $sql)){
-       echo "<script type='text/javascript'>alert('$roomID successfully deleted.');</script>";
-	   header("location: deleteRoom.php");
-   }else{
-       echo "<script type='text/javascript'>alert('Oops. Try Again Later.');</script>";
-   }
+
+    // Check if RoomID is empty
+    if (empty(trim($_POST["roomID"]))) {
+        $roomID_err = "There are no rooms available to delete.";
+    } else {
+        $roomID = trim($_POST["roomID"]);
+    }
+
+    if (empty($roomID_err)){
+        $sqlDelete = "DELETE FROM Rooms WHERE RoomID = '$roomID'";
+
+        $sql = "SELECT Room FROM Rooms WHERE RoomID = '$roomID'";
+        $result = mysqli_query($link, $sql);
+        $row = mysqli_fetch_array($result);
+        $room = $row["Room"];
+
+        if (mysqli_query($link, $sqlDelete)){
+            echo "<script>alert('$room was successfully deleted!');window.location.href='deleteRoom.php';</script>";
+        }else{
+            echo "Oops! Something went wrong. Please try again later.";
+        }
+    }
 }
 mysqli_close($link);
 ?>
@@ -51,25 +66,24 @@ mysqli_close($link);
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4 text-center">
-                <br />
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                    <div class="form-group">
-                        <label>Room ID</label>
-                        <select id="room_ID" name="room_ID" class="form-control">
-						<?php
-						while ($row = mysqli_fetch_array($result)) {
-							echo "<option value='" . $row['Room'] . "'>" . $row['Room'] . "</option>";
-						}
-						?>
-						</select>
+                    <div class="form-group <?php echo (!empty($roomID_err)) ? "has-error" : ""; ?>">
+                        <label>Room</label>
+                        <select id="roomID" name="roomID" class="form-control">
+                            <?php
+                            while ($row = mysqli_fetch_array($result)) {
+                                echo "<option value='" . $row['RoomID'] . "'>" . $row['Room'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                        <span class="help-block" style="color:red;">
+						    <?php echo $roomID_err; ?>
+						</span>
                     </div>
                     <input type="submit" value="Delete" class="btn btn-primary" />
-                    <br />
-                    <br />
                     <input type="reset" class="btn btn-default" />
+                    <a href="../index.php" class="btn btn-danger">Cancel</a>
                 </form>
-                <br />
-                <a href="../index.php" class="btn btn-danger">Cancel</a>
             </div>
             <div class="col-sm-4"></div>
         </div>
