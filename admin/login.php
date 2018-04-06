@@ -102,14 +102,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h2>Administrator Portal Login</h2>
                     <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
                         <div class="form-group <?php echo (!empty($username_err)) ? "has-error" : ""; ?>">
-                            <label>Username:</label>
+                            <label for="username">Username:</label>
                             <input type="text" id="username" name="username" maxlength="20" class="form-control" />
                             <span class="help-block" style="color:red;">
                                 <?php echo $username_err; ?>
                             </span>
                         </div>
                         <div class="form-group <?php echo (!empty($password_err)) ? "has-error" : ""; ?>">
-                            <label>Password:</label>
+                            <label for="password">Password:</label>
                             <input type="password" class="form-control" name="password" id="password">
                             <span class="help-block" style="color:red;">
                                 <?php echo $password_err; ?>

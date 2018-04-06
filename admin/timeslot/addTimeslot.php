@@ -78,14 +78,14 @@ mysqli_close($link);
             <div class="col-sm-4 text-center">
                 <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
                     <div class="form-group <?php echo (!empty($timeslotStart_err)) ? "has-error" : ""; ?>">
-                        <label>Timeslot Start</label>
+                        <label for="time_slot_start">Timeslot Start</label>
                         <input type="time" id="time_slot_start" name="time_slot_start" class="form-control" />
                         <span class="help-block" style="color:red;">
 						    <?php echo $timeslotStart_err; ?>
 						</span>
                     </div>
                     <div class="form-group <?php echo (!empty($timeslotEnd_err)) ? "has-error" : ""; ?>">
-                        <label>Timeslot End</label>
+                        <label for="time_slot_end">Timeslot End</label>
                         <input type="time" id="time_slot_end" name="time_slot_end" class="form-control" />
                         <span class="help-block" style="color:red;">
 						    <?php echo $timeslotEnd_err; ?>

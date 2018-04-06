@@ -68,7 +68,7 @@ mysqli_close($link);
             <div class="col-sm-4 text-center">
                 <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
                     <div class="form-group <?php echo (!empty($timeslotID_err)) ? "has-error" : ""; ?>">
-                        <label>Timeslot</label>
+                        <label for="timeslotID">Timeslot</label>
                         <select id="timeslotID" name="timeslotID" class="form-control">
                             <?php
                             while ($row = mysqli_fetch_array($result)) {

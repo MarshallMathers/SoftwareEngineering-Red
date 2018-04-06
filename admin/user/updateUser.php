@@ -71,7 +71,7 @@ mysqli_close($link);
             <div class="col-sm-4 text-center">
                 <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
                     <div class="form-group <?php echo (!empty($userID_err)) ? "has-error" : ""; ?>">
-                        <label>UserID</label>
+                        <label for="user_ID">UserID</label>
                         <input type="text" id="user_ID" name="user_ID" maxlength="20" value="<?php echo $_POST['userID']; ?>" class="form-control" />
                         <span class="help-block" style="color:red;">
 						    <?php echo $userID_err; ?>

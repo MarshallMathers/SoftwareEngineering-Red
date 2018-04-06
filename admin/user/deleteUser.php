@@ -63,7 +63,7 @@ mysqli_close($link);
             <div class="col-sm-4 text-center">
                 <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
                     <div class="form-group <?php echo (!empty($userID_err)) ? "has-error" : ""; ?>">
-                        <label>UserID</label>
+                        <label for="userID">UserID</label>
                         <select id="userID" name="userID" class="form-control">
                             <?php
                             while ($row = mysqli_fetch_array($result)) {
