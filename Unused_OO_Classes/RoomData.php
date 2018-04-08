@@ -56,7 +56,7 @@ class RoomData
      * @param int $capacity - new capacity of the room
      * @return void
      */
-    public function setCapacity(Integer $capacity){
+    public function setCapacity(Int $capacity){
         $this->capacity = $capacity;
         return;
     }
